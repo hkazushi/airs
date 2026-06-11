@@ -14,15 +14,15 @@ html { scroll-behavior: smooth; }
 /* =========================================================
    背景の質感（フラットなベージュ → 海・夕陽のソフトグラデ＋波テクスチャ）
    ========================================================= */
-/* 土台(body): 清潔感と広がりを感じさせる白・極薄グレーのフラット背景 */
+/* 土台(body): 高級しっくい（塗り壁）＆極淡コースタルリゾートグラデーション */
 body {
-  background-color: #f7f7f5;
-  background-image: none;
+  background-color: #fbfaf7;
+  background-image: linear-gradient(180deg, #ffffff 0%, #f7f9f9 50%, #faf8f5 100%);
   background-attachment: scroll;
 }
-/* ゆっくり漂うメッシュ背景は廃止 */
+/* ゆっくり漂うメッシュ背景は斜め背景テキストに置き換え */
 body::before {
-  display: none !important;
+  /* site.cssの末尾側で上書き定義 */
 }
 /* 夕陽グローは撤去 */
 .airs-sun { display: none !important; }
@@ -33,9 +33,13 @@ body::before {
   0%   { transform: translate(0, 0)      rotate(0deg);   }
   100% { transform: translate(2.5%, -2.5%) rotate(7deg); }
 }
-/* フィルムグレインは無効化 */
+/* 高級しっくい塗り壁・クラフト紙風 of-type のっぺり感を完全排除 */
 body::after {
-  display: none !important;
+  content: "" !important; position: fixed; inset: 0; z-index: 3; pointer-events: none;
+  opacity: .028 !important; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='150'%20height='150'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.95'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E") !important;
+  background-size: 150px 150px;
+  display: block !important;
 }
 
 /* ---- スクロール出現（フェードアップ） ----
@@ -580,19 +584,32 @@ span[class*="tracking-[0.2em]"],
   transform: scale(1.05) !important;
 }
 
-/* 4. 配色のさらなる微調整（黄みの完全排除と上品な使い分け） */
+/* 4. 配色のさらなる微調整（しっくいのマテリアル感が透けるように透過処理） */
+.bg-background,
+.bg-surface,
+.bg-surface-container-lowest,
+body {
+  background-color: transparent !important; /* bodyのしっくいテクスチャが透けるように */
+}
+
 .bg-sand-beige,
 .bg-surface-container,
 .bg-surface-container-low,
 .bg-surface-container-high,
 .bg-surface-container-highest,
 section.bg-surface-container-high {
-  background-color: #fbfaf7 !important; /* 黄みを抑え、砂浜の白さを表現した上質なサンドベージュ */
+  background-color: rgba(251, 250, 247, 0.88) !important;
+}
+
+/* カード要素は背後を少し白くして視認性を確保しつつ背景を透過 */
+.airs-card {
+  background-color: rgba(255, 255, 255, 0.94) !important;
+  backdrop-filter: blur(4px) !important;
 }
 
 /* 交互に敷くためのシーソルトグレー背景 */
 section:nth-of-type(even) {
-  background-color: #f3f6f6 !important; /* 極薄のさわやかなシーソルトブルーグレー */
+  background-color: rgba(243, 246, 246, 0.88) !important; /* 極薄のさわやかなシーソルトブルーグレー */
 }
 /* ヘッダーやフッター、特別指定セクションのnth-of-type干渉を防止 */
 header, footer, nav, section.bg-deep-navy {

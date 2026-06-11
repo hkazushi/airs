@@ -21,8 +21,10 @@
 
     // 親ごとに stagger(ずらし)を付与（data属性で兄弟インデックスを数える）
     cssTargets.forEach(function (el) {
-      var c = parseInt(el.parentNode.getAttribute('data-airs-c') || '0', 10);
-      el.parentNode.setAttribute('data-airs-c', c + 1);
+      var parent = el.parentNode;
+      if (!parent || typeof parent.getAttribute !== 'function') return;
+      var c = parseInt(parent.getAttribute('data-airs-c') || '0', 10);
+      parent.setAttribute('data-airs-c', c + 1);
       var delay = Math.min(c * 70, 420);
       el.style.transitionDelay = delay + 'ms';
     });
@@ -491,7 +493,7 @@
       document.querySelectorAll('section h2').forEach(function (h) {
         var prev = h.previousElementSibling;
         var text = '';
-        if (prev && (prev.tagName === 'SPAN' || prev.classList.contains('font-label-bold'))) {
+        if (prev && (prev.tagName === 'SPAN' || (prev.classList && prev.classList.contains('font-label-bold')))) {
           text = (prev.textContent || prev.innerText).trim();
         }
         if (!text) {
