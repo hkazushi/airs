@@ -1,0 +1,10 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# 旧たたき台（公開不要）
+_draft_v1_index.html
+
+# エディタ
+.vscode/
+.idea/

@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>資材販売 | エアーズ株式会社</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&amp;family=Outfit:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "deep-navy": "#0E3A5F",
+                      "on-tertiary-container": "#fc7c4e",
+                      "on-primary-container": "#80a4cf",
+                      "tertiary": "#441100",
+                      "tertiary-container": "#691e00",
+                      "on-secondary-fixed-variant": "#00504a",
+                      "on-primary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed-dim": "#ffb59c",
+                      "surface-container-low": "#f6f3ec",
+                      "on-error-container": "#93000a",
+                      "background": "#fcf9f2",
+                      "surface-container-lowest": "#ffffff",
+                      "surface-container": "#f1eee7",
+                      "surface": "#fcf9f2",
+                      "on-tertiary": "#ffffff",
+                      "on-background": "#1c1c18",
+                      "on-primary-fixed": "#001d35",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed-variant": "#822800",
+                      "outline": "#73777f",
+                      "primary-fixed-dim": "#a5caf6",
+                      "surface-bright": "#fcf9f2",
+                      "surface-container-highest": "#e5e2db",
+                      "primary-container": "#0e3a5f",
+                      "inverse-surface": "#31312c",
+                      "primary": "#002441",
+                      "inverse-on-surface": "#f3f0e9",
+                      "charcoal": "#1A1D1D",
+                      "on-surface-variant": "#42474e",
+                      "error-container": "#ffdad6",
+                      "surface-dim": "#dcdad3",
+                      "sand-beige": "#F4F1EA",
+                      "inverse-primary": "#a5caf6",
+                      "surface-tint": "#3c6188",
+                      "secondary": "#006a62",
+                      "ocean-blue": "#1FB2A5",
+                      "on-secondary-fixed": "#00201d",
+                      "on-primary-fixed-variant": "#22496f",
+                      "primary-fixed": "#d1e4ff",
+                      "outline-variant": "#c2c7cf",
+                      "surface-container-high": "#ebe8e1",
+                      "on-surface": "#1c1c18",
+                      "secondary-container": "#78f7e8",
+                      "on-secondary-container": "#007168",
+                      "coral-accent": "#FF7F50",
+                      "surface-variant": "#e5e2db",
+                      "secondary-fixed-dim": "#59dacc",
+                      "secondary-fixed": "#78f7e8",
+                      "on-secondary": "#ffffff",
+                      "tertiary-fixed": "#ffdbcf",
+                      "on-tertiary-fixed": "#380c00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "16px",
+                      "section-gap": "120px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "headline-md": [
+                              "Outfit"
+                      ],
+                      "headline-lg-mobile": [
+                              "Outfit"
+                      ],
+                      "label-bold": [
+                              "Outfit"
+                      ],
+                      "display-lg": [
+                              "Outfit"
+                      ],
+                      "body-lg": [
+                              "Noto Sans JP"
+                      ],
+                      "headline-lg": [
+                              "Outfit"
+                      ],
+                      "body-md": [
+                              "Noto Sans JP"
+                      ]
+              },
+              "fontSize": {
+                      "headline-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "38px",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "label-bold": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg": [
+                              "84px",
+                              {
+                                      "lineHeight": "92px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "900"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .wave-mask {
+            mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23000' fill-opacity='1' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,224C960,245,1056,235,1152,202.7C1248,171,1344,117,1392,90.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            mask-size: cover;
+            mask-repeat: no-repeat;
+            mask-position: bottom;
+        }
+        .lift-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .lift-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(14, 58, 95, 0.1), 0 8px 10px -6px rgba(14, 58, 95, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden selection:bg-ocean-blue selection:text-white">
+<!-- TopNavBar -->
+<header class="bg-surface/80 dark:bg-deep-navy/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 mx-auto">
+<a class="font-display-lg text-[32px] md:text-headline-md tracking-tighter text-deep-navy dark:text-ocean-blue leading-none" href="index.html">
+            AIRS
+        </a>
+<!-- Desktop Nav -->
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Commercial</a>
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Residential</a>
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Maintenance</a>
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-ocean-blue border-b-2 border-ocean-blue pb-1 h-full flex items-center" href="#">Materials</a>
+<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Contact</a>
+</nav>
+<a class="hidden lg:inline-flex items-center justify-center bg-deep-navy text-white font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:opacity-90 transition-opacity" href="tel:04-2980-5531">
+            04-2980-5531
+        </a>
+<!-- Mobile Menu Button -->
+<button class="md:hidden text-deep-navy">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</header>
+<main class="pt-[80px]">
+<!-- Hero Section -->
+<section class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+<div class="absolute inset-0 z-0 bg-deep-navy">
+<img alt="High-quality industrial close-up of a modern outdoor air conditioning unit, showcasing sleek design and robust engineering. The setting is bright and professional, emphasizing the premium quality of the materials. Soft, natural daylight highlights the metallic textures and clean lines." class="w-full h-full object-cover opacity-60 mix-blend-overlay" data-alt="High-quality industrial close-up of a modern outdoor air conditioning unit, showcasing sleek design and robust engineering. The setting is bright and professional, emphasizing the premium quality of the materials. Soft, natural daylight highlights the metallic textures and clean lines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOBueOVKUcnkne9G3L075Moofgspy0IUDQbFmG63BlWBxpxNroNkVgVqm541gBGV8n3RFMNOLJO96I_is4z5av8Z6kB_roUIsT7MGvJGSe80x6PM3RH5ZfKbrA4L52za3yYfrDz_JdbxH4HaXrzCEZ2sT6ZngbYdEYyyG5Ap-fVjABMQAyC3BLbZRjxdubqJx0XEbi4tuMdpjGnRB8355RLpD2QCiPsRZmk6CRb8laMuPKldCyRdNoxE-XPCw_BqMQ24dRNjXw2QU"/>
+</div>
+<div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mb-6 tracking-tighter drop-shadow-lg">
+                    MATERIAL SALES
+                </h1>
+<p class="font-body-lg text-body-lg text-sand-beige max-w-2xl mx-auto">
+                    プロが選ぶ、高品質な空調資材をスピーディーにお届けします。法人・個人問わず、幅広いニーズにお応えします。
+                </p>
+</div>
+<!-- Wave Mask Transition -->
+<div class="absolute bottom-0 left-0 w-full h-24 bg-background wave-mask z-20 translate-y-1"></div>
+</section>
+<!-- Categories Section (Bento Grid) -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="mb-16">
+<h2 class="font-headline-md text-headline-md text-deep-navy mb-4">空調資材ラインナップ</h2>
+<div class="w-24 h-1 bg-ocean-blue mb-6"></div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">
+                    エアコン設置・保守に必要なあらゆる資材を取り揃えております。現場のプロフェッショナルからDIY愛好家まで、品質にこだわった商品をご提供します。
+                </p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+<!-- Category 1 -->
+<div class="group relative overflow-hidden rounded-lg border border-outline-variant/50 lift-hover md:col-span-2 md:row-span-2">
+<img alt="A professional view of neatly organized copper piping and HVAC installation materials in a clean, modern workshop setting. The lighting is crisp and cool, highlighting the industrial aesthetic. High-contrast shadows emphasize the texture of the metal." class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A professional view of neatly organized copper piping and HVAC installation materials in a clean, modern workshop setting. The lighting is crisp and cool, highlighting the industrial aesthetic. High-contrast shadows emphasize the texture of the metal." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOBueOVKUcnkne9G3L075Moofgspy0IUDQbFmG63BlWBxpxNroNkVgVqm541gBGV8n3RFMNOLJO96I_is4z5av8Z6kB_roUIsT7MGvJGSe80x6PM3RH5ZfKbrA4L52za3yYfrDz_JdbxH4HaXrzCEZ2sT6ZngbYdEYyyG5Ap-fVjABMQAyC3BLbZRjxdubqJx0XEbi4tuMdpjGnRB8355RLpD2QCiPsRZmk6CRb8laMuPKldCyRdNoxE-XPCw_BqMQ24dRNjXw2QU"/>
+<div class="absolute inset-0 bg-gradient-to-t from-deep-navy/90 via-deep-navy/40 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<h3 class="font-headline-md text-white mb-2">配管・銅管 (Piping)</h3>
+<p class="font-body-md text-sand-beige/90 mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0">各種サイズの高品質な銅管を取り揃え。現場のニーズに合わせた切断販売も対応可能です。</p>
+<a class="inline-flex items-center text-ocean-blue font-label-bold hover:text-white transition-colors" href="#">
+                            VIEW DETAILS <span class="material-symbols-outlined ml-1 text-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+<!-- Category 2 -->
+<div class="group relative overflow-hidden rounded-lg border border-outline-variant/50 lift-hover bg-surface-container"><img alt="Professional close-up of a high-quality outdoor air conditioning condenser unit" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCebfp6kitq8NIICm3fmCPV3ZliGsejbDccHJSW_1ce72tNRS_IRJCUw-afKkU__ck7ZXX9Pz_3OaB26f6hg0darXbiucH40EDjUireH2icaaGQkPlpZejofqIui20oMHyJZ_GkbR7bBmisFRaAj34WtzvFHkxibmSyyLOydEweDe3-FrCBQyyXaCTY55yRt7duOIUbSnX52uoP9Z-KqRajHJ9LtAPT17G2mvzerI90UROnPl-w-3a_pel3rUP0JnlNbS0wPfPuVL0"/>
+<div class="p-6 h-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl text-deep-navy mb-4" style="font-variation-settings: 'FILL' 1;">layers</span>
+<h3 class="font-headline-md text-headline-md text-deep-navy text-[24px] mb-2">断熱材</h3>
+<p class="font-body-md text-on-surface-variant text-sm">高効率な保温・保冷を実現する各種断熱材。</p>
+</div>
+</div>
+</div>
+<!-- Category 3 -->
+<div class="group relative overflow-hidden rounded-lg border border-outline-variant/50 lift-hover bg-deep-navy text-white">
+<div class="p-6 h-full flex flex-col justify-between relative z-10">
+<div>
+<span class="material-symbols-outlined text-4xl text-ocean-blue mb-4">build</span>
+<h3 class="font-headline-md text-headline-md text-[24px] mb-2">取付金具</h3>
+<p class="font-body-md text-sand-beige/80 text-sm">室外機架台、壁面用金具など、強固な設置をサポート。</p>
+</div>
+</div>
+<!-- Abstract graphic -->
+<div class="absolute -bottom-8 -right-8 w-32 h-32 bg-ocean-blue/20 rounded-full blur-2xl"></div>
+</div>
+<!-- Category 4 -->
+<div class="group relative overflow-hidden rounded-lg border border-outline-variant/50 lift-hover md:col-span-2 bg-sand-beige flex items-center">
+<div class="p-8 w-1/2">
+<h3 class="font-headline-md text-deep-navy text-[28px] mb-2">冷媒ガス・その他</h3>
+<p class="font-body-md text-on-surface-variant mb-4">R32などの各種冷媒ガス、配線材料、ドレンホース等、細かな部材も網羅。</p>
+</div>
+<div class="w-1/2 h-full relative">
+<img alt="Close up of various technical HVAC components and gauges resting on a clean workbench. Soft, natural light illuminates the metallic and plastic textures, creating a highly professional and organized technical atmosphere." class="absolute inset-0 w-full h-full object-cover rounded-r-lg" data-alt="Close up of various technical HVAC components and gauges resting on a clean workbench. Soft, natural light illuminates the metallic and plastic textures, creating a highly professional and organized technical atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnda87TWFJeXM9lLWXKCvXc-XqneLd6_SvV3EBghBARhPulGEpNlBj-1-yrlbf-vzXEuPuZLWWv4cOFglFU_HSMbbEAhBDSAFGFMoF22mnVCKqyy3wJwBfhrUv27EdM3RzCJ6CCfT-vSC9o8YNysr_ARQCFfgocLWUNH6GvOOK50zH1Y8lsexwdQ56c9VM-Q6DnjTXnB_G6tqh1lZkvlAOvuBtOU6zlbRLqEL4yeEpd15mAAU9GJEJlrVc9B2iaFXSpyrbDe824j0"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Section -->
+<section class="bg-surface-container-high py-section-gap relative overflow-hidden">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-ocean-blue/5 skew-x-12 transform origin-top-right"></div>
+<div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative z-10">
+<div class="text-center mb-16">
+<h2 class="font-headline-md text-headline-md text-deep-navy mb-4">ご購入の流れ</h2>
+<p class="font-body-md text-on-surface-variant">シンプルでスピーディーなプロセスで、必要な資材を確実にお届けします。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+<!-- Connecting Line (Desktop) -->
+<div class="hidden md:block absolute top-1/2 left-1/6 right-1/6 h-0.5 bg-outline-variant/50 -translate-y-1/2 z-0"></div>
+<!-- Step 1 -->
+<div class="bg-surface border border-outline-variant/30 rounded-lg p-8 relative z-10 text-center lift-hover"><img alt="Professional close-up of a high-quality outdoor air conditioning condenser unit" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCebfp6kitq8NIICm3fmCPV3ZliGsejbDccHJSW_1ce72tNRS_IRJCUw-afKkU__ck7ZXX9Pz_3OaB26f6hg0darXbiucH40EDjUireH2icaaGQkPlpZejofqIui20oMHyJZ_GkbR7bBmisFRaAj34WtzvFHkxibmSyyLOydEweDe3-FrCBQyyXaCTY55yRt7duOIUbSnX52uoP9Z-KqRajHJ9LtAPT17G2mvzerI90UROnPl-w-3a_pel3rUP0JnlNbS0wPfPuVL0"/>
+<div class="w-16 h-16 bg-deep-navy text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-display-lg shadow-lg">1</div>
+<h3 class="font-headline-md text-[22px] text-deep-navy mb-3">お問い合わせ</h3>
+<p class="font-body-md text-on-surface-variant text-sm">お電話またはフォームより、必要な資材・数量をお知らせください。</p>
+</div>
+<!-- Step 2 -->
+<div class="bg-surface border border-outline-variant/30 rounded-lg p-8 relative z-10 text-center lift-hover">
+<div class="w-16 h-16 bg-ocean-blue text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-display-lg shadow-lg">2</div>
+<h3 class="font-headline-md text-[22px] text-deep-navy mb-3">お見積り</h3>
+<p class="font-body-md text-on-surface-variant text-sm">在庫状況を確認し、迅速にお見積りをご提示いたします。</p>
+</div>
+<!-- Step 3 -->
+<div class="bg-surface border border-outline-variant/30 rounded-lg p-8 relative z-10 text-center lift-hover">
+<div class="w-16 h-16 bg-deep-navy text-white rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-display-lg shadow-lg">3</div>
+<h3 class="font-headline-md text-[22px] text-deep-navy mb-3">納品・お引取り</h3>
+<p class="font-body-md text-on-surface-variant text-sm">ご指定場所への配送、または弊社倉庫での直接お引取りが可能です。</p>
+</div>
+</div>
+<div class="mt-16 text-center">
+<a class="inline-flex items-center justify-center bg-deep-navy text-white font-label-bold text-label-bold uppercase px-8 py-4 rounded hover:bg-ocean-blue transition-colors duration-300 shadow-md" href="contact.html">
+                        資材に関するお問い合わせ
+                        <span class="material-symbols-outlined ml-2">arrow_forward</span>
+</a>
+<p class="mt-4 font-body-md text-sm text-on-surface-variant">お急ぎの方はお電話にて: <a class="font-bold text-deep-navy hover:text-ocean-blue" href="tel:04-2980-5531">04-2980-5531</a></p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-deep-navy dark:bg-charcoal w-full pt-section-gap pb-8 border-t-0 shadow-none">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-2">
+<div class="font-headline-lg text-[32px] text-sand-beige mb-4 tracking-tighter">エアーズ株式会社</div>
+<p class="font-body-md text-sand-beige/70 mb-2">〒350-1222<br/>埼玉県日高市大谷沢387-4</p>
+<p class="font-body-md text-sand-beige/70 mb-6">TEL: <a class="hover:text-ocean-blue transition-colors" href="tel:04-2980-5531">04-2980-5531</a></p>
+</div>
+<div class="col-span-1"><img alt="Professional close-up of a high-quality outdoor air conditioning condenser unit" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCebfp6kitq8NIICm3fmCPV3ZliGsejbDccHJSW_1ce72tNRS_IRJCUw-afKkU__ck7ZXX9Pz_3OaB26f6hg0darXbiucH40EDjUireH2icaaGQkPlpZejofqIui20oMHyJZ_GkbR7bBmisFRaAj34WtzvFHkxibmSyyLOydEweDe3-FrCBQyyXaCTY55yRt7duOIUbSnX52uoP9Z-KqRajHJ9LtAPT17G2mvzerI90UROnPl-w-3a_pel3rUP0JnlNbS0wPfPuVL0"/>
+<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">Services</h4>
+<ul class="space-y-3">
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">エアコン取り付け</a></li>
+<li><a class="font-body-md text-coral-accent hover:translate-x-1 transition-all duration-200 block" href="#">資材販売</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">施工事例</a></li>
+</ul>
+</div>
+<div class="col-span-1">
+<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">Company</h4>
+<ul class="space-y-3">
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">会社概要</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">採用情報</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">お問い合わせ</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-16 pt-8 border-t border-sand-beige/10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+<p class="font-body-md text-sand-beige/50 text-sm">© 2024 AIRS Industrial HVAC. Engineered in California.</p>
+<div class="flex gap-4 mt-4 md:mt-0">
+<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">Privacy Policy</a>
+<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</body></html>

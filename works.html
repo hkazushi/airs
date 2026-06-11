@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ja"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AIRS - 施工事例</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&amp;family=Outfit:wght@400;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-fixed": "#78f7e8",
+                "secondary": "#006a62",
+                "secondary-container": "#78f7e8",
+                "inverse-on-surface": "#f3f0e9",
+                "tertiary-fixed": "#ffdbcf",
+                "on-primary-container": "#80a4cf",
+                "tertiary": "#441100",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed-variant": "#822800",
+                "surface-container": "#f1eee7",
+                "surface-bright": "#fcf9f2",
+                "surface": "#fcf9f2",
+                "secondary-fixed-dim": "#59dacc",
+                "sand-beige": "#F4F1EA",
+                "on-primary-fixed-variant": "#22496f",
+                "charcoal": "#1A1D1D",
+                "primary": "#002441",
+                "on-surface-variant": "#42474e",
+                "on-surface": "#1c1c18",
+                "coral-accent": "#FF7F50",
+                "surface-container-highest": "#e5e2db",
+                "primary-fixed": "#d1e4ff",
+                "error": "#ba1a1a",
+                "surface-tint": "#3c6188",
+                "surface-variant": "#e5e2db",
+                "outline-variant": "#c2c7cf",
+                "on-tertiary-container": "#fc7c4e",
+                "ocean-blue": "#1FB2A5",
+                "tertiary-fixed-dim": "#ffb59c",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#691e00",
+                "outline": "#73777f",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-background": "#1c1c18",
+                "error-container": "#ffdad6",
+                "surface-container-low": "#f6f3ec",
+                "on-secondary-fixed": "#00201d",
+                "deep-navy": "#0E3A5F",
+                "on-tertiary-fixed": "#380c00",
+                "inverse-primary": "#a5caf6",
+                "primary-fixed-dim": "#a5caf6",
+                "surface-container-high": "#ebe8e1",
+                "on-secondary-fixed-variant": "#00504a",
+                "on-primary-fixed": "#001d35",
+                "primary-container": "#0e3a5f",
+                "inverse-surface": "#31312c",
+                "on-error": "#ffffff",
+                "background": "#fcf9f2",
+                "surface-dim": "#dcdad3",
+                "on-primary": "#ffffff",
+                "on-secondary-container": "#007168"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin-mobile": "16px",
+                "margin-desktop": "64px",
+                "container-max": "1280px",
+                "section-gap": "120px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "display-lg": [
+                        "Outfit", "Noto Sans JP", "sans-serif"
+                ],
+                "label-bold": [
+                        "Outfit", "Noto Sans JP", "sans-serif"
+                ],
+                "body-lg": [
+                        "Noto Sans JP", "sans-serif"
+                ],
+                "body-md": [
+                        "Noto Sans JP", "sans-serif"
+                ],
+                "headline-lg": [
+                        "Outfit", "Noto Sans JP", "sans-serif"
+                ],
+                "headline-md": [
+                        "Outfit", "Noto Sans JP", "sans-serif"
+                ],
+                "headline-lg-mobile": [
+                        "Outfit", "Noto Sans JP", "sans-serif"
+                ]
+        },
+        "fontSize": {
+                "display-lg": [
+                        "84px",
+                        {
+                                "lineHeight": "92px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "900"
+                        }
+                ],
+                "label-bold": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.1em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "headline-md": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "38px",
+                                "fontWeight": "800"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar Component -->
+<nav class="bg-deep-navy/90 backdrop-blur-md dark:bg-deep-navy/90 text-on-primary dark:text-on-primary font-label-bold text-label-bold uppercase docked full-width top-0 sticky border-b border-outline/20 shadow-md transition-all duration-300 ease-in-out z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-4">
+<a class="font-display-lg text-headline-md tracking-tighter text-on-primary block" href="index.html">
+<img alt="エアーズ株式会社" class="h-10 object-contain bg-surface-container-lowest/90 px-2 py-1 rounded" src="https://lh3.googleusercontent.com/aida/AP1WRLsjX57HSI6bX1IXbIvnnRV3pPV7LRUMPg8PHOwMunUzZaTP_082PAoDDLsOp2e85EcLrl6OVo6zXnELUtJfWH7iHy3rZ5a8Ho6wx6gqijxiLkPiZ1sR2kpRNfHM5_FEG3v7ywvwbe-3EDYdDTugZYoqbb639CbnVXoTK7y3Bh0YrxS2E3XQwLdv0dBj9J-g0j3RT7K12F1S6CmATOQ2OIonefX7tXM1hiAwkGriYnD3NNLc2TH6cQh0JA"/>
+</a>
+<div class="hidden md:flex space-x-8 items-center font-bold">
+<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="index.html">ホーム</a>
+<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="company.html">会社概要</a>
+<a class="text-ocean-blue border-b-2 border-ocean-blue pb-1 hover:bg-on-primary/5" href="works.html">施工事例</a>
+<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="services.html">エアコン取り付け</a>
+<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="materials.html">資材販売</a>
+<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="recruit.html">採用情報</a>
+</div>
+<a class="hidden md:flex bg-deep-navy border border-outline-variant text-on-primary font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:bg-primary-container transition-colors items-center gap-2" href="contact.html">
+<span class="">お問い合わせ</span>
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</a>
+<button class="md:hidden text-on-primary focus:outline-none">
+<span class="material-symbols-outlined text-3xl">menu</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow flex flex-col md:flex-row w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-12 gap-gutter">
+<!-- Sidebar Filter -->
+<aside class="w-full md:w-64 shrink-0 mb-8 md:mb-0">
+<div class="sticky top-32 bg-deep-navy text-on-primary p-6 rounded-lg shadow-sm border border-outline/10">
+<h2 class="font-headline-md text-headline-md mb-6 border-b border-outline/20 pb-4 font-bold">絞り込み</h2>
+<div class="space-y-4 font-label-bold text-label-bold">
+<button class="w-full text-left text-ocean-blue flex items-center justify-between group">
+                        すべての事例
+                        <span class="material-symbols-outlined text-ocean-blue">chevron_right</span>
+</button>
+<button class="w-full text-left text-on-primary/60 hover:text-on-primary transition-colors flex items-center justify-between group">
+                        住宅
+                        <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full text-left text-on-primary/60 hover:text-on-primary transition-colors flex items-center justify-between group">
+                        店舗・オフィス
+                        <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+<button class="w-full text-left text-on-primary/60 hover:text-on-primary transition-colors flex items-center justify-between group">
+                        産業・工場
+                        <span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</button>
+</div>
+</div>
+</aside>
+<!-- Gallery Grid -->
+<div class="flex-grow">
+<header class="mb-12">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-4 font-black">施工事例</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl font-bold">住宅から商業施設、工場まで、最適な空気環境を創造する空調設備の導入実績をご紹介します。課題解決に向けたアプローチと成果をご覧ください。</p>
+</header>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Featured Card 1 -->
+<article class="group relative overflow-hidden rounded-lg border border-outline/20 bg-surface shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-w-16 aspect-h-10 w-full overflow-hidden">
+<img alt="Modern residential HVAC installation in a coastal home." class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AP1WRLvwqCxLdIvycxzRnhqx-KI9OLmn6i78jx5YGB556g3bn67oHUhSH0dA2DK44m-wpNGxkVYnI9vGpr2gjDA9SdvSCEL-vaQXezF4_QDyXqAN9vYBhtwly6iRe_0YuYSxoEAMyXjUoBPAuKvvZGaW-hBPCnNjAkWkIKO9nn8xAKbXBWzij6pgwL0i6H6TXqvAoOP21O-9xSG8kTXgGUzLX6N9mE-U-zdIsUXrUZgt-rAz45dEUoaF7i_GC_U"/>
+</div>
+<div class="p-6 bg-sand-beige relative z-10 border-t border-outline/10">
+<span class="inline-block px-3 py-1 bg-ocean-blue/10 text-ocean-blue font-label-bold text-label-bold rounded-full mb-3">住宅</span>
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary mb-2 group-hover:text-ocean-blue transition-colors font-bold">海沿いヴィラの空調リノベーション</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4"><strong>課題解決：景観を損なわない静音設計</strong><br/>現代的なインテリアに溶け込む超静音タイプのルームエアコンを導入し、快適性とデザイン性を両立しました。</p>
+<a class="inline-flex items-center text-primary font-label-bold text-label-bold hover:text-coral-accent transition-colors font-bold" href="#">
+                            詳細を見る
+                            <span class="material-symbols-outlined ml-1 text-coral-accent">chevron_right</span>
+</a>
+</div>
+</article>
+<!-- Featured Card 2 -->
+<article class="group relative overflow-hidden rounded-lg border border-outline/20 bg-surface shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1">
+<div class="aspect-w-16 aspect-h-10 w-full overflow-hidden">
+<img alt="Commercial HVAC interior" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AP1WRLtDMHcREL88JzKZf6ZPbW9FeRmKuZVfkPIEa6lCy9PPDeUUrf5AzV4uZQ0Lq6D450rikZ2EuOLLL86Xs6ULS_QJXWaWjMgGeyn2HUwbswJlPsDOXXRx8X0cm9_UkrA-7dbWakrGqVv059PZeFNwWAp_fKy3iFv3NAnwyXgMxl5eLJ24gY8yFlkAgGkOwvYfCYXAB5dg8FvQ-bSMCSuQzRkxE8woP60TOkEL8m2cproJR0jTS8oYR-Sr8w"/>
+</div>
+<div class="p-6 bg-sand-beige relative z-10 border-t border-outline/10">
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary font-label-bold text-label-bold rounded-full mb-3">店舗・オフィス</span>
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary mb-2 group-hover:text-ocean-blue transition-colors font-bold">IT企業 本社オフィスの空調更新</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4"><strong>課題解決：効率的な空調と省エネの実現</strong><br/>開放的なオープンプランのオフィスに高効率なVRF（ビル用マルチ空調）システムを導入。ゾーンごとのきめ細かい温度管理により、快適な作業環境と大幅な省エネを実現しました。</p>
+<a class="inline-flex items-center text-primary font-label-bold text-label-bold hover:text-coral-accent transition-colors font-bold" href="#">
+                            詳細を見る
+                            <span class="material-symbols-outlined ml-1 text-coral-accent">chevron_right</span>
+</a>
+</div>
+</article>
+<!-- Standard Card 3 -->
+<article class="group relative overflow-hidden rounded-lg border border-outline/20 bg-surface shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 md:col-span-2">
+<div class="flex flex-col md:flex-row h-full">
+<div class="w-full md:w-1/2 aspect-w-16 aspect-h-9 md:aspect-none overflow-hidden relative">
+<img alt="Industrial facility HVAC" class="w-full h-full object-cover absolute inset-0 group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida/AP1WRLtTR31uc4CquYUIZ9rwe48XguGHMpGkF9vDsPm2jCyqNMfblrvLhBwl1LcuAXLDGAMOF-12bPKfdsaPavClLVtgc4Ar1cwiyK_zT7TIe8s4ivPd80DJOHftfuLq-e7XCk233Wfqa8QUsGml-ASuOXGJeLt7ZVkUDB5LFREgbJ1IFL-lYQW9wJBTZUe8ndxJG56csFssqBFwZjoYf9V_RCoaVHqokjugZU3E-L7YzXsL2TwYxSkvTJdstZI"/>
+</div>
+<div class="w-full md:w-1/2 p-8 bg-sand-beige flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline/10">
+<span class="inline-block self-start px-3 py-1 bg-charcoal/10 text-charcoal font-label-bold text-label-bold rounded-full mb-4">産業・工場</span>
+<h3 class="font-headline-md text-headline-md-mobile md:text-headline-md text-primary mb-3 group-hover:text-ocean-blue transition-colors font-bold">大型物流センターの温湿度管理システム</h3>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-6"><strong>課題解決：24時間稼働を支える堅牢な空調制御</strong><br/>最新鋭の倉庫施設向けに、大規模な温湿度管理システムを構築。保管品の品質維持に不可欠な特殊なゾーニングと、24時間365日の連続運転に耐えうる高耐久・大容量の産業用ユニットを採用しました。</p>
+<a class="inline-flex self-start items-center bg-deep-navy text-on-primary font-label-bold text-label-bold px-6 py-3 rounded-lg hover:bg-surface-tint transition-colors font-bold" href="#">
+                                プロジェクトを見る
+                            </a>
+</div>
+</div>
+</article>
+</div>
+<!-- Load More -->
+<div class="mt-12 text-center">
+<button class="inline-flex items-center justify-center border-2 border-ocean-blue text-ocean-blue font-label-bold text-label-bold hover:bg-ocean-blue hover:text-on-primary transition-colors px-8 py-4 rounded-lg font-bold">
+                    さらに事例を見る
+                </button>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-deep-navy dark:bg-deep-navy text-on-primary dark:text-on-primary font-body-md text-body-md full-width border-t border-outline/10 transition-opacity duration-200 mt-auto">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-section-gap">
+<div class="md:col-span-1 mb-8 md:mb-0">
+<div class="mb-4">
+<img alt="エアーズ株式会社" class="h-10 object-contain bg-surface-container-lowest/90 px-2 py-1 rounded" src="https://lh3.googleusercontent.com/aida/AP1WRLsjX57HSI6bX1IXbIvnnRV3pPV7LRUMPg8PHOwMunUzZaTP_082PAoDDLsOp2e85EcLrl6OVo6zXnELUtJfWH7iHy3rZ5a8Ho6wx6gqijxiLkPiZ1sR2kpRNfHM5_FEG3v7ywvwbe-3EDYdDTugZYoqbb639CbnVXoTK7y3Bh0YrxS2E3XQwLdv0dBj9J-g0j3RT7K12F1S6CmATOQ2OIonefX7tXM1hiAwkGriYnD3NNLc2TH6cQh0JA"/>
+</div>
+<p class="text-on-primary/80 text-sm max-w-xs mb-1">〒350-1222</p>
+<p class="text-on-primary/80 text-sm max-w-xs mb-2">埼玉県日高市大谷沢387-4</p>
+<p class="text-on-primary/80 text-sm max-w-xs mb-4">TEL: 04-2980-5531</p>
+<p class="text-on-primary/60 text-sm max-w-xs mb-6">空調設備・エアコン取り付け・資材販売</p>
+</div>
+<div class="md:col-span-2 grid grid-cols-2 gap-8">
+<div>
+<h4 class="font-label-bold text-label-bold uppercase text-on-primary mb-4 tracking-wider font-bold border-b border-on-primary/20 pb-2">メニュー</h4>
+<ul class="space-y-3">
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="index.html">ホーム</a></li>
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="company.html">会社概要</a></li>
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="works.html">施工事例</a></li>
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="recruit.html">採用情報</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-bold text-label-bold uppercase text-on-primary mb-4 tracking-wider font-bold border-b border-on-primary/20 pb-2">各種ご案内</h4>
+<ul class="space-y-3">
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="services.html">エアコン取り付けをお考えの方</a></li>
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="materials.html">材料販売</a></li>
+<li class=""><a class="text-on-primary/60 hover:text-on-primary hover:underline decoration-coral-accent transition-all" href="contact.html">お問い合わせ</a></li>
+</ul>
+</div>
+</div>
+<div class="md:col-span-4 mt-12 pt-8 border-t border-on-primary/10 text-center md:text-left text-on-primary/60 text-sm">
+                Copyright (C) エアーズ株式会社 All Rights Reserved.
+            </div>
+</div>
+</footer>
+</body></html>
