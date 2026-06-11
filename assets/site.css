@@ -379,7 +379,12 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
 .airs-magnet { transition: transform .25s cubic-bezier(.22,.7,.2,1); }
 
 /* 風キャンバス */
-#airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 9; opacity: .62; }
+/* 風は背景レイヤー(z-index:0)。コンテンツを z-index:1 で前面に上げることで
+   文字・画像・カードの上には被らず、背景としてだけ流れる */
+#airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 1; }
+html { background-color: #f5f1e8; }
+body, body.bg-background { background-color: transparent !important; }
+body > header, body > section, body > footer, body > .airs-marquee { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   #airsCursor, #airsWind { display: none !important; }

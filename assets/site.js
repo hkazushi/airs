@@ -315,16 +315,16 @@
       var DPR = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
       function wresize() { W = cv.width = Math.floor(innerWidth * DPR); H = cv.height = Math.floor(innerHeight * DPR); cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; }
       wresize(); window.addEventListener('resize', wresize);
-      var N = Math.max(48, Math.min(96, Math.round(innerWidth / 16))), ps = [];
+      var N = Math.max(70, Math.min(130, Math.round(innerWidth / 11))), ps = [];
       function spawn(edge) {
         var x = edge ? -40 * DPR : Math.random() * W;
         var y = Math.random() * H;
         return {
           x: x, y: y,
           sp: (1.0 + Math.random() * 1.4) * DPR,        // 右方向の基本風速
-          a: 0.12 + Math.random() * 0.22,               // 線の濃さ（少しだけ濃く）
-          w: (1.0 + Math.random() * 1.1) * DPR,         // 線の太さ
-          maxT: 10 + (Math.random() * 10 | 0),          // 軌跡の長さ
+          a: 0.20 + Math.random() * 0.28,               // 線の濃さ（背面なので少しはっきり）
+          w: (1.2 + Math.random() * 1.4) * DPR,         // 線の太さ
+          maxT: 12 + (Math.random() * 12 | 0),          // 軌跡の長さ
           trail: [{ x: x, y: y }]
         };
       }
@@ -339,7 +339,9 @@
       }
       (function wtick() {
         wt += 0.016;
-        wctx.clearRect(0, 0, W, H);
+        // 砂色の地を描いて背景レイヤー化（風はこの上に流れる）
+        wctx.fillStyle = '#f5f1e8';
+        wctx.fillRect(0, 0, W, H);
         wctx.lineCap = 'round'; wctx.lineJoin = 'round';
         for (var k = 0; k < ps.length; k++) {
           var p = ps[k];
