@@ -181,6 +181,71 @@
       });
     });
 
+    /* ---------- 13. カーソル追従グロー ＋ クリック水紋 ＋ マグネット ---------- */
+    var finePointer = !window.matchMedia || window.matchMedia('(pointer: fine)').matches;
+    if (!reduce && finePointer) {
+      // --- 追従グロー ---
+      var cur = document.createElement('div');
+      cur.id = 'airsCursor';
+      document.body.appendChild(cur);
+      var cxTarget = -100, cyTarget = -100, cx = -100, cy = -100, shown = false;
+      window.addEventListener('mousemove', function (e) {
+        cxTarget = e.clientX; cyTarget = e.clientY;
+        if (!shown) { cur.classList.add('airs-on'); shown = true; }
+      }, { passive: true });
+      window.addEventListener('mouseout', function (e) {
+        if (!e.relatedTarget) { cur.classList.remove('airs-on'); shown = false; }
+      });
+      function follow() {
+        cx += (cxTarget - cx) * 0.18;
+        cy += (cyTarget - cy) * 0.18;
+        cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+        requestAnimationFrame(follow);
+      }
+      follow();
+      // インタラクティブ要素で拡大＆色変化
+      var hotSel = 'a, button, .airs-card, input, textarea, select, [role="button"]';
+      document.addEventListener('mouseover', function (e) {
+        if (e.target.closest && e.target.closest(hotSel)) cur.classList.add('airs-hot');
+      });
+      document.addEventListener('mouseout', function (e) {
+        if (e.target.closest && e.target.closest(hotSel)) cur.classList.remove('airs-hot');
+      });
+
+      // --- クリック水紋（さざ波） ---
+      window.addEventListener('pointerdown', function (e) {
+        var n = 2; // 2重リング
+        for (var j = 0; j < n; j++) {
+          (function (delay, size) {
+            var r = document.createElement('span');
+            r.className = 'airs-ripple';
+            r.style.left = e.clientX + 'px';
+            r.style.top = e.clientY + 'px';
+            r.style.width = size + 'px';
+            r.style.height = size + 'px';
+            r.style.animationDelay = delay + 'ms';
+            document.body.appendChild(r);
+            r.addEventListener('animationend', function () { r.remove(); });
+            setTimeout(function () { if (r.parentNode) r.remove(); }, 1200);
+          })(j * 110, 70 + j * 60);
+        }
+      }, { passive: true });
+
+      // --- マグネットボタン（主要CTAがカーソルに吸い寄る） ---
+      var magnets = document.querySelectorAll('.airs-shine');
+      Array.prototype.forEach.call(magnets, function (btn) {
+        btn.classList.add('airs-magnet');
+        var rad = 90;
+        btn.addEventListener('mousemove', function (e) {
+          var b = btn.getBoundingClientRect();
+          var dx = e.clientX - (b.left + b.width / 2);
+          var dy = e.clientY - (b.top + b.height / 2);
+          btn.style.transform = 'translate(' + (dx * 0.28) + 'px,' + (dy * 0.34) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+      });
+    }
+
     /* ---------- 12. カーソルに反応する風エフェクト ---------- */
     if (!reduce && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');

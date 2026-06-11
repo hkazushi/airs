@@ -120,6 +120,39 @@ html.has-js .airs-img-reveal.is-visible {
   box-shadow: 0 26px 50px rgba(14,58,95,.22);
 }
 
+/* ---- カーソル追従グロー ---- */
+#airsCursor {
+  position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+  margin: -15px 0 0 -15px; border-radius: 9999px;
+  border: 2px solid rgba(31,178,165,.7);
+  background: rgba(31,178,165,.06);
+  pointer-events: none; z-index: 65; opacity: 0;
+  transition: width .25s ease, height .25s ease, border-color .25s ease,
+              background .25s ease, opacity .35s ease;
+  will-change: transform;
+}
+#airsCursor.airs-on { opacity: 1; }
+#airsCursor.airs-hot {
+  width: 58px; height: 58px; margin: -29px 0 0 -29px;
+  border-color: rgba(255,127,80,.9); background: rgba(255,127,80,.10);
+}
+@media (pointer: coarse) { #airsCursor { display: none !important; } }
+
+/* ---- クリックの水紋（さざ波） ---- */
+.airs-ripple {
+  position: fixed; border-radius: 9999px; pointer-events: none; z-index: 64;
+  border: 2px solid rgba(92,196,232,.75);
+  transform: translate(-50%, -50%) scale(0);
+  animation: airs-ripple .7s cubic-bezier(.22,.7,.2,1) forwards;
+}
+@keyframes airs-ripple {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: .85; }
+  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0;   }
+}
+
+/* ---- マグネットボタン ---- */
+.airs-magnet { transition: transform .25s cubic-bezier(.22,.7,.2,1); }
+
 /* ---- ナビ: スクロール時に少し締まる ---- */
 nav.airs-scrolled {
   box-shadow: 0 10px 30px rgba(0,0,0,.22);
@@ -168,5 +201,7 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   .wave-divider svg, .airs-sun, .airs-float { animation: none !important; }
   .airs-card:hover { transform: none; }
   html.has-js .airs-img-reveal { opacity: 1 !important; scale: 1 !important; clip-path: none !important; transition: none !important; }
-  #airsWind { display: none !important; }
+  #airsWind, #airsCursor { display: none !important; }
+  .airs-ripple { display: none !important; }
+  .airs-magnet { transform: none !important; }
 }
