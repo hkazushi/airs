@@ -113,12 +113,49 @@ html.has-js .airs-img-reveal.is-visible {
 }
 .airs-shine:hover::after { left: 130%; transition: left .8s cubic-bezier(.22,.7,.2,1); }
 
-/* ---- カードの傾き＆浮き上がり強化 ---- */
-.airs-card { transition: transform .35s cubic-bezier(.22,.7,.2,1), box-shadow .35s ease; }
-.airs-card:hover {
-  transform: translateY(-10px) rotate(-.6deg);
-  box-shadow: 0 26px 50px rgba(14,58,95,.22);
+/* ---- カードの浮き上がり（動きは3Dティルトが担当） ---- */
+.airs-card { transition: transform .25s cubic-bezier(.22,.7,.2,1), box-shadow .35s ease; }
+.airs-card:hover { box-shadow: 0 26px 50px rgba(14,58,95,.22); }
+
+/* ---- 3Dティルト（カーソルで奥行き） ---- */
+.airs-tilt { transition: transform .25s cubic-bezier(.22,.7,.2,1); will-change: transform; }
+
+/* ---- ギャラリー hover オーバーレイ ---- */
+.airs-zoom { position: relative; cursor: pointer; }
+.airs-ov {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  display: flex; align-items: flex-end; justify-content: flex-end; padding: 14px;
+  background: linear-gradient(to top, rgba(14,58,95,.55), rgba(14,58,95,0) 55%);
+  opacity: 0; transition: opacity .4s ease;
 }
+.airs-zoom:hover .airs-ov { opacity: 1; }
+.airs-ovbtn {
+  width: 44px; height: 44px; border-radius: 9999px;
+  background: rgba(255,255,255,.92); color: #0E3A5F;
+  display: flex; align-items: center; justify-content: center;
+  transform: translateY(12px); transition: transform .4s cubic-bezier(.22,.7,.2,1);
+}
+.airs-zoom:hover .airs-ovbtn { transform: translateY(0); }
+
+/* ---- ライトボックス（クリックで全画面拡大） ---- */
+#airsLightbox {
+  position: fixed; inset: 0; z-index: 100; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(10,28,46,.92); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .3s ease; cursor: zoom-out;
+}
+#airsLightbox.show { display: flex; opacity: 1; }
+#airsLightbox img {
+  max-width: 92vw; max-height: 88vh; border-radius: 10px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  transform: scale(.85); transition: transform .35s cubic-bezier(.22,.7,.2,1);
+}
+#airsLightbox.show img { transform: scale(1); }
+#airsLightbox .airs-lb-close {
+  position: absolute; top: 18px; right: 24px; color: #fff;
+  font-size: 42px; line-height: 1; cursor: pointer; opacity: .85;
+}
+#airsLightbox .airs-lb-close:hover { opacity: 1; }
 
 /* ---- カーソル追従グロー ---- */
 #airsCursor {
@@ -203,5 +240,6 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   html.has-js .airs-img-reveal { opacity: 1 !important; scale: 1 !important; clip-path: none !important; transition: none !important; }
   #airsWind, #airsCursor { display: none !important; }
   .airs-ripple { display: none !important; }
-  .airs-magnet { transform: none !important; }
+  .airs-magnet, .airs-tilt { transform: none !important; }
+  #airsLightbox img { transform: scale(1) !important; transition: none !important; }
 }

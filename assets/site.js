@@ -246,6 +246,60 @@
       });
     }
 
+    /* ---------- 14. 3Dティルト（カード・画像がカーソルで傾く） ---------- */
+    if (!reduce && finePointer) {
+      var tiltEls = document.querySelectorAll('.airs-card, .airs-zoom');
+      Array.prototype.forEach.call(tiltEls, function (el) {
+        // カード内のギャラリー画像は二重ティルトを避けてスキップ
+        if (el.classList.contains('airs-zoom') && el.closest('.airs-card')) return;
+        el.classList.add('airs-tilt');
+        el.addEventListener('mousemove', function (e) {
+          var r = el.getBoundingClientRect();
+          var px = (e.clientX - r.left) / r.width - 0.5;
+          var py = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transform = 'perspective(900px) rotateX(' + (-py * 7) + 'deg) rotateY(' + (px * 9) + 'deg) translateY(-6px) scale(1.02)';
+        });
+        el.addEventListener('mouseleave', function () { el.style.transform = ''; });
+      });
+    }
+
+    /* ---------- 15. ギャラリー hover オーバーレイ ＋ ライトボックス ---------- */
+    (function () {
+      // ライトボックス本体（1つだけ生成）
+      var lb = document.createElement('div');
+      lb.id = 'airsLightbox';
+      lb.innerHTML = '<span class="material-symbols-outlined airs-lb-close">close</span><img alt="拡大画像"/>';
+      document.body.appendChild(lb);
+      var lbImg = lb.querySelector('img');
+      function openLB(src, alt) {
+        lbImg.src = src; lbImg.alt = alt || '拡大画像';
+        lb.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeLB() {
+        lb.classList.remove('show');
+        document.body.style.overflow = '';
+      }
+      lb.addEventListener('click', closeLB);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLB(); });
+
+      // 各ギャラリー画像にオーバーレイ＆クリック拡大を付与
+      document.querySelectorAll('.airs-zoom').forEach(function (box) {
+        var img = box.querySelector('img');
+        if (!img) return;
+        // オーバーレイ（拡大アイコン）
+        if (!box.querySelector('.airs-ov')) {
+          var ov = document.createElement('div');
+          ov.className = 'airs-ov';
+          ov.innerHTML = '<span class="airs-ovbtn"><span class="material-symbols-outlined">zoom_in</span></span>';
+          box.appendChild(ov);
+        }
+        // リンク内画像はリンク遷移を優先（ライトボックスにしない）
+        if (box.closest('a')) { box.style.cursor = ''; return; }
+        box.addEventListener('click', function () { openLB(img.currentSrc || img.src, img.alt); });
+      });
+    })();
+
     /* ---------- 12. カーソルに反応する風エフェクト ---------- */
     if (!reduce && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');
