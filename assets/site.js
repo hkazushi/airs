@@ -381,5 +381,36 @@
       tick();
     }
 
+    /* ---------- 17. プレタイトルにサーフアイコン（ヤシの木・サーフボード・波）を動的追加 ---------- */
+    (function () {
+      var icons = {
+        palm: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M12 22V10M12 10C8.5 7.5 5 10 5 10M12 10C15.5 7.5 19 10 19 10M12 10C10.5 5.5 7.5 4 7.5 4M12 10C13.5 5.5 16.5 4 16.5 4M5 10C3.5 13.5 5.5 15.5 5.5 15.5M19 10C20.5 13.5 18.5 15.5 18.5 15.5"/></svg>',
+        board: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M12 2C9.5 5.5 9.5 13 9.5 16C9.5 18.5 10.5 21 12 22C13.5 21 14.5 18.5 14.5 16C14.5 13 14.5 5.5 12 2Z"/><path d="M12 2V22"/></svg>',
+        wave: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M2 12c3-4 6 4 9 0 3-4 6 4 9 0M2 17c3-4 6 4 9 0 3-4 6 4 9 0"/></svg>'
+      };
+
+      document.querySelectorAll('span[class*="tracking-[0.2em]"], .uppercase.tracking-widest, .font-label-bold').forEach(function (el) {
+        if (el.dataset.airsIconAdded) return;
+        el.dataset.airsIconAdded = '1';
+        var txt = (el.textContent || el.innerText).trim().toLowerCase();
+        var iconHtml = '';
+        
+        // プレタイトルの中身に応じてアイコンを切り替え
+        if (/why|company|about|profile/i.test(txt)) {
+          iconHtml = icons.palm;
+        } else if (/works|service/i.test(txt)) {
+          iconHtml = icons.board;
+        } else if (/flow|step/i.test(txt)) {
+          iconHtml = icons.wave;
+        } else {
+          iconHtml = icons.wave; // デフォルトは波
+        }
+
+        if (iconHtml) {
+          el.insertAdjacentHTML('afterbegin', iconHtml);
+        }
+      });
+    })();
+
   });
 })();

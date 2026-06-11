@@ -293,3 +293,49 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   #airsLightbox img { transform: scale(1) !important; transition: none !important; }
   body::before { animation: none !important; }
 }
+
+/* =========================================================
+   ▼▼ 高級感を底上げする追加サーフデザイン ▼▼
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;700&display=swap');
+
+/* 西海岸サーフの手描き風フォント */
+.font-label-bold,
+span[class*="tracking-[0.2em]"],
+.uppercase.tracking-widest {
+  font-family: 'Caveat', 'Outfit', sans-serif !important;
+  font-size: 1.45rem !important; /* 手書き風なのでやや大きめに */
+  text-transform: none !important; /* 大文字強制を解除してオーガニックに */
+  letter-spacing: 0.05em !important;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700 !important;
+}
+
+/* 高級感のある柔らかいオーガニックな角丸 */
+.airs-card, 
+.airs-zoom, 
+.rounded-xl, 
+.rounded-2xl,
+section .grid > * {
+  border-radius: 24px !important;
+}
+
+/* ボタンやCTAの形状を完全なカプセル型に統一 */
+.airs-shine,
+button.rounded,
+a[class*="rounded"] {
+  border-radius: 9999px !important;
+}
+
+/* アシメトリカル（段違い）配置されたセクションの視覚的充実のための装飾 */
+.md\:translate-y-12 {
+  transform: translateY(3rem);
+}
+@media (max-width: 767px) {
+  .md\:translate-y-12 {
+    transform: none;
+  }
+}
+
