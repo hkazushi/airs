@@ -1,0 +1,93 @@
+/* =========================================================
+   AIRS — モーション/インタラクション共通スタイル
+   西海岸サーフ風: なめらか・軽快・インパクト
+   ========================================================= */
+
+html { scroll-behavior: smooth; }
+
+/* ---- スクロール出現（フェードアップ） ----
+   JSが <html> に has-js を付けたときだけ事前に隠す（JS無効時は通常表示） */
+html.has-js :where(section, footer) :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .8s cubic-bezier(.22,.7,.2,1), transform .8s cubic-bezier(.22,.7,.2,1);
+  will-change: opacity, transform;
+}
+/* JSが画像・ヒーローテキストに付与する個別ターゲット */
+html.has-js .reveal-js {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .9s cubic-bezier(.22,.7,.2,1), transform .9s cubic-bezier(.22,.7,.2,1);
+  will-change: opacity, transform;
+}
+/* 出現後 */
+html.has-js .is-visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---- ヒーロー背景の Ken Burns ズーム ---- */
+@keyframes airs-kenburns {
+  0%   { transform: scale(1.04) translate(0, 0); }
+  100% { transform: scale(1.14) translate(-2%, -1.5%); }
+}
+.airs-kenburns {
+  animation: airs-kenburns 20s ease-in-out infinite alternate;
+  transform-origin: center;
+}
+
+/* ---- ギャラリー/カード画像の hover ズーム ---- */
+.airs-zoom { overflow: hidden; }
+.airs-zoom > img,
+.airs-zoom > picture > img {
+  transition: transform .7s cubic-bezier(.22,.7,.2,1);
+}
+.airs-zoom:hover > img,
+.airs-zoom:hover > picture > img { transform: scale(1.07); }
+
+/* ---- ナビ: スクロール時に少し締まる ---- */
+nav.airs-scrolled {
+  box-shadow: 0 10px 30px rgba(0,0,0,.22);
+  backdrop-filter: blur(14px);
+}
+nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
+
+/* ---- トップへ戻るボタン ---- */
+#airsTop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 52px;
+  height: 52px;
+  border-radius: 9999px;
+  background: #1FB2A5;           /* ocean-blue */
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(14,58,95,.35);
+  cursor: pointer;
+  border: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(14px);
+  transition: opacity .35s ease, transform .35s ease, background .25s ease;
+  z-index: 60;
+}
+#airsTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
+#airsTop:hover { background: #0E3A5F; }   /* deep-navy */
+#airsTop .material-symbols-outlined { font-size: 28px; }
+
+/* ---- フローティングお問い合わせ（モバイル） ---- */
+@media (max-width: 767px) {
+  #airsTop { bottom: 78px; }
+}
+
+/* ---- 動きを抑える設定を尊重 ---- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.has-js :where(section, footer) :where(h2,h3,h4,p,table,form,li,blockquote,.grid > *,.reveal-item),
+  html.has-js .reveal-js { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .airs-kenburns { animation: none; }
+  .airs-zoom:hover > img { transform: none; }
+}
