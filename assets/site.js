@@ -200,19 +200,6 @@
       document.querySelectorAll('section[class*="bg-deep-navy"]').forEach(function (s) {
         s.classList.add('airs-diagonal');
       });
-      // 縦書き英字ラベルをセクション側面に
-      document.querySelectorAll('section').forEach(function (sec) {
-        if (sec.querySelector('.airs-vlabel')) return;
-        var eb = sec.querySelector('span.font-label-bold, span[class*="tracking-[0.2em]"]');
-        if (!eb) return;
-        var txt = (eb.textContent || '').trim();
-        if (!txt || !/^[A-Za-z0-9 &\-]+$/.test(txt) || txt.length > 18) return;
-        if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
-        var v = document.createElement('span');
-        v.className = 'airs-vlabel';
-        v.textContent = txt;
-        sec.appendChild(v);
-      });
     })();
 
     /* ---------- 11. ヒーローの凝った登場演出 ---------- */
@@ -238,19 +225,34 @@
       requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.add('airs-hero-in'); }); });
     })();
 
-    /* ---------- 12. Before / After スライダー ---------- */
+    /* ---------- 12. Before / After スライダー（スクロール連動＋ドラッグ） ---------- */
     document.querySelectorAll('.airs-ba').forEach(function (ba) {
-      function setPos(clientX) {
-        var r = ba.getBoundingClientRect();
-        var pct = Math.max(2, Math.min(98, ((clientX - r.left) / r.width) * 100));
-        ba.style.setProperty('--airs-ba', pct + '%');
+      var userActive = false;     // ユーザー操作中はスクロール連動を一時停止
+      var idleTimer = null;
+      function setPos(pct) { ba.style.setProperty('--airs-ba', Math.max(2, Math.min(98, pct)) + '%'); }
+      function fromX(clientX) { var r = ba.getBoundingClientRect(); return ((clientX - r.left) / r.width) * 100; }
+      function markUser() {
+        userActive = true;
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(function () { userActive = false; }, 2500); // 操作後しばらくでスクロール連動に戻す
       }
+      // ドラッグ操作
       var dragging = false;
-      ba.addEventListener('pointerdown', function (e) { dragging = true; setPos(e.clientX); });
-      window.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
+      ba.addEventListener('pointerdown', function (e) { dragging = true; markUser(); setPos(fromX(e.clientX)); });
+      window.addEventListener('pointermove', function (e) { if (dragging) { markUser(); setPos(fromX(e.clientX)); } });
       window.addEventListener('pointerup', function () { dragging = false; });
-      // ホバーでも追従（デスクトップ）
-      ba.addEventListener('pointermove', function (e) { if (!dragging) setPos(e.clientX); });
+
+      // スクロール連動：セクションがビューポートを通過する進捗で 12%→88% にスイープ
+      function onScrollBA() {
+        if (userActive || dragging) return;
+        var r = ba.getBoundingClientRect(), vh = window.innerHeight;
+        if (r.bottom < 0 || r.top > vh) return;
+        var progress = (vh - r.top) / (vh + r.height);   // 0(入る前)→1(抜けた後)
+        progress = Math.max(0, Math.min(1, progress));
+        setPos(12 + progress * 76);
+      }
+      window.addEventListener('scroll', onScrollBA, { passive: true });
+      onScrollBA();
     });
 
     /* ---------- 9. カーソル連動（追従リング／マグネット／クリック水紋） ---------- */
