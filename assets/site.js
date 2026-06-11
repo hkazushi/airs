@@ -201,5 +201,90 @@
       });
     })();
 
+    /* ---------- 9. カーソル連動（追従リング／マグネット／クリック水紋） ---------- */
+    var finePointer = !window.matchMedia || window.matchMedia('(pointer: fine)').matches;
+    if (!reduce && finePointer) {
+      // 追従リング
+      var cur = document.createElement('div');
+      cur.id = 'airsCursor';
+      document.body.appendChild(cur);
+      var ctx2 = { tx: -100, ty: -100, x: -100, y: -100, shown: false };
+      window.addEventListener('mousemove', function (e) {
+        ctx2.tx = e.clientX; ctx2.ty = e.clientY;
+        if (!ctx2.shown) { cur.classList.add('airs-on'); ctx2.shown = true; }
+      }, { passive: true });
+      window.addEventListener('mouseout', function (e) { if (!e.relatedTarget) { cur.classList.remove('airs-on'); ctx2.shown = false; } });
+      (function follow() {
+        ctx2.x += (ctx2.tx - ctx2.x) * 0.18;
+        ctx2.y += (ctx2.ty - ctx2.y) * 0.18;
+        cur.style.transform = 'translate(' + ctx2.x + 'px,' + ctx2.y + 'px)';
+        requestAnimationFrame(follow);
+      })();
+      var hotSel = 'a, button, .airs-zoom, .airs-card, input, textarea, select, [role="button"]';
+      document.addEventListener('mouseover', function (e) { if (e.target.closest && e.target.closest(hotSel)) cur.classList.add('airs-hot'); });
+      document.addEventListener('mouseout', function (e) { if (e.target.closest && e.target.closest(hotSel)) cur.classList.remove('airs-hot'); });
+
+      // クリック水紋
+      window.addEventListener('pointerdown', function (e) {
+        for (var j = 0; j < 2; j++) {
+          (function (delay, size) {
+            var r = document.createElement('span');
+            r.className = 'airs-ripple';
+            r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px';
+            r.style.width = size + 'px'; r.style.height = size + 'px';
+            r.style.animationDelay = delay + 'ms';
+            document.body.appendChild(r);
+            setTimeout(function () { if (r.parentNode) r.remove(); }, 1100);
+          })(j * 110, 70 + j * 60);
+        }
+      }, { passive: true });
+
+      // マグネットボタン（主要CTA）
+      document.querySelectorAll('a[class*="bg-ocean-blue"], a[class*="bg-deep-navy"], button[class*="bg-ocean-blue"]').forEach(function (btn) {
+        btn.classList.add('airs-magnet');
+        btn.addEventListener('mousemove', function (e) {
+          var b = btn.getBoundingClientRect();
+          var dx = e.clientX - (b.left + b.width / 2);
+          var dy = e.clientY - (b.top + b.height / 2);
+          btn.style.transform = 'translate(' + (dx * 0.25) + 'px,' + (dy * 0.3) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+      });
+    }
+
+    /* ---------- 10. カーソルに反応する風（空気の流れ） ---------- */
+    if (!reduce && finePointer && 'requestAnimationFrame' in window) {
+      var cv = document.createElement('canvas');
+      cv.id = 'airsWind';
+      document.body.appendChild(cv);
+      var wctx = cv.getContext('2d');
+      var DPR = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
+      function wresize() { W = cv.width = Math.floor(innerWidth * DPR); H = cv.height = Math.floor(innerHeight * DPR); cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; }
+      wresize(); window.addEventListener('resize', wresize);
+      var N = Math.max(26, Math.min(50, Math.round(innerWidth / 28))), ps = [];
+      function spawn(left) { return { x: left ? -30 * DPR : Math.random() * W, y: Math.random() * H, len: (14 + Math.random() * 28) * DPR, sp: (0.5 + Math.random() * 1.4) * DPR, ph: Math.random() * Math.PI * 2, amp: (3 + Math.random() * 9) * DPR, a: 0.08 + Math.random() * 0.18 }; }
+      for (var wi = 0; wi < N; wi++) ps.push(spawn(false));
+      var mx = -99999, my = -99999, R = 165 * DPR;
+      window.addEventListener('mousemove', function (e) { mx = e.clientX * DPR; my = e.clientY * DPR; }, { passive: true });
+      window.addEventListener('mouseout', function () { mx = -99999; my = -99999; });
+      var wt = 0;
+      (function wtick() {
+        wt += 0.016; wctx.clearRect(0, 0, W, H); wctx.lineCap = 'round';
+        for (var k = 0; k < ps.length; k++) {
+          var p = ps[k], vy = Math.sin(wt * 0.9 + p.ph) * p.amp * 0.08;
+          p.x += p.sp; p.y += vy;
+          var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+          if (d2 < R * R) { var d = Math.sqrt(d2) || 1, f = 1 - d / R; p.x += (dx / d) * f * 3.3 * DPR + f * 4 * DPR; p.y += (dy / d) * f * 3.3 * DPR; }
+          if (p.x - p.len > W) { ps[k] = spawn(true); continue; }
+          wctx.strokeStyle = 'rgba(31,178,165,' + p.a + ')';
+          wctx.lineWidth = 1.1 * DPR;
+          wctx.beginPath(); wctx.moveTo(p.x, p.y);
+          wctx.quadraticCurveTo(p.x - p.len * 0.5, p.y - vy * 7, p.x - p.len, p.y);
+          wctx.stroke();
+        }
+        requestAnimationFrame(wtick);
+      })();
+    }
+
   });
 })();

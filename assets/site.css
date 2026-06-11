@@ -343,3 +343,46 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
     url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='8'%3E%3Cpath%20d='M0%204%20Q7%200%2014%204%20T28%204'%20fill='none'%20stroke='%231FB2A5'%20stroke-width='2'/%3E%3C/svg%3E");
   opacity: .9;
 }
+
+/* =========================================================
+   カーソル連動アニメーション（復活・ティール配色）
+   ========================================================= */
+/* 追従リング */
+#airsCursor {
+  position: fixed; top: 0; left: 0; width: 30px; height: 30px;
+  margin: -15px 0 0 -15px; border-radius: 9999px !important;
+  border: 2px solid rgba(31,178,165,0.7); background: rgba(31,178,165,0.06);
+  pointer-events: none; z-index: 65; opacity: 0; will-change: transform;
+  transition: width .25s ease, height .25s ease, border-color .25s ease, background .25s ease, opacity .35s ease;
+}
+#airsCursor.airs-on { opacity: 1; }
+#airsCursor.airs-hot {
+  width: 56px; height: 56px; margin: -28px 0 0 -28px;
+  border-color: rgba(14,58,95,0.85); background: rgba(31,178,165,0.12);
+}
+@media (pointer: coarse) { #airsCursor, #airsWind { display: none !important; } }
+
+/* クリック水紋（さざ波） — 旧 display:none を上書きして復活 */
+.airs-ripple {
+  display: block !important;
+  position: fixed; border-radius: 9999px !important; pointer-events: none; z-index: 64;
+  border: 2px solid rgba(31,178,165,0.7);
+  transform: translate(-50%, -50%) scale(0);
+  animation: airs-ripple .7s cubic-bezier(.22,.7,.2,1) forwards;
+}
+@keyframes airs-ripple {
+  0%   { transform: translate(-50%,-50%) scale(0); opacity: .85; }
+  100% { transform: translate(-50%,-50%) scale(1); opacity: 0; }
+}
+
+/* マグネットボタン */
+.airs-magnet { transition: transform .25s cubic-bezier(.22,.7,.2,1); }
+
+/* 風キャンバス */
+#airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 9; opacity: .5; }
+
+@media (prefers-reduced-motion: reduce) {
+  #airsCursor, #airsWind { display: none !important; }
+  .airs-ripple { display: none !important; }
+  .airs-magnet { transform: none !important; }
+}
