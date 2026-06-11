@@ -379,7 +379,7 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
 .airs-magnet { transition: transform .25s cubic-bezier(.22,.7,.2,1); }
 
 /* 風キャンバス */
-#airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 9; opacity: .5; }
+#airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 9; opacity: .62; }
 
 @media (prefers-reduced-motion: reduce) {
   #airsCursor, #airsWind { display: none !important; }

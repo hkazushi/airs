@@ -306,7 +306,7 @@
       });
     }
 
-    /* ---------- 10. カーソルに反応する風（空気の流れ） ---------- */
+    /* ---------- 10. カーソルに反応する風（流れ場で揃って流れる空気） ---------- */
     if (!reduce && finePointer && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');
       cv.id = 'airsWind';
@@ -315,25 +315,50 @@
       var DPR = Math.min(window.devicePixelRatio || 1, 2), W = 0, H = 0;
       function wresize() { W = cv.width = Math.floor(innerWidth * DPR); H = cv.height = Math.floor(innerHeight * DPR); cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px'; }
       wresize(); window.addEventListener('resize', wresize);
-      var N = Math.max(26, Math.min(50, Math.round(innerWidth / 28))), ps = [];
-      function spawn(left) { return { x: left ? -30 * DPR : Math.random() * W, y: Math.random() * H, len: (14 + Math.random() * 28) * DPR, sp: (0.5 + Math.random() * 1.4) * DPR, ph: Math.random() * Math.PI * 2, amp: (3 + Math.random() * 9) * DPR, a: 0.08 + Math.random() * 0.18 }; }
+      var N = Math.max(48, Math.min(96, Math.round(innerWidth / 16))), ps = [];
+      function spawn(edge) {
+        var x = edge ? -40 * DPR : Math.random() * W;
+        var y = Math.random() * H;
+        return {
+          x: x, y: y,
+          sp: (1.0 + Math.random() * 1.4) * DPR,        // 右方向の基本風速
+          a: 0.12 + Math.random() * 0.22,               // 線の濃さ（少しだけ濃く）
+          w: (1.0 + Math.random() * 1.1) * DPR,         // 線の太さ
+          maxT: 10 + (Math.random() * 10 | 0),          // 軌跡の長さ
+          trail: [{ x: x, y: y }]
+        };
+      }
       for (var wi = 0; wi < N; wi++) ps.push(spawn(false));
-      var mx = -99999, my = -99999, R = 165 * DPR;
+      var mx = -99999, my = -99999, R = 175 * DPR;
       window.addEventListener('mousemove', function (e) { mx = e.clientX * DPR; my = e.clientY * DPR; }, { passive: true });
       window.addEventListener('mouseout', function () { mx = -99999; my = -99999; });
       var wt = 0;
+      // 流れ場：位置で決まる縦方向の流れ（隣り合う線が揃って流れ、収束/発散する）
+      function flowVY(x, y, t) {
+        return (Math.sin(x * 0.0016 + y * 0.0030 + t * 0.45) + 0.5 * Math.sin(y * 0.0042 - t * 0.30)) * 1.7 * DPR;
+      }
       (function wtick() {
-        wt += 0.016; wctx.clearRect(0, 0, W, H); wctx.lineCap = 'round';
+        wt += 0.016;
+        wctx.clearRect(0, 0, W, H);
+        wctx.lineCap = 'round'; wctx.lineJoin = 'round';
         for (var k = 0; k < ps.length; k++) {
-          var p = ps[k], vy = Math.sin(wt * 0.9 + p.ph) * p.amp * 0.08;
+          var p = ps[k];
+          var vy = flowVY(p.x, p.y, wt);
           p.x += p.sp; p.y += vy;
+          // カーソル付近で風が巻き上がる（ふわっと押し出し＋加速）
           var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
-          if (d2 < R * R) { var d = Math.sqrt(d2) || 1, f = 1 - d / R; p.x += (dx / d) * f * 3.3 * DPR + f * 4 * DPR; p.y += (dy / d) * f * 3.3 * DPR; }
-          if (p.x - p.len > W) { ps[k] = spawn(true); continue; }
+          if (d2 < R * R) { var d = Math.sqrt(d2) || 1, f = 1 - d / R; p.x += (dx / d) * f * 3.6 * DPR + f * 5 * DPR; p.y += (dy / d) * f * 3.6 * DPR; }
+          p.trail.push({ x: p.x, y: p.y });
+          if (p.trail.length > p.maxT) p.trail.shift();
+          // 画面外で左から再生成
+          if (p.x > W + 50 * DPR || p.y < -60 * DPR || p.y > H + 60 * DPR) { ps[k] = spawn(true); continue; }
+          // 軌跡をなめらかな線で描画（風の筋）
+          var tr = p.trail;
           wctx.strokeStyle = 'rgba(31,178,165,' + p.a + ')';
-          wctx.lineWidth = 1.1 * DPR;
-          wctx.beginPath(); wctx.moveTo(p.x, p.y);
-          wctx.quadraticCurveTo(p.x - p.len * 0.5, p.y - vy * 7, p.x - p.len, p.y);
+          wctx.lineWidth = p.w;
+          wctx.beginPath();
+          wctx.moveTo(tr[0].x, tr[0].y);
+          for (var i = 1; i < tr.length; i++) wctx.lineTo(tr[i].x, tr[i].y);
           wctx.stroke();
         }
         requestAnimationFrame(wtick);
