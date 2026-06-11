@@ -256,3 +256,51 @@ nav:not(.airs-scrolled) .text-ocean-blue { color: #59dacc !important; }
 .material-symbols-outlined[style*="construction"] {
   display: none !important;
 }
+
+/* =========================================================
+   参考サイト風の追加演出（斜めクリップ出現／英字ウォーターマーク／パララックス）
+   ========================================================= */
+
+/* ① 画像の斜めクリップ・ワイプ出現（mask-wrapを強化） */
+html.has-js .airs-mask-wrap img {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: opacity 1.3s cubic-bezier(0.25,1,0.5,1),
+              transform 1.6s cubic-bezier(0.25,1,0.5,1),
+              clip-path 1.3s cubic-bezier(0.25,1,0.5,1) !important;
+}
+html.has-js .airs-mask-wrap.is-visible img {
+  clip-path: polygon(0 0, 135% 0, 100% 100%, 0 100%);
+}
+
+/* ② 大きな英字ウォーターマーク見出し */
+.airs-watermark {
+  position: absolute;
+  top: 8px;
+  left: 40px;
+  z-index: -1;
+  pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: clamp(56px, 11vw, 150px);
+  color: transparent;
+  -webkit-text-stroke: 1.4px rgba(14,58,95,0.10);
+  text-stroke: 1.4px rgba(14,58,95,0.10);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+.airs-watermark.is-visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 767px){ .airs-watermark{ left: 16px; } }
+
+/* ③ パララックス用：画像にヘッドルームを持たせて translate で動かす */
+.airs-parallax { height: 122% !important; top: -11%; position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.has-js .airs-mask-wrap img { clip-path: none !important; }
+  .airs-watermark { opacity: 1 !important; transform: none !important; }
+  .airs-parallax { height: 100% !important; top: 0 !important; translate: none !important; }
+}

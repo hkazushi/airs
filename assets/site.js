@@ -136,5 +136,53 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    /* ---------- 6. 大きな英字ウォーターマーク見出し ---------- */
+    (function () {
+      var wmObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); wmObserver.unobserve(e.target); } });
+      }, { threshold: 0.1 }) : null;
+      document.querySelectorAll('section').forEach(function (sec) {
+        // 濃紺など暗い背景セクションは除外（アウトラインが映えないため）
+        if (sec.className && /bg-deep-navy|bg-charcoal/.test(sec.className)) return;
+        var eb = sec.querySelector('span.font-label-bold, span[class*="tracking-[0.2em]"]');
+        if (!eb) return;
+        var txt = (eb.textContent || '').trim();
+        if (!txt || !/^[A-Za-z0-9 &\-]+$/.test(txt) || txt.length > 18) return;
+        if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
+        var wm = document.createElement('span');
+        wm.className = 'airs-watermark';
+        wm.textContent = txt;
+        sec.insertBefore(wm, sec.firstChild);
+        if (wmObserver) wmObserver.observe(wm); else wm.classList.add('is-visible');
+      });
+    })();
+
+    /* ---------- 7. パララックス（大きめ画像がスクロールでゆっくり動く） ---------- */
+    if (!reduce) {
+      var pxImgs = [];
+      document.querySelectorAll('.airs-mask-wrap > img').forEach(function (img) {
+        var h = img.getBoundingClientRect().height;
+        if (h >= 300 && !isHeroImg(img)) { img.classList.add('airs-parallax'); pxImgs.push(img); }
+      });
+      if (pxImgs.length) {
+        var ticking = false;
+        function parallax() {
+          var vh = window.innerHeight;
+          pxImgs.forEach(function (img) {
+            var r = img.getBoundingClientRect();
+            if (r.bottom < -100 || r.top > vh + 100) return;
+            var center = r.top + r.height / 2;
+            var off = ((center - vh / 2) / vh) * -28; // 最大±28px程度
+            img.style.translate = '0 ' + off.toFixed(1) + 'px';
+          });
+          ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+          if (!ticking) { ticking = true; requestAnimationFrame(parallax); }
+        }, { passive: true });
+        parallax();
+      }
+    }
+
   });
 })();
