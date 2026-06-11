@@ -304,7 +304,7 @@
     if (!reduce && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');
       cv.id = 'airsWind';
-      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.65';
+      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.85';
       document.body.appendChild(cv);
       var ctx = cv.getContext('2d');
       var DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -318,40 +318,63 @@
       resize();
       window.addEventListener('resize', resize);
 
-      // 風パーティクルのリスト
-      var winds = [];
+      // 風要素のリスト (流線とパーティクル)
+      var windElements = [];
       var lastMouseX = null;
       var lastMouseY = null;
       var lastTime = Date.now();
 
-      // マウス移動イベント
+      // マウス移動イベントから繊細な光の粒子と極細流線を生成
       window.addEventListener('mousemove', function (e) {
         var mx = e.clientX * DPR;
         var my = e.clientY * DPR;
         var now = Date.now();
         var dt = now - lastTime;
-        if (dt > 10 && lastMouseX !== null) {
+
+        if (dt > 8 && lastMouseX !== null) {
           var dx = mx - lastMouseX;
           var dy = my - lastMouseY;
           var speed = Math.sqrt(dx * dx + dy * dy);
-          if (speed > 2) {
-            var count = Math.min(5, Math.ceil(speed / 10));
-            for (var i = 0; i < count; i++) {
-              var t = i / count;
-              var rx = lastMouseX + dx * t;
-              var ry = lastMouseY + dy * t;
-              winds.push({
+
+          if (speed > 1.5) {
+            var angle = Math.atan2(dy, dx);
+            var numParticles = Math.min(3, Math.ceil(speed / 8));
+            for (var i = 0; i < numParticles; i++) {
+              var ratio = i / numParticles;
+              var rx = lastMouseX + dx * ratio;
+              var ry = lastMouseY + dy * ratio;
+
+              // 1. きらきら光る極微細な風粒子（パーティクル）
+              windElements.push({
+                type: 'particle',
                 x: rx,
                 y: ry,
-                vx: (dx / speed) * (2 + Math.random() * 4) * DPR + (1.5 * DPR), // 右へ流れる風
-                vy: (dy / speed) * (1 + Math.random() * 2) * DPR + (Math.sin(Math.random() * Math.PI) * 0.5 * DPR),
-                length: (20 + Math.random() * 40) * DPR,
-                width: (0.8 + Math.random() * 1.5) * DPR,
-                alpha: 0.3 + Math.random() * 0.4,
-                decay: 0.008 + Math.random() * 0.012,
+                vx: Math.cos(angle + (Math.random() - 0.5) * 0.4) * (1 + Math.random() * 2) * DPR + (1.2 * DPR), // 右へ流れる風
+                vy: Math.sin(angle + (Math.random() - 0.5) * 0.4) * (0.8 + Math.random() * 1.5) * DPR,
+                size: (0.8 + Math.random() * 1.6) * DPR,
+                alpha: 0.4 + Math.random() * 0.5,
+                decay: 0.008 + Math.random() * 0.015,
                 phase: Math.random() * Math.PI * 2,
-                amplitude: (2 + Math.random() * 5) * DPR
+                speedPhase: 0.05 + Math.random() * 0.05,
+                color: Math.random() > 0.4 ? 'rgba(255,255,255,' : 'rgba(120,230,245,' // 白か淡いティール色
               });
+
+              // 2. 超極細のしなやかな風の糸（流線）
+              if (Math.random() < 0.28) {
+                windElements.push({
+                  type: 'line',
+                  x: rx,
+                  y: ry,
+                  vx: (1.5 + Math.random() * 2.5) * DPR,
+                  vy: (Math.random() - 0.5) * 0.6 * DPR,
+                  length: (30 + Math.random() * 60) * DPR,
+                  width: (0.5 + Math.random() * 0.5) * DPR, // 極細
+                  alpha: 0.12 + Math.random() * 0.15,
+                  decay: 0.006 + Math.random() * 0.01,
+                  phase: Math.random() * Math.PI * 2,
+                  amplitude: (1.5 + Math.random() * 3.5) * DPR
+                });
+              }
             }
           }
         }
@@ -360,51 +383,81 @@
         lastTime = now;
       }, { passive: true });
 
-      // 自然なそよ風（マウスが動いていないときも時折右へ流れる風が発生）
+      // 自然な背景のそよ風（マウス無動時も静かに画面を流れる）
       setInterval(function() {
-        if (winds.length < 40 && Math.random() < 0.4) {
-          winds.push({
-            x: -50 * DPR,
-            y: Math.random() * H,
-            vx: (2 + Math.random() * 3) * DPR,
-            vy: (Math.random() - 0.5) * DPR,
-            length: (40 + Math.random() * 60) * DPR,
-            width: (0.5 + Math.random() * 1.2) * DPR,
-            alpha: 0.15 + Math.random() * 0.25,
-            decay: 0.003 + Math.random() * 0.006,
+        if (windElements.length < 80 && Math.random() < 0.35) {
+          var ry = Math.random() * H;
+          // 左端から流れる極細流線
+          windElements.push({
+            type: 'line',
+            x: -100 * DPR,
+            y: ry,
+            vx: (1.2 + Math.random() * 2) * DPR,
+            vy: (Math.random() - 0.5) * 0.4 * DPR,
+            length: (60 + Math.random() * 90) * DPR,
+            width: (0.4 + Math.random() * 0.4) * DPR,
+            alpha: 0.08 + Math.random() * 0.12,
+            decay: 0.002 + Math.random() * 0.004,
             phase: Math.random() * Math.PI * 2,
-            amplitude: (4 + Math.random() * 10) * DPR
+            amplitude: (3 + Math.random() * 7) * DPR
           });
+          
+          if (Math.random() < 0.5) {
+            windElements.push({
+              type: 'particle',
+              x: -30 * DPR,
+              y: ry + (Math.random() - 0.5) * 50 * DPR,
+              vx: (1.5 + Math.random() * 2) * DPR,
+              vy: (Math.random() - 0.5) * 0.8 * DPR,
+              size: (0.6 + Math.random() * 1.2) * DPR,
+              alpha: 0.18 + Math.random() * 0.22,
+              decay: 0.002 + Math.random() * 0.004,
+              phase: Math.random() * Math.PI * 2,
+              speedPhase: 0.02 + Math.random() * 0.03,
+              color: 'rgba(255,255,255,'
+            });
+          }
         }
-      }, 150);
+      }, 180);
 
       function tick() {
         ctx.clearRect(0, 0, W, H);
-        ctx.lineCap = 'round';
         
-        for (var i = winds.length - 1; i >= 0; i--) {
-          var w = winds[i];
-          w.phase += 0.03;
-          w.x += w.vx;
-          w.y += w.vy + Math.sin(w.phase) * (w.amplitude * 0.05);
+        for (var i = windElements.length - 1; i >= 0; i--) {
+          var w = windElements[i];
           w.alpha -= w.decay;
           
-          if (w.alpha <= 0 || w.x - w.length > W) {
-            winds.splice(i, 1);
+          if (w.alpha <= 0 || w.x - (w.length || 0) > W) {
+            windElements.splice(i, 1);
             continue;
           }
-          
-          ctx.strokeStyle = 'rgba(255, 255, 255, ' + w.alpha + ')';
-          ctx.lineWidth = w.width;
-          ctx.beginPath();
-          ctx.moveTo(w.x, w.y);
-          ctx.quadraticCurveTo(
-            w.x - w.length * 0.5, 
-            w.y - Math.sin(w.phase) * w.amplitude, 
-            w.x - w.length, 
-            w.y
-          );
-          ctx.stroke();
+
+          if (w.type === 'particle') {
+            w.phase += w.speedPhase;
+            w.x += w.vx;
+            w.y += w.vy + Math.sin(w.phase) * (w.size * 0.12);
+            
+            ctx.fillStyle = w.color + w.alpha + ')';
+            ctx.beginPath();
+            ctx.arc(w.x, w.y, w.size, 0, Math.PI * 2);
+            ctx.fill();
+          } else if (w.type === 'line') {
+            w.phase += 0.025;
+            w.x += w.vx;
+            w.y += w.vy + Math.sin(w.phase) * (w.amplitude * 0.04);
+            
+            ctx.strokeStyle = 'rgba(255, 255, 255, ' + w.alpha + ')';
+            ctx.lineWidth = w.width;
+            ctx.beginPath();
+            ctx.moveTo(w.x, w.y);
+            ctx.quadraticCurveTo(
+              w.x - w.length * 0.5, 
+              w.y - Math.sin(w.phase) * w.amplitude, 
+              w.x - w.length, 
+              w.y
+            );
+            ctx.stroke();
+          }
         }
         requestAnimationFrame(tick);
       }

@@ -343,3 +343,48 @@ a[class*="rounded"] {
   transform: translate3d(0, 0, 0);
 }
 
+/* =========================================================
+   ▼▼ カラーパレット刷新（ベージュ色の完全排除） ▼▼
+   ========================================================= */
+
+/* 黄みがかったベージュ・砂色を、清潔感のある白とクールグレーに置換 */
+.bg-background,
+.bg-surface,
+.bg-surface-container-lowest,
+body {
+  background-color: #ffffff !important;
+}
+
+.bg-sand-beige,
+.bg-surface-container,
+.bg-surface-container-low,
+.bg-surface-container-high,
+.bg-surface-container-highest,
+section.bg-surface-container-high {
+  background-color: #f8fafc !important; /* slate-50 / 洗練された極薄クールグレー */
+}
+
+/* 境界線を白背景に馴染むように薄くシャープに変更 */
+.border-outline-variant,
+.border-outline\/20 {
+  border-color: #e2e8f0 !important; /* slate-200 */
+}
+
+/* カードの影を大げさなものから極薄の洗練されたシャドウに変更 */
+.airs-card,
+.lift-hover {
+  box-shadow: 0 4px 20px -2px rgba(14, 58, 95, 0.04), 0 2px 8px -1px rgba(14, 58, 95, 0.02) !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.airs-card:hover,
+.lift-hover:hover {
+  box-shadow: 0 24px 48px -8px rgba(14, 58, 95, 0.10), 0 8px 24px -4px rgba(14, 58, 95, 0.06) !important;
+  transform: translateY(-5px) !important;
+}
+
+/* Canvasのブレンドモード（ダークモードおよび背景になじませる） */
+#airsWind {
+  mix-blend-mode: screen;
+}
+
+
