@@ -196,10 +196,62 @@
         if (getComputedStyle(h).textAlign === 'center') s.style.margin = '16px auto 0';
         h.appendChild(s);
       });
+      // 濃紺セクションは斜めカット（関電工業風の作り込み）
       document.querySelectorAll('section[class*="bg-deep-navy"]').forEach(function (s) {
-        s.classList.add('airs-wavetop');
+        s.classList.add('airs-diagonal');
+      });
+      // 縦書き英字ラベルをセクション側面に
+      document.querySelectorAll('section').forEach(function (sec) {
+        if (sec.querySelector('.airs-vlabel')) return;
+        var eb = sec.querySelector('span.font-label-bold, span[class*="tracking-[0.2em]"]');
+        if (!eb) return;
+        var txt = (eb.textContent || '').trim();
+        if (!txt || !/^[A-Za-z0-9 &\-]+$/.test(txt) || txt.length > 18) return;
+        if (getComputedStyle(sec).position === 'static') sec.style.position = 'relative';
+        var v = document.createElement('span');
+        v.className = 'airs-vlabel';
+        v.textContent = txt;
+        sec.appendChild(v);
       });
     })();
+
+    /* ---------- 11. ヒーローの凝った登場演出 ---------- */
+    (function () {
+      var hero = document.querySelector('header.relative, header[class*="h-["]') || document.querySelector('header');
+      if (!hero) return;
+      var h1 = hero.querySelector('h1');
+      var lead = hero.querySelector('p');
+      var ctas = hero.querySelectorAll('a');
+      // 既存のreveal-jsを外して専用演出に
+      [h1, lead].forEach(function (el) { if (el) el.classList.remove('reveal-js'); });
+      ctas.forEach(function (a) { a.classList.remove('reveal-js'); });
+      if (h1) {
+        var parts = h1.innerHTML.split(/<br\s*\/?>/i);
+        h1.innerHTML = parts.map(function (p) { return '<span class="airs-hero-mask"><span>' + p + '</span></span>'; }).join('');
+      }
+      if (lead) lead.classList.add('airs-hero-fade', 'd1');
+      // CTAボタンの親をまとめてフェード
+      if (ctas.length) {
+        var ctaWrap = ctas[0].parentElement;
+        if (ctaWrap) ctaWrap.classList.add('airs-hero-fade', 'd2');
+      }
+      requestAnimationFrame(function () { requestAnimationFrame(function () { hero.classList.add('airs-hero-in'); }); });
+    })();
+
+    /* ---------- 12. Before / After スライダー ---------- */
+    document.querySelectorAll('.airs-ba').forEach(function (ba) {
+      function setPos(clientX) {
+        var r = ba.getBoundingClientRect();
+        var pct = Math.max(2, Math.min(98, ((clientX - r.left) / r.width) * 100));
+        ba.style.setProperty('--airs-ba', pct + '%');
+      }
+      var dragging = false;
+      ba.addEventListener('pointerdown', function (e) { dragging = true; setPos(e.clientX); });
+      window.addEventListener('pointermove', function (e) { if (dragging) setPos(e.clientX); });
+      window.addEventListener('pointerup', function () { dragging = false; });
+      // ホバーでも追従（デスクトップ）
+      ba.addEventListener('pointermove', function (e) { if (!dragging) setPos(e.clientX); });
+    });
 
     /* ---------- 9. カーソル連動（追従リング／マグネット／クリック水紋） ---------- */
     var finePointer = !window.matchMedia || window.matchMedia('(pointer: fine)').matches;

@@ -418,3 +418,50 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
   .airs-marquee-track { animation: none !important; }
   .airs-watermark { transform: none !important; }
 }
+
+/* =========================================================
+   作り込み演出 第2弾：斜め区切り／縦書きラベル／ヒーロー登場／Before-After
+   ========================================================= */
+/* ① 斜めセクション区切り */
+.airs-diagonal { clip-path: polygon(0 0, 100% 36px, 100% 100%, 0 calc(100% - 36px)); }
+@media (max-width: 767px){ .airs-diagonal { clip-path: polygon(0 0, 100% 18px, 100% 100%, 0 calc(100% - 18px)); } }
+
+/* ② 縦書き英字ラベル（セクション側面） */
+.airs-vlabel {
+  position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+  writing-mode: vertical-rl; text-orientation: mixed;
+  font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12px;
+  letter-spacing: .4em; text-transform: uppercase;
+  color: rgba(14,58,95,0.22); pointer-events: none; z-index: 0; white-space: nowrap;
+}
+[class*="bg-deep-navy"] .airs-vlabel { color: rgba(255,255,255,0.3); }
+@media (max-width: 980px){ .airs-vlabel { display: none; } }
+
+/* ③ ヒーローの凝った登場（マスクからスライドアップ＋スタッガー） */
+.airs-hero-mask { display: block; overflow: hidden; }
+.airs-hero-mask > * { display: inline-block; transform: translateY(115%); transition: transform 1.05s cubic-bezier(.2,.8,.2,1); }
+.airs-hero-fade { opacity: 0 !important; transform: translateY(24px) !important; transition: opacity 1s ease, transform 1s ease; }
+.airs-hero-in .airs-hero-mask > * { transform: translateY(0); }
+.airs-hero-in .airs-hero-mask:nth-of-type(1) > * { transition-delay: .15s; }
+.airs-hero-in .airs-hero-mask:nth-of-type(2) > * { transition-delay: .30s; }
+.airs-hero-in .airs-hero-fade { opacity: 1 !important; transform: none !important; }
+.airs-hero-in .airs-hero-fade.d1 { transition-delay: .55s; }
+.airs-hero-in .airs-hero-fade.d2 { transition-delay: .70s; }
+
+/* ④ Before / After スライダー */
+.airs-ba { position: relative; overflow: hidden; user-select: none; aspect-ratio: 16/9; cursor: ew-resize; }
+.airs-ba img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.airs-ba .airs-ba-after { clip-path: inset(0 0 0 var(--airs-ba, 50%)); }
+.airs-ba-handle { position: absolute; top: 0; bottom: 0; left: var(--airs-ba, 50%); width: 3px; background: #1FB2A5; transform: translateX(-50%); z-index: 3; }
+.airs-ba-handle::after {
+  content: "↔"; position: absolute; top: 50%; left: 50%; width: 46px; height: 46px;
+  transform: translate(-50%,-50%); background: #1FB2A5; color:#fff; border: 3px solid #fff;
+  border-radius: 9999px !important; display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.airs-ba-label { position: absolute; bottom: 14px; padding: 6px 14px; font-family: 'Outfit',sans-serif; font-weight: 700; font-size: .78rem; letter-spacing: .1em; color: #fff; z-index: 2; }
+.airs-ba-label.before { left: 14px; background: rgba(14,58,95,.85); }
+.airs-ba-label.after { right: 14px; background: rgba(31,178,165,.92); }
+
+@media (prefers-reduced-motion: reduce) {
+  .airs-hero-mask > *, .airs-hero-fade { transform: none !important; opacity: 1 !important; }
+}
