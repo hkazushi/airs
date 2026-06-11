@@ -294,6 +294,28 @@
           ov.innerHTML = '<span class="airs-ovbtn"><span class="material-symbols-outlined">zoom_in</span></span>';
           box.appendChild(ov);
         }
+
+        // カテゴリラベル（タグ）の動的追加（大人サーフ仕様）
+        if (!box.querySelector('.airs-img-label')) {
+          var altText = (img.getAttribute('alt') || '').toLowerCase();
+          var labelText = 'INSTALLATION';
+          
+          if (/住宅|戸建|house/i.test(altText)) {
+            labelText = 'RESIDENTIAL';
+          } else if (/オフィス|事務所|ビル|office/i.test(altText)) {
+            labelText = 'COMMERCIAL';
+          } else if (/工場|配管|設備|factory/i.test(altText)) {
+            labelText = 'INDUSTRIAL';
+          } else if (/資材|材料|ツール|tool|material/i.test(altText)) {
+            labelText = 'EQUIPMENT';
+          }
+
+          var label = document.createElement('span');
+          label.className = 'airs-img-label';
+          label.innerText = labelText;
+          box.appendChild(label);
+        }
+
         // リンク内画像はリンク遷移を優先（ライトボックスにしない）
         if (box.closest('a')) { box.style.cursor = ''; return; }
         box.addEventListener('click', function () { openLB(img.currentSrc || img.src, img.alt); });
