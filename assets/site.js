@@ -463,8 +463,31 @@
       }
       tick();
     }
-
-
+    /* ---------- 19. 見出しの背後に英語の超巨大背景アウトライン文字を動的挿入 ---------- */
+    (function () {
+      document.querySelectorAll('section h2').forEach(function (h) {
+        var prev = h.previousElementSibling;
+        var text = '';
+        if (prev && (prev.tagName === 'SPAN' || prev.classList.contains('font-label-bold'))) {
+          text = (prev.textContent || prev.innerText).trim();
+        }
+        if (!text) {
+          var hText = (h.textContent || h.innerText).trim();
+          if (hText.indexOf('事業内容') !== -1) text = 'SERVICES';
+          else if (hText.indexOf('施工事例') !== -1) text = 'WORKS';
+          else if (hText.indexOf('流れ') !== -1) text = 'FLOW';
+          else if (hText.indexOf('お知らせ') !== -1) text = 'NEWS';
+        }
+        
+        if (text) {
+          var bgTxt = document.createElement('div');
+          bgTxt.className = 'airs-bg-title';
+          bgTxt.innerText = text;
+          h.style.position = 'relative';
+          h.insertBefore(bgTxt, h.firstChild);
+        }
+      });
+    })();
 
     /* ---------- 18. パララックススクロール効果 ---------- */
     if (!reduce && 'IntersectionObserver' in window) {

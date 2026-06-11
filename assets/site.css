@@ -387,4 +387,120 @@ section.bg-surface-container-high {
   mix-blend-mode: screen;
 }
 
+/* =========================================================
+   ▼▼ インパクト＆高級感の追加デザイン（関電工業・トラストホーム風） ▼▼
+   ========================================================= */
+
+/* 1. 斜めに走る巨大アウトライン背景テキスト */
+body::before {
+  display: block !important;
+  content: "AIR CONDITIONING EQUIPMENT & SERVICES  AIRS CO., LTD." !important;
+  position: fixed !important;
+  top: 45% !important;
+  left: -20% !important;
+  width: 160vw !important;
+  height: auto !important;
+  z-index: -10 !important;
+  pointer-events: none !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 8.5vw !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  white-space: nowrap !important;
+  letter-spacing: 0.12em !important;
+  color: transparent !important;
+  -webkit-text-stroke: 1.2px rgba(14, 58, 95, 0.03) !important; /* 関電工業風の極薄アウトライン */
+  transform: rotate(-11deg) !important;
+  animation: none !important;
+  filter: none !important;
+  user-select: none !important;
+}
+
+/* 2. 見出しの背後への超巨大背景アウトライン文字 */
+.airs-bg-title {
+  position: absolute !important;
+  top: -85px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: -1 !important;
+  font-family: 'Outfit', sans-serif !important;
+  font-size: 6.2rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  color: transparent !important;
+  -webkit-text-stroke: 1.2px rgba(31, 178, 165, 0.045) !important; /* 淡い海色のアウトライン */
+  letter-spacing: 0.08em !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  user-select: none !important;
+}
+
+/* 左寄せカラムの中にあるH2の場合は左端に寄せる */
+.md\:col-span-5 h2 .airs-bg-title {
+  left: 0 !important;
+  transform: none !important;
+}
+
+@media (max-width: 767px) {
+  .airs-bg-title {
+    font-size: 3.5rem !important;
+    top: -50px !important;
+  }
+}
+
+/* 3. 波ディバイダーをシャープな斜めスリット（境界アクセント）に刷新 */
+.wave-divider {
+  height: 90px !important;
+  overflow: visible !important;
+  background: transparent !important;
+}
+/* 元の複雑な波形状SVGを非表示化 */
+.wave-divider svg {
+  display: none !important;
+}
+
+/* クリーンな斜めカット面 */
+.wave-divider::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: #ffffff !important;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%) !important; /* 斜めカット（右上がり） */
+}
+
+/* 境界を際立たせるシャープなオーシャンブルーの斜めアクセントスリット */
+.wave-divider::after {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 4px !important;
+  background: #1FB2A5 !important;
+  transform: translateY(-2px) rotate(1.2deg) !important;
+  transform-origin: left center !important;
+  box-shadow: 0 0 10px rgba(31, 178, 165, 0.45) !important;
+}
+
+/* 上部（反転）ディバイダー：ダークネイビーから白への切り替わり */
+.wave-divider[style*="rotate(180deg)"]::before {
+  background: #0E3A5F !important;
+  clip-path: polygon(0 0, 100% 0, 0 100%) !important;
+}
+.wave-divider[style*="rotate(180deg)"]::after {
+  background: #1FB2A5 !important;
+  transform: translateY(2px) rotate(-1.2deg) !important;
+}
+
+/* フッター上部のディバイダー（footer要素内の mt-10 直前） */
+footer .wave-divider::before {
+  background: #0E3A5F !important; /* フッターと同じネイビー */
+  clip-path: polygon(0 100%, 100% 0, 100% 100%) !important;
+}
+footer .wave-divider::after {
+  background: #1FB2A5 !important;
+  transform: translateY(-2px) rotate(1.2deg) !important;
+}
+
+
 
