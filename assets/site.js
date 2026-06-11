@@ -249,7 +249,8 @@
         if (r.bottom < 0 || r.top > vh) return;
         var progress = (vh - r.top) / (vh + r.height);   // 0(入る前)→1(抜けた後)
         progress = Math.max(0, Math.min(1, progress));
-        setPos(12 + progress * 76);
+        // 下にスクロールするほど After(右) の幅が広がる（仕切りが左へ）
+        setPos(88 - progress * 76);
       }
       window.addEventListener('scroll', onScrollBA, { passive: true });
       onScrollBA();
@@ -322,7 +323,7 @@
         return {
           x: x, y: y,
           sp: (1.0 + Math.random() * 1.4) * DPR,        // 右方向の基本風速
-          a: 0.20 + Math.random() * 0.28,               // 線の濃さ（背面なので少しはっきり）
+          a: 0.10 + Math.random() * 0.15,               // 線の濃さ（薄め）
           w: (1.2 + Math.random() * 1.4) * DPR,         // 線の太さ
           maxT: 12 + (Math.random() * 12 | 0),          // 軌跡の長さ
           trail: [{ x: x, y: y }]
