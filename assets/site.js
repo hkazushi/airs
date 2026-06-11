@@ -323,7 +323,7 @@
         return {
           x: x, y: y,
           sp: (1.0 + Math.random() * 1.4) * DPR,        // 右方向の基本風速
-          a: 0.10 + Math.random() * 0.15,               // 線の濃さ（薄め）
+          a: 0.05 + Math.random() * 0.09,               // 線の濃さ（さらに薄め）
           w: (1.2 + Math.random() * 1.4) * DPR,         // 線の太さ
           maxT: 12 + (Math.random() * 12 | 0),          // 軌跡の長さ
           trail: [{ x: x, y: y }]
