@@ -58,8 +58,9 @@ body {
 .wave-divider { display: none !important; }
 .airs-sun { display: none !important; }
 
-/* 英語のプレタイトル（より小さく、スタイリッシュに） */
-.font-label-bold, span[class*="tracking-[0.2em]"], .uppercase.tracking-widest {
+/* 英語のプレタイトル（より小さく、スタイリッシュに）
+   ※ span限定。a/button(CTA)に誤適用してボタンが潰れるのを防ぐ */
+span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-widest {
   font-family: 'Outfit', sans-serif !important;
   font-size: 0.65rem !important;
   text-transform: uppercase !important;
@@ -215,6 +216,38 @@ footer {
 footer * {
   border-color: rgba(255,255,255,0.1) !important;
 }
+
+/* =========================================================
+   可読性フィックス（濃紺背景上の文字／最上部ナビ）
+   ========================================================= */
+/* 濃紺セクション・CTA帯・フッター上の見出しは白に */
+.bg-deep-navy h1, .bg-deep-navy h2, .bg-deep-navy h3,
+.bg-deep-navy .font-headline-lg, .bg-deep-navy .font-headline-md,
+footer h2, footer h3, footer h4,
+footer .font-headline-lg, footer .font-headline-md {
+  color: #ffffff !important;
+}
+/* 濃紺上のプレタイトル(英字ラベル)は明るいティールに */
+.bg-deep-navy .font-label-bold,
+.bg-deep-navy span[class*="tracking-[0.2em]"],
+footer .font-label-bold {
+  color: #59dacc !important;
+  border-bottom-color: rgba(255,255,255,0.25) !important;
+}
+/* 濃紺上の本文・リストは薄白に */
+.bg-deep-navy p, .bg-deep-navy li,
+footer p, footer li, footer a {
+  color: rgba(255,255,255,0.85) !important;
+}
+
+/* 最上部(非スクロール)ナビ: 暗いスクリム＋白文字で可読性確保 */
+nav:not(.airs-scrolled) {
+  background: linear-gradient(to bottom, rgba(10,28,46,0.55), rgba(10,28,46,0)) !important;
+}
+nav:not(.airs-scrolled) * { color: #ffffff !important; }
+nav:not(.airs-scrolled) a[class*="bg-ocean-blue"],
+nav:not(.airs-scrolled) a[class*="bg-deep-navy"] { color: #ffffff !important; }
+nav:not(.airs-scrolled) .text-ocean-blue { color: #59dacc !important; }
 
 /* =========================================================
    ユーティリティ
