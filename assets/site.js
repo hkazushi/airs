@@ -184,5 +184,22 @@
       }
     }
 
+    /* ---------- 8. 見出しの波ライン＋濃紺セクションのティール波トップ ---------- */
+    (function () {
+      var wave = '<svg viewBox="0 0 88 13" width="88" height="13" fill="none" aria-hidden="true"><path d="M2 8 Q 12 1 22 8 T 42 8 T 62 8 T 86 8" stroke="#1FB2A5" stroke-width="3" stroke-linecap="round"/></svg>';
+      document.querySelectorAll('section h2, footer .font-headline-lg').forEach(function (h) {
+        if (h.dataset.wu) return;
+        h.dataset.wu = '1';
+        var s = document.createElement('span');
+        s.className = 'airs-wuline';
+        s.innerHTML = wave;
+        if (getComputedStyle(h).textAlign === 'center') s.style.margin = '16px auto 0';
+        h.appendChild(s);
+      });
+      document.querySelectorAll('section[class*="bg-deep-navy"]').forEach(function (s) {
+        s.classList.add('airs-wavetop');
+      });
+    })();
+
   });
 })();

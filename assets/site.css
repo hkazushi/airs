@@ -304,3 +304,42 @@ html.has-js .airs-mask-wrap.is-visible img {
   .airs-watermark { opacity: 1 !important; transform: none !important; }
   .airs-parallax { height: 100% !important; top: 0 !important; translate: none !important; }
 }
+
+/* =========================================================
+   西海岸・サーフ アクセント（クリーンな土台を保ったまま）
+   ========================================================= */
+/* 1) 交互セクション/土台を 冷グレー → 温かいサンドへ */
+.bg-sand-beige, .bg-surface, .bg-surface-container, .bg-surface-container-low,
+.bg-surface-container-high, .bg-surface-container-highest, .bg-surface-bright, .bg-background {
+  background-color: #f5f1e8 !important;
+}
+/* 白カードはサンド上で映えるよう純白を維持 */
+.bg-surface-container-lowest, .bg-white { background-color: #ffffff !important; }
+
+/* 2) プレタイトル英字を オーシャンティール に */
+span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-widest {
+  color: #0f8a7d !important;
+  border-bottom-color: #1FB2A5 !important;
+}
+
+/* 3) 見出し下の手描き風 波ライン（サーフ看板風） */
+.airs-wuline { display: block; width: 88px; height: 13px; margin-top: 16px; line-height: 0; }
+.airs-wuline svg { display: block; width: 88px; height: 13px; overflow: visible; }
+/* 中央寄せ見出しの直下は中央に */
+.text-center .airs-wuline, [class*="text-center"] > .airs-wuline { margin-left: auto; margin-right: auto; }
+
+/* 4) 英字ウォーターマークをティール寄りのアウトラインに */
+.airs-watermark {
+  -webkit-text-stroke: 1.4px rgba(31,178,165,0.14) !important;
+  text-stroke: 1.4px rgba(31,178,165,0.14) !important;
+}
+
+/* 5) 濃紺セクションの上辺に細いティールの波ライン（コースタルな区切り） */
+.bg-deep-navy.airs-wavetop { position: relative; }
+.bg-deep-navy.airs-wavetop::before {
+  content: "";
+  position: absolute; top: 0; left: 0; right: 0; height: 8px;
+  background: repeat-x left top / 28px 8px
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='28'%20height='8'%3E%3Cpath%20d='M0%204%20Q7%200%2014%204%20T28%204'%20fill='none'%20stroke='%231FB2A5'%20stroke-width='2'/%3E%3C/svg%3E");
+  opacity: .9;
+}
