@@ -45,7 +45,8 @@
     imgs.forEach(function (img) {
       // 全面背景・ヒーロー画像はフェード対象外(Ken Burns側で扱う)
       if (isHeroImg(img)) return;
-      img.classList.add('reveal-js');
+      // クリップ＋ズームアウトのリッチ出現
+      img.classList.add('airs-img-reveal');
       extra.push(img);
     });
 
@@ -150,21 +151,6 @@
       }
     }
 
-    /* ---------- 9. アイコンのふわふわ浮遊 ---------- */
-    if (!reduce) {
-      // 円形アイコン枠（material-symbols を内包する rounded-full / w-1x など）
-      document.querySelectorAll('section .material-symbols-outlined').forEach(function (ic) {
-        var box = ic.parentElement;
-        if (!box) return;
-        var bc = box.className || '';
-        if (/rounded-full|rounded-2xl|rounded-xl/.test(bc) && /w-1[0-9]|w-2[0-9]|h-1[0-9]|h-2[0-9]/.test(bc)) {
-          box.classList.add('airs-float');
-          // 個々に少し位相をずらす
-          box.style.animationDelay = (Math.abs((box.offsetTop || 0) % 5) * 0.4) + 's';
-        }
-      });
-    }
-
     /* ---------- 10. 主要ボタンの光沢スイープ ---------- */
     document.querySelectorAll('a, button').forEach(function (b) {
       var c = b.className || '';
@@ -194,6 +180,73 @@
         }
       });
     });
+
+    /* ---------- 12. カーソルに反応する風エフェクト ---------- */
+    if (!reduce && 'requestAnimationFrame' in window) {
+      var cv = document.createElement('canvas');
+      cv.id = 'airsWind';
+      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.55';
+      document.body.appendChild(cv);
+      var ctx = cv.getContext('2d');
+      var DPR = Math.min(window.devicePixelRatio || 1, 2);
+      var W = 0, H = 0;
+      function resize() {
+        W = cv.width = Math.floor(window.innerWidth * DPR);
+        H = cv.height = Math.floor(window.innerHeight * DPR);
+        cv.style.width = window.innerWidth + 'px';
+        cv.style.height = window.innerHeight + 'px';
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      var N = Math.max(28, Math.min(54, Math.round(window.innerWidth / 26)));
+      var ps = [];
+      function spawn(fromLeft) {
+        return {
+          x: fromLeft ? -30 * DPR : Math.random() * W,
+          y: Math.random() * H,
+          len: (14 + Math.random() * 30) * DPR,
+          sp: (0.5 + Math.random() * 1.5) * DPR,
+          ph: Math.random() * Math.PI * 2,
+          amp: (3 + Math.random() * 9) * DPR,
+          a: 0.10 + Math.random() * 0.22
+        };
+      }
+      for (var i = 0; i < N; i++) ps.push(spawn(false));
+
+      var mx = -99999, my = -99999;
+      window.addEventListener('mousemove', function (e) { mx = e.clientX * DPR; my = e.clientY * DPR; }, { passive: true });
+      window.addEventListener('mouseout', function () { mx = -99999; my = -99999; });
+
+      var t = 0, R = 170 * DPR;
+      function tick() {
+        t += 0.016;
+        ctx.clearRect(0, 0, W, H);
+        ctx.lineCap = 'round';
+        for (var k = 0; k < ps.length; k++) {
+          var p = ps[k];
+          var vy = Math.sin(t * 0.9 + p.ph) * p.amp * 0.08;
+          p.x += p.sp;
+          p.y += vy;
+          // カーソル付近で“ふわっ”と押し出す（風のうねり）
+          var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+          if (d2 < R * R) {
+            var d = Math.sqrt(d2) || 1, f = 1 - d / R;
+            p.x += (dx / d) * f * 3.4 * DPR + f * 4 * DPR;
+            p.y += (dy / d) * f * 3.4 * DPR;
+          }
+          if (p.x - p.len > W) { ps[k] = spawn(true); continue; }
+          ctx.strokeStyle = 'rgba(150,202,224,' + p.a + ')';
+          ctx.lineWidth = 1.1 * DPR;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.quadraticCurveTo(p.x - p.len * 0.5, p.y - vy * 7, p.x - p.len, p.y);
+          ctx.stroke();
+        }
+        requestAnimationFrame(tick);
+      }
+      tick();
+    }
 
   });
 })();

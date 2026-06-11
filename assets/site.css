@@ -28,6 +28,22 @@ html.has-js .is-visible {
   translate: 0 0 !important;
 }
 
+/* ---- 画像のリッチな出現（下からクリップ＋ズームアウト＋フェード） ---- */
+html.has-js .airs-img-reveal {
+  opacity: 0;
+  scale: 1.09;
+  clip-path: inset(0 0 18% 0);
+  transition: opacity 1s cubic-bezier(.22,.7,.2,1),
+              scale 1.2s cubic-bezier(.22,.7,.2,1),
+              clip-path 1.2s cubic-bezier(.22,.7,.2,1);
+  will-change: opacity, scale, clip-path;
+}
+html.has-js .airs-img-reveal.is-visible {
+  opacity: 1;
+  scale: 1;
+  clip-path: inset(0 0 0 0);
+}
+
 /* ---- ヒーロー背景の Ken Burns ズーム ---- */
 @keyframes airs-kenburns {
   0%   { transform: scale(1.04) translate(0, 0); }
@@ -151,4 +167,6 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   .airs-zoom:hover > img { transform: none; }
   .wave-divider svg, .airs-sun, .airs-float { animation: none !important; }
   .airs-card:hover { transform: none; }
+  html.has-js .airs-img-reveal { opacity: 1 !important; scale: 1 !important; clip-path: none !important; transition: none !important; }
+  #airsWind { display: none !important; }
 }
