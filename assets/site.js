@@ -99,6 +99,7 @@
       var posAbs = getComputedStyle(img).position === 'absolute';
       if (isCover && clipped && !posAbs) {
         p.classList.add('airs-zoom');
+        p.classList.add('airs-angle-img');
       }
     });
 

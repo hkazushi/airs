@@ -61,20 +61,20 @@ html.has-js .is-visible {
   translate: 0 0 !important;
 }
 
-/* ---- 画像のリッチな出現（下からクリップ＋ズームアウト＋フェード） ---- */
+/* ---- 画像のリッチな出現（斜めクリップワイプ＋スライドズーム＋フェード） ---- */
 html.has-js .airs-img-reveal {
   opacity: 0;
-  scale: 1.09;
-  clip-path: inset(0 0 18% 0);
-  transition: opacity 1s cubic-bezier(.22,.7,.2,1),
-              scale 1.2s cubic-bezier(.22,.7,.2,1),
-              clip-path 1.2s cubic-bezier(.22,.7,.2,1);
-  will-change: opacity, scale, clip-path;
+  transform: translateY(24px) scale(1.14);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%) !important;
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
+              clip-path 1.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  will-change: opacity, transform, clip-path;
 }
 html.has-js .airs-img-reveal.is-visible {
-  opacity: 1;
-  scale: 1;
-  clip-path: inset(0 0 0 0);
+  opacity: 1 !important;
+  transform: translateY(0) scale(1) !important;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
 }
 
 /* ---- ヒーロー背景の Ken Burns ズーム ---- */
@@ -597,6 +597,41 @@ section:nth-of-type(even) {
 /* ヘッダーやフッター、特別指定セクションのnth-of-type干渉を防止 */
 header, footer, nav, section.bg-deep-navy {
   background-color: inherit;
+}
+
+/* =========================================================
+   ▼▼ 写真の斜めカッティング ＆ バッジのホバースライド（動画風） ▼▼
+   ========================================================= */
+
+/* 写真自体をわずかに右下がりのアングル（平行四辺形アングル）でカッティング */
+.airs-angle-img {
+  clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 98%) !important;
+}
+
+/* カテゴリラベルのホバー時スライドオーバーレイ効果 */
+.airs-img-label {
+  overflow: hidden !important;
+  position: absolute !important;
+}
+.airs-img-label::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background-color: #1FB2A5 !important; /* ocean-blue */
+  transform: scaleX(0) !important;
+  transform-origin: left center !important;
+  z-index: -1 !important;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.airs-zoom:hover .airs-img-label {
+  color: #ffffff !important;
+  border-color: #1FB2A5 !important;
+  box-shadow: 0 8px 20px rgba(31, 178, 165, 0.3) !important;
+  transform: translateY(-2px) !important;
+  background-color: transparent !important; /* 疑似要素の広がりを見せるため透過にする */
+}
+.airs-zoom:hover .airs-img-label::before {
+  transform: scaleX(1) !important;
 }
 
 
