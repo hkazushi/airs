@@ -339,3 +339,24 @@ a[class*="rounded"] {
   }
 }
 
+/* ---- ヒーローのインパクト・高級感の強化 ---- */
+.hero-title {
+  text-shadow: 0 4px 24px rgba(14, 58, 95, 0.6), 0 12px 48px rgba(14, 58, 95, 0.35);
+  letter-spacing: -0.01em;
+}
+.hero-subtitle {
+  text-shadow: 0 2px 12px rgba(14, 58, 95, 0.5);
+}
+.hero-blur-bg {
+  backdrop-filter: blur(8px);
+  background-color: rgba(14, 58, 95, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 2.5rem;
+  border-radius: 32px;
+}
+/* ---- パララックス効果用 ---- */
+.parallax-bg {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+

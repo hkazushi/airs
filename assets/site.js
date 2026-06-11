@@ -412,5 +412,23 @@
       });
     })();
 
+    /* ---------- 18. パララックススクロール効果 ---------- */
+    if (!reduce && 'IntersectionObserver' in window) {
+      var pBgs = document.querySelectorAll('.parallax-bg');
+      window.addEventListener('scroll', function () {
+        var sy = window.scrollY;
+        Array.prototype.forEach.call(pBgs, function (bg) {
+          var parent = bg.parentElement;
+          if (!parent) return;
+          var rect = parent.getBoundingClientRect();
+          if (rect.top < window.innerHeight && rect.bottom > 0) {
+            // 親要素のスクロール位置に対する相対的なズレを計算してパララックスさせる
+            var offset = sy - parent.offsetTop;
+            bg.style.transform = 'translate3d(0, ' + (offset * 0.32) + 'px, 0)';
+          }
+        });
+      }, { passive: true });
+    }
+
   });
 })();
