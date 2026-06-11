@@ -300,6 +300,20 @@
       });
     })();
 
+    /* ---------- 16. 見出しに波アンダーライン（サーフ看板風） ---------- */
+    (function () {
+      var wave = '<svg viewBox="0 0 80 12" width="80" height="12" fill="none" aria-hidden="true"><path d="M2 7 Q 12 1 22 7 T 42 7 T 62 7 T 78 7" stroke="#1FB2A5" stroke-width="3" stroke-linecap="round"/></svg>';
+      document.querySelectorAll('section h2').forEach(function (h) {
+        if (h.dataset.airsWuline) return;
+        h.dataset.airsWuline = '1';
+        var span = document.createElement('span');
+        span.className = 'airs-wuline';
+        span.innerHTML = wave;
+        if (getComputedStyle(h).textAlign === 'center') span.style.margin = '14px auto 0';
+        h.appendChild(span);
+      });
+    })();
+
     /* ---------- 12. カーソルに反応する風エフェクト ---------- */
     if (!reduce && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');
