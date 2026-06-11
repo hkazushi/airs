@@ -140,25 +140,32 @@
 </head>
 <body class="antialiased min-h-screen flex flex-col pt-20">
 <!-- TopNavBar -->
-<nav class="fixed top-0 w-full z-50 bg-surface/80 dark:bg-deep-navy/90 backdrop-blur-md border-b border-outline-variant/30 transition-all duration-300">
-<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 max-w-container-max mx-auto">
-<a class="font-display-lg text-[32px] md:text-headline-md tracking-tighter text-deep-navy dark:text-ocean-blue flex items-center gap-2" href="index.html">
-<span class="material-symbols-outlined text-ocean-blue text-4xl" style="font-variation-settings: 'FILL' 1;">ac_unit</span>
-                AIRS
-            </a>
-<!-- Desktop Navigation -->
-<div class="hidden md:flex items-center gap-8">
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors" href="#">Commercial</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors" href="#">Residential</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors" href="#">Maintenance</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors" href="#">Sustainability</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-ocean-blue border-b-2 border-ocean-blue pb-1" href="company.html">Contact</a>
-<a class="bg-deep-navy text-white px-6 py-3 rounded uppercase font-label-bold text-label-bold hover:bg-ocean-blue transition-colors duration-300" href="contact.html">Emergency Service</a>
+<nav class="bg-deep-navy/95 backdrop-blur-md text-on-primary uppercase w-full top-0 sticky border-b border-outline/20 shadow-md z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-3">
+<a href="index.html" class="flex items-center shrink-0">
+<img alt="エアーズ株式会社" class="h-9 md:h-10 object-contain bg-white px-3 py-1.5 rounded" src="images/logo.png"/>
+</a>
+<div class="hidden md:flex space-x-7 items-center font-bold text-label-bold">
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="index.html">ホーム</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="company.html">会社概要</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="works.html">施工事例</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="services.html">エアコン取り付け</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="materials.html">資材販売</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="recruit.html">採用情報</a>
+<a class="bg-ocean-blue text-on-primary px-5 py-2.5 rounded hover:bg-secondary transition-colors flex items-center gap-2" href="contact.html">お問い合わせ<span class="material-symbols-outlined text-base">arrow_forward</span></a>
 </div>
-<!-- Mobile Menu Toggle -->
-<button class="md:hidden text-deep-navy dark:text-sand-beige p-2">
+<button id="navToggle" type="button" class="md:hidden text-on-primary focus:outline-none" aria-label="メニューを開く">
 <span class="material-symbols-outlined text-3xl">menu</span>
 </button>
+</div>
+<div id="navMenu" class="hidden md:hidden bg-deep-navy border-t border-outline/20 px-margin-mobile py-4 space-y-1 text-label-bold">
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="index.html">ホーム</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="company.html">会社概要</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="works.html">施工事例</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="services.html">エアコン取り付け</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="materials.html">資材販売</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="recruit.html">採用情報</a>
+<a class="block mt-2 bg-ocean-blue text-center text-on-primary px-5 py-2.5 rounded" href="contact.html">お問い合わせ</a>
 </div>
 </nav>
 <main class="flex-grow">
@@ -170,7 +177,7 @@
 </div>
 <div class="relative z-10 text-center px-margin-mobile">
 <h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-white mb-4">会社概要</h1>
-<p class="font-body-lg text-body-lg text-sand-beige max-w-2xl mx-auto">COMPANY PROFILE</p>
+<p class="font-body-lg text-body-lg text-sand-beige max-w-2xl mx-auto">会社案内</p>
 </div>
 <!-- Wave Divider -->
 <div class="wave-divider text-background">
@@ -189,7 +196,7 @@
 <!-- Company Details Table Section -->
 <section class="py-16 px-margin-mobile md:px-margin-desktop bg-surface-container-low">
 <div class="max-w-4xl mx-auto">
-<h3 class="font-headline-md text-headline-md text-deep-navy border-b-2 border-deep-navy pb-4 mb-8">Company Details</h3>
+<h3 class="font-headline-md text-headline-md text-deep-navy border-b-2 border-deep-navy pb-4 mb-8">会社情報</h3>
 <div class="bg-white rounded-lg shadow-sm border border-outline-variant overflow-hidden">
 <table class="w-full text-left font-body-md text-body-md">
 <tbody class="divide-y divide-outline-variant">
@@ -228,7 +235,7 @@
 <div class="max-w-container-max mx-auto">
 <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter items-center">
 <div class="order-2 md:order-1">
-<span class="font-label-bold text-label-bold text-ocean-blue uppercase tracking-widest mb-2 block">Our Philosophy</span>
+<span class="font-label-bold text-label-bold text-ocean-blue uppercase tracking-widest mb-2 block">私たちの想い</span>
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-6">信頼と技術力</h2>
 <p class="font-body-lg text-body-lg text-on-surface-variant mb-6 leading-relaxed">
                             エアーズ株式会社は、長年にわたる豊富な経験と確かな技術力で、お客様一人ひとりに最適な空調環境をご提供いたします。私たちは単にエアコンを取り付けるだけでなく、その空間で過ごす皆様の快適な未来を創造することを使命としています。
@@ -250,7 +257,7 @@
 <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-ocean-blue rounded-full opacity-10 blur-3xl"></div>
 <div class="max-w-container-max mx-auto relative z-10">
 <div class="text-center mb-16">
-<span class="font-label-bold text-label-bold text-ocean-blue uppercase tracking-widest mb-2 block">Our Strengths</span>
+<span class="font-label-bold text-label-bold text-ocean-blue uppercase tracking-widest mb-2 block">私たちの強み</span>
 <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-6">選ばれる理由</h2>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -259,7 +266,7 @@
 <div class="w-14 h-14 bg-ocean-blue/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-ocean-blue transition-colors duration-300">
 <span class="material-symbols-outlined text-ocean-blue group-hover:text-white text-3xl transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
-<h3 class="font-headline-md text-[24px] font-bold mb-4">Professionalism</h3>
+<h3 class="font-headline-md text-[24px] font-bold mb-4">確かな技術力</h3>
 <p class="font-body-md text-body-md text-sand-beige/80">
                             業務用から家庭用まで、あらゆる空調設備のプロフェッショナルとして、高品質な施工と確実なメンテナンスを提供します。
                         </p>
@@ -269,7 +276,7 @@
 <div class="w-14 h-14 bg-ocean-blue/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-ocean-blue transition-colors duration-300">
 <span class="material-symbols-outlined text-ocean-blue group-hover:text-white text-3xl transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">location_on</span>
 </div>
-<h3 class="font-headline-md text-[24px] font-bold mb-4">Area Specialization</h3>
+<h3 class="font-headline-md text-[24px] font-bold mb-4">地域密着</h3>
 <p class="font-body-md text-body-md text-sand-beige/80">
                             狭山市・日高市を中心に、地域に密着したスピーディーな対応。地元の皆様の気候や住環境を熟知した最適なご提案が可能です。
                         </p>
@@ -279,7 +286,7 @@
 <div class="w-14 h-14 bg-ocean-blue/20 rounded-full flex items-center justify-center mb-6 group-hover:bg-ocean-blue transition-colors duration-300">
 <span class="material-symbols-outlined text-ocean-blue group-hover:text-white text-3xl transition-colors duration-300" style="font-variation-settings: 'FILL' 1;">favorite</span>
 </div>
-<h3 class="font-headline-md text-[24px] font-bold mb-4">Customer First</h3>
+<h3 class="font-headline-md text-[24px] font-bold mb-4">お客様第一</h3>
 <p class="font-body-md text-body-md text-sand-beige/80">
                             お客様の事情や設置箇所を丁寧にヒアリングし、ご予算やご要望に合わせた柔軟で誠実な対応をお約束します。
                         </p>
@@ -297,7 +304,7 @@
 <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-background">
 <div class="max-w-container-max mx-auto">
 <div class="text-center mb-12">
-<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-4">Access</h2>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-4">アクセス</h2>
 <div class="w-16 h-1 bg-ocean-blue mx-auto"></div>
 </div>
 <div class="bg-white p-4 md:p-8 rounded-lg shadow-sm border border-outline-variant">
@@ -343,20 +350,21 @@
 </div>
 </div>
 <div>
-<h4 class="font-label-bold text-label-bold text-white uppercase mb-6 tracking-widest">Links</h4>
+<h4 class="font-label-bold text-label-bold text-white uppercase mb-6 tracking-widest">リンク</h4>
 <ul class="space-y-3">
-<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Privacy Policy</a></li>
-<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Terms of Service</a></li>
-<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Service Areas</a></li>
-<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="recruit.html">Careers</a></li>
-<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">Sustainability Report</a></li>
+<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">プライバシーポリシー</a></li>
+<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">利用規約</a></li>
+<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">対応エリア</a></li>
+<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="recruit.html">採用情報</a></li>
+<li><a class="font-body-md text-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-transform duration-200 inline-block" href="#">サステナビリティ</a></li>
 </ul>
 </div>
 </div>
 <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
 <p class="font-body-md text-[14px] text-sand-beige/50">
-                © 2024 AIRS Industrial HVAC. Engineered in California. (Copyright (C) エアーズ株式会社)
+                © エアーズ株式会社 All Rights Reserved.
             </p>
 </div>
 </footer>
+<script>(function(){var b=document.getElementById("navToggle"),m=document.getElementById("navMenu");if(b&&m){b.addEventListener("click",function(){m.classList.toggle("hidden");});}})();</script>
 </body></html>

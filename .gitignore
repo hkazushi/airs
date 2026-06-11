@@ -8,3 +8,7 @@ _draft_v1_index.html
 # エディタ
 .vscode/
 .idea/
+
+# ローカルプレビュー用
+_serve.cjs
+.claude/

@@ -181,26 +181,34 @@
 </head>
 <body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden selection:bg-ocean-blue selection:text-white">
 <!-- TopNavBar -->
-<header class="bg-surface/80 dark:bg-deep-navy/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 flex justify-between items-center px-margin-mobile md:px-margin-desktop py-4 mx-auto">
-<a class="font-display-lg text-[32px] md:text-headline-md tracking-tighter text-deep-navy dark:text-ocean-blue leading-none" href="index.html">
-            AIRS
-        </a>
-<!-- Desktop Nav -->
-<nav class="hidden md:flex gap-8 items-center h-full">
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Commercial</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Residential</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Maintenance</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-ocean-blue border-b-2 border-ocean-blue pb-1 h-full flex items-center" href="#">Materials</a>
-<a class="font-label-bold text-label-bold uppercase tracking-wider text-deep-navy dark:text-sand-beige hover:text-ocean-blue transition-colors h-full flex items-center" href="#">Contact</a>
-</nav>
-<a class="hidden lg:inline-flex items-center justify-center bg-deep-navy text-white font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:opacity-90 transition-opacity" href="tel:04-2980-5531">
-            04-2980-5531
-        </a>
-<!-- Mobile Menu Button -->
-<button class="md:hidden text-deep-navy">
+<nav class="bg-deep-navy/95 backdrop-blur-md text-on-primary uppercase w-full top-0 sticky border-b border-outline/20 shadow-md z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-3">
+<a href="index.html" class="flex items-center shrink-0">
+<img alt="エアーズ株式会社" class="h-9 md:h-10 object-contain bg-white px-3 py-1.5 rounded" src="images/logo.png"/>
+</a>
+<div class="hidden md:flex space-x-7 items-center font-bold text-label-bold">
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="index.html">ホーム</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="company.html">会社概要</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="works.html">施工事例</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="services.html">エアコン取り付け</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="materials.html">資材販売</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="recruit.html">採用情報</a>
+<a class="bg-ocean-blue text-on-primary px-5 py-2.5 rounded hover:bg-secondary transition-colors flex items-center gap-2" href="contact.html">お問い合わせ<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+</div>
+<button id="navToggle" type="button" class="md:hidden text-on-primary focus:outline-none" aria-label="メニューを開く">
 <span class="material-symbols-outlined text-3xl">menu</span>
 </button>
-</header>
+</div>
+<div id="navMenu" class="hidden md:hidden bg-deep-navy border-t border-outline/20 px-margin-mobile py-4 space-y-1 text-label-bold">
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="index.html">ホーム</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="company.html">会社概要</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="works.html">施工事例</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="services.html">エアコン取り付け</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="materials.html">資材販売</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="recruit.html">採用情報</a>
+<a class="block mt-2 bg-ocean-blue text-center text-on-primary px-5 py-2.5 rounded" href="contact.html">お問い合わせ</a>
+</div>
+</nav>
 <main class="pt-[80px]">
 <!-- Hero Section -->
 <section class="relative w-full h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
@@ -209,7 +217,7 @@
 </div>
 <div class="relative z-10 text-center px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
 <h1 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-white mb-6 tracking-tighter drop-shadow-lg">
-                    MATERIAL SALES
+                    資材販売
                 </h1>
 <p class="font-body-lg text-body-lg text-sand-beige max-w-2xl mx-auto">
                     プロが選ぶ、高品質な空調資材をスピーディーにお届けします。法人・個人問わず、幅広いニーズにお応えします。
@@ -323,28 +331,29 @@
 <p class="font-body-md text-sand-beige/70 mb-6">TEL: <a class="hover:text-ocean-blue transition-colors" href="tel:04-2980-5531">04-2980-5531</a></p>
 </div>
 <div class="col-span-1"><img alt="Professional close-up of a high-quality outdoor air conditioning condenser unit" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCebfp6kitq8NIICm3fmCPV3ZliGsejbDccHJSW_1ce72tNRS_IRJCUw-afKkU__ck7ZXX9Pz_3OaB26f6hg0darXbiucH40EDjUireH2icaaGQkPlpZejofqIui20oMHyJZ_GkbR7bBmisFRaAj34WtzvFHkxibmSyyLOydEweDe3-FrCBQyyXaCTY55yRt7duOIUbSnX52uoP9Z-KqRajHJ9LtAPT17G2mvzerI90UROnPl-w-3a_pel3rUP0JnlNbS0wPfPuVL0"/>
-<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">Services</h4>
+<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">サービス</h4>
 <ul class="space-y-3">
-<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">エアコン取り付け</a></li>
-<li><a class="font-body-md text-coral-accent hover:translate-x-1 transition-all duration-200 block" href="#">資材販売</a></li>
-<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">施工事例</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="services.html">エアコン取り付け</a></li>
+<li><a class="font-body-md text-coral-accent hover:translate-x-1 transition-all duration-200 block" href="materials.html">資材販売</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="works.html">施工事例</a></li>
 </ul>
 </div>
 <div class="col-span-1">
-<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">Company</h4>
+<h4 class="font-label-bold text-sand-beige mb-4 uppercase tracking-widest border-b border-sand-beige/20 pb-2 inline-block">会社情報</h4>
 <ul class="space-y-3">
-<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">会社概要</a></li>
-<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">採用情報</a></li>
-<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="#">お問い合わせ</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="company.html">会社概要</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="recruit.html">採用情報</a></li>
+<li><a class="font-body-md text-sand-beige/70 hover:text-ocean-blue hover:translate-x-1 transition-all duration-200 block" href="contact.html">お問い合わせ</a></li>
 </ul>
 </div>
 </div>
 <div class="mt-16 pt-8 border-t border-sand-beige/10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto text-center md:text-left flex flex-col md:flex-row justify-between items-center">
-<p class="font-body-md text-sand-beige/50 text-sm">© 2024 AIRS Industrial HVAC. Engineered in California.</p>
+<p class="font-body-md text-sand-beige/50 text-sm">© エアーズ株式会社 All Rights Reserved.</p>
 <div class="flex gap-4 mt-4 md:mt-0">
-<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">Privacy Policy</a>
-<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">Terms of Service</a>
+<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">プライバシーポリシー</a>
+<a class="text-sand-beige/50 hover:text-ocean-blue text-sm" href="#">利用規約</a>
 </div>
 </div>
 </footer>
+<script>(function(){var b=document.getElementById("navToggle"),m=document.getElementById("navMenu");if(b&&m){b.addEventListener("click",function(){m.classList.toggle("hidden");});}})();</script>
 </body></html>

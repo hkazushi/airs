@@ -186,26 +186,32 @@
 </head>
 <body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
 <!-- TopNavBar Component -->
-<nav class="bg-deep-navy/90 backdrop-blur-md dark:bg-deep-navy/90 text-on-primary dark:text-on-primary font-label-bold text-label-bold uppercase docked full-width top-0 sticky border-b border-outline/20 shadow-md transition-all duration-300 ease-in-out z-50">
-<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-4">
-<div class="font-display-lg text-headline-md tracking-tighter text-on-primary">
-<img alt="エアーズ株式会社" class="h-10 object-contain bg-surface-container-lowest/90 px-2 py-1 rounded" src="https://lh3.googleusercontent.com/aida/AP1WRLsjX57HSI6bX1IXbIvnnRV3pPV7LRUMPg8PHOwMunUzZaTP_082PAoDDLsOp2e85EcLrl6OVo6zXnELUtJfWH7iHy3rZ5a8Ho6wx6gqijxiLkPiZ1sR2kpRNfHM5_FEG3v7ywvwbe-3EDYdDTugZYoqbb639CbnVXoTK7y3Bh0YrxS2E3XQwLdv0dBj9J-g0j3RT7K12F1S6CmATOQ2OIonefX7tXM1hiAwkGriYnD3NNLc2TH6cQh0JA"/>
-</div>
-<div class="hidden md:flex space-x-8 items-center font-bold">
-<a class="text-ocean-blue border-b-2 border-ocean-blue pb-1 hover:bg-on-primary/5" href="index.html">ホーム</a>
-<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="company.html">会社概要</a>
-<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="works.html">施工事例</a>
-<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="services.html">エアコン取り付け</a>
-<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="materials.html">資材販売</a>
-<a class="text-on-primary/80 hover:text-on-primary transition-colors hover:bg-on-primary/5 pb-1" href="recruit.html">採用情報</a>
-</div>
-<a class="hidden md:flex bg-deep-navy border border-outline-variant text-on-primary font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:bg-primary-container transition-colors items-center gap-2" href="contact.html">
-<span class="">お問い合わせ</span>
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+<nav class="bg-deep-navy/95 backdrop-blur-md text-on-primary uppercase w-full top-0 sticky border-b border-outline/20 shadow-md z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto py-3">
+<a href="index.html" class="flex items-center shrink-0">
+<img alt="エアーズ株式会社" class="h-9 md:h-10 object-contain bg-white px-3 py-1.5 rounded" src="images/logo.png"/>
 </a>
-<button class="md:hidden text-on-primary focus:outline-none">
+<div class="hidden md:flex space-x-7 items-center font-bold text-label-bold">
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="index.html">ホーム</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="company.html">会社概要</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="works.html">施工事例</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="services.html">エアコン取り付け</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="materials.html">資材販売</a>
+<a class="text-on-primary/85 hover:text-ocean-blue transition-colors" href="recruit.html">採用情報</a>
+<a class="bg-ocean-blue text-on-primary px-5 py-2.5 rounded hover:bg-secondary transition-colors flex items-center gap-2" href="contact.html">お問い合わせ<span class="material-symbols-outlined text-base">arrow_forward</span></a>
+</div>
+<button id="navToggle" type="button" class="md:hidden text-on-primary focus:outline-none" aria-label="メニューを開く">
 <span class="material-symbols-outlined text-3xl">menu</span>
 </button>
+</div>
+<div id="navMenu" class="hidden md:hidden bg-deep-navy border-t border-outline/20 px-margin-mobile py-4 space-y-1 text-label-bold">
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="index.html">ホーム</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="company.html">会社概要</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="works.html">施工事例</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="services.html">エアコン取り付け</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="materials.html">資材販売</a>
+<a class="block py-2 text-on-primary/90 hover:text-ocean-blue" href="recruit.html">採用情報</a>
+<a class="block mt-2 bg-ocean-blue text-center text-on-primary px-5 py-2.5 rounded" href="contact.html">お問い合わせ</a>
 </div>
 </nav>
 <!-- Hero Section -->
@@ -360,4 +366,5 @@
             </div>
 </div>
 </footer>
+<script>(function(){var b=document.getElementById("navToggle"),m=document.getElementById("navMenu");if(b&&m){b.addEventListener("click",function(){m.classList.toggle("hidden");});}})();</script>
 </body></html>
