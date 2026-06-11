@@ -16,7 +16,7 @@
   ready(function () {
 
     /* ---------- 1. スクロール出現アニメ ---------- */
-    var revealSel = 'section h2, section h3, section h4, section p, section table, section form, section li, section blockquote, section .grid > *, footer h2, footer h3, footer h4, footer p, footer li';
+    var revealSel = 'section h2, section h3, section h4, section p, section table, section form, section li, section blockquote, section .grid > *';
     var cssTargets = Array.prototype.slice.call(document.querySelectorAll(revealSel));
 
     // 親ごとに stagger(ずらし)を付与（data属性で兄弟インデックスを数える）
@@ -300,25 +300,11 @@
       });
     })();
 
-    /* ---------- 16. 見出しに波アンダーライン（サーフ看板風） ---------- */
-    (function () {
-      var wave = '<svg viewBox="0 0 80 12" width="80" height="12" fill="none" aria-hidden="true"><path d="M2 7 Q 12 1 22 7 T 42 7 T 62 7 T 78 7" stroke="#1FB2A5" stroke-width="3" stroke-linecap="round"/></svg>';
-      document.querySelectorAll('section h2').forEach(function (h) {
-        if (h.dataset.airsWuline) return;
-        h.dataset.airsWuline = '1';
-        var span = document.createElement('span');
-        span.className = 'airs-wuline';
-        span.innerHTML = wave;
-        if (getComputedStyle(h).textAlign === 'center') span.style.margin = '14px auto 0';
-        h.appendChild(span);
-      });
-    })();
-
-    /* ---------- 12. カーソルに反応する風エフェクト ---------- */
+    /* ---------- 12. カーソルに反応する「そよ風」Canvasアニメーション ---------- */
     if (!reduce && 'requestAnimationFrame' in window) {
       var cv = document.createElement('canvas');
       cv.id = 'airsWind';
-      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.55';
+      cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.65';
       document.body.appendChild(cv);
       var ctx = cv.getContext('2d');
       var DPR = Math.min(window.devicePixelRatio || 1, 2);
@@ -332,48 +318,92 @@
       resize();
       window.addEventListener('resize', resize);
 
-      var N = Math.max(28, Math.min(54, Math.round(window.innerWidth / 26)));
-      var ps = [];
-      function spawn(fromLeft) {
-        return {
-          x: fromLeft ? -30 * DPR : Math.random() * W,
-          y: Math.random() * H,
-          len: (14 + Math.random() * 30) * DPR,
-          sp: (0.5 + Math.random() * 1.5) * DPR,
-          ph: Math.random() * Math.PI * 2,
-          amp: (3 + Math.random() * 9) * DPR,
-          a: 0.10 + Math.random() * 0.22
-        };
-      }
-      for (var i = 0; i < N; i++) ps.push(spawn(false));
+      // 風パーティクルのリスト
+      var winds = [];
+      var lastMouseX = null;
+      var lastMouseY = null;
+      var lastTime = Date.now();
 
-      var mx = -99999, my = -99999;
-      window.addEventListener('mousemove', function (e) { mx = e.clientX * DPR; my = e.clientY * DPR; }, { passive: true });
-      window.addEventListener('mouseout', function () { mx = -99999; my = -99999; });
+      // マウス移動イベント
+      window.addEventListener('mousemove', function (e) {
+        var mx = e.clientX * DPR;
+        var my = e.clientY * DPR;
+        var now = Date.now();
+        var dt = now - lastTime;
+        if (dt > 10 && lastMouseX !== null) {
+          var dx = mx - lastMouseX;
+          var dy = my - lastMouseY;
+          var speed = Math.sqrt(dx * dx + dy * dy);
+          if (speed > 2) {
+            var count = Math.min(5, Math.ceil(speed / 10));
+            for (var i = 0; i < count; i++) {
+              var t = i / count;
+              var rx = lastMouseX + dx * t;
+              var ry = lastMouseY + dy * t;
+              winds.push({
+                x: rx,
+                y: ry,
+                vx: (dx / speed) * (2 + Math.random() * 4) * DPR + (1.5 * DPR), // 右へ流れる風
+                vy: (dy / speed) * (1 + Math.random() * 2) * DPR + (Math.sin(Math.random() * Math.PI) * 0.5 * DPR),
+                length: (20 + Math.random() * 40) * DPR,
+                width: (0.8 + Math.random() * 1.5) * DPR,
+                alpha: 0.3 + Math.random() * 0.4,
+                decay: 0.008 + Math.random() * 0.012,
+                phase: Math.random() * Math.PI * 2,
+                amplitude: (2 + Math.random() * 5) * DPR
+              });
+            }
+          }
+        }
+        lastMouseX = mx;
+        lastMouseY = my;
+        lastTime = now;
+      }, { passive: true });
 
-      var t = 0, R = 170 * DPR;
+      // 自然なそよ風（マウスが動いていないときも時折右へ流れる風が発生）
+      setInterval(function() {
+        if (winds.length < 40 && Math.random() < 0.4) {
+          winds.push({
+            x: -50 * DPR,
+            y: Math.random() * H,
+            vx: (2 + Math.random() * 3) * DPR,
+            vy: (Math.random() - 0.5) * DPR,
+            length: (40 + Math.random() * 60) * DPR,
+            width: (0.5 + Math.random() * 1.2) * DPR,
+            alpha: 0.15 + Math.random() * 0.25,
+            decay: 0.003 + Math.random() * 0.006,
+            phase: Math.random() * Math.PI * 2,
+            amplitude: (4 + Math.random() * 10) * DPR
+          });
+        }
+      }, 150);
+
       function tick() {
-        t += 0.016;
         ctx.clearRect(0, 0, W, H);
         ctx.lineCap = 'round';
-        for (var k = 0; k < ps.length; k++) {
-          var p = ps[k];
-          var vy = Math.sin(t * 0.9 + p.ph) * p.amp * 0.08;
-          p.x += p.sp;
-          p.y += vy;
-          // カーソル付近で“ふわっ”と押し出す（風のうねり）
-          var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
-          if (d2 < R * R) {
-            var d = Math.sqrt(d2) || 1, f = 1 - d / R;
-            p.x += (dx / d) * f * 3.4 * DPR + f * 4 * DPR;
-            p.y += (dy / d) * f * 3.4 * DPR;
+        
+        for (var i = winds.length - 1; i >= 0; i--) {
+          var w = winds[i];
+          w.phase += 0.03;
+          w.x += w.vx;
+          w.y += w.vy + Math.sin(w.phase) * (w.amplitude * 0.05);
+          w.alpha -= w.decay;
+          
+          if (w.alpha <= 0 || w.x - w.length > W) {
+            winds.splice(i, 1);
+            continue;
           }
-          if (p.x - p.len > W) { ps[k] = spawn(true); continue; }
-          ctx.strokeStyle = 'rgba(150,202,224,' + p.a + ')';
-          ctx.lineWidth = 1.1 * DPR;
+          
+          ctx.strokeStyle = 'rgba(255, 255, 255, ' + w.alpha + ')';
+          ctx.lineWidth = w.width;
           ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.quadraticCurveTo(p.x - p.len * 0.5, p.y - vy * 7, p.x - p.len, p.y);
+          ctx.moveTo(w.x, w.y);
+          ctx.quadraticCurveTo(
+            w.x - w.length * 0.5, 
+            w.y - Math.sin(w.phase) * w.amplitude, 
+            w.x - w.length, 
+            w.y
+          );
           ctx.stroke();
         }
         requestAnimationFrame(tick);
@@ -381,36 +411,7 @@
       tick();
     }
 
-    /* ---------- 17. プレタイトルにサーフアイコン（ヤシの木・サーフボード・波）を動的追加 ---------- */
-    (function () {
-      var icons = {
-        palm: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M12 22V10M12 10C8.5 7.5 5 10 5 10M12 10C15.5 7.5 19 10 19 10M12 10C10.5 5.5 7.5 4 7.5 4M12 10C13.5 5.5 16.5 4 16.5 4M5 10C3.5 13.5 5.5 15.5 5.5 15.5M19 10C20.5 13.5 18.5 15.5 18.5 15.5"/></svg>',
-        board: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M12 2C9.5 5.5 9.5 13 9.5 16C9.5 18.5 10.5 21 12 22C13.5 21 14.5 18.5 14.5 16C14.5 13 14.5 5.5 12 2Z"/><path d="M12 2V22"/></svg>',
-        wave: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#1FB2A5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="inline-block shrink-0 mr-1" aria-hidden="true" style="vertical-align:-4px;"><path d="M2 12c3-4 6 4 9 0 3-4 6 4 9 0M2 17c3-4 6 4 9 0 3-4 6 4 9 0"/></svg>'
-      };
 
-      document.querySelectorAll('span[class*="tracking-[0.2em]"], .uppercase.tracking-widest, .font-label-bold').forEach(function (el) {
-        if (el.dataset.airsIconAdded) return;
-        el.dataset.airsIconAdded = '1';
-        var txt = (el.textContent || el.innerText).trim().toLowerCase();
-        var iconHtml = '';
-        
-        // プレタイトルの中身に応じてアイコンを切り替え
-        if (/why|company|about|profile/i.test(txt)) {
-          iconHtml = icons.palm;
-        } else if (/works|service/i.test(txt)) {
-          iconHtml = icons.board;
-        } else if (/flow|step/i.test(txt)) {
-          iconHtml = icons.wave;
-        } else {
-          iconHtml = icons.wave; // デフォルトは波
-        }
-
-        if (iconHtml) {
-          el.insertAdjacentHTML('afterbegin', iconHtml);
-        }
-      });
-    })();
 
     /* ---------- 18. パララックススクロール効果 ---------- */
     if (!reduce && 'IntersectionObserver' in window) {

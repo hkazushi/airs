@@ -14,44 +14,28 @@ html { scroll-behavior: smooth; }
 /* =========================================================
    背景の質感（フラットなベージュ → 海・夕陽のソフトグラデ＋波テクスチャ）
    ========================================================= */
-/* 土台(body): 海・空・夕陽の有機的グラデーションメッシュ（固定） */
+/* 土台(body): 清潔感と広がりを感じさせる白・極薄グレーのフラット背景 */
 body {
-  background-color: #eef2ee;
-  background-image:
-    radial-gradient(46% 55% at 82% 4%,   rgba(92,196,232,.26), transparent 72%),
-    radial-gradient(52% 60% at 100% 38%, rgba(31,178,165,.20), transparent 72%),
-    radial-gradient(50% 55% at 2% 94%,   rgba(92,196,232,.16), transparent 74%),
-    radial-gradient(44% 48% at 28% 30%,  rgba(120,247,232,.12), transparent 70%),
-    radial-gradient(62% 70% at 50% 122%, rgba(14,58,95,.10), transparent 70%),
-    linear-gradient(160deg, #fbfaf4 0%, #ecf2ef 100%);
-  background-attachment: fixed;
+  background-color: #f7f7f5;
+  background-image: none;
+  background-attachment: scroll;
 }
-/* ゆっくり漂うメッシュ（生きた背景・クールなコースタル系） */
+/* ゆっくり漂うメッシュ背景は廃止 */
 body::before {
-  content: ""; position: fixed; inset: -30%; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(circle at 32% 38%, rgba(31,178,165,.14), transparent 42%),
-    radial-gradient(circle at 72% 64%, rgba(92,196,232,.14), transparent 42%),
-    radial-gradient(circle at 56% 22%, rgba(120,247,232,.10), transparent 40%);
-  filter: blur(20px);
-  animation: airs-mesh 28s ease-in-out infinite alternate;
+  display: none !important;
 }
-/* 夕陽グロー(赤っぽい光)は撤去 */
+/* 夕陽グローは撤去 */
 .airs-sun { display: none !important; }
 
-/* 見出しの波アンダーライン（サーフ看板風） */
-.airs-wuline { display: block; width: 80px; height: 12px; margin-top: 14px; line-height: 0; }
-.airs-wuline svg { display: block; width: 80px; height: 12px; overflow: visible; }
+/* 見出しの波アンダーラインはチープに見えるため廃止 */
+.airs-wuline { display: none !important; }
 @keyframes airs-mesh {
   0%   { transform: translate(0, 0)      rotate(0deg);   }
   100% { transform: translate(2.5%, -2.5%) rotate(7deg); }
 }
-/* フィルムグレイン（上質な粒状感）を全面に薄く */
+/* フィルムグレインは無効化 */
 body::after {
-  content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none;
-  opacity: .045; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='200'%20height='200'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.82'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
+  display: none !important;
 }
 
 /* ---- スクロール出現（フェードアップ） ----
@@ -297,36 +281,35 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
 /* =========================================================
    ▼▼ 高級感を底上げする追加サーフデザイン ▼▼
    ========================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap');
 
-/* 西海岸サーフの手描き風フォント */
+/* プレタイトル（英語の補助タイトル）：シャープな Outfit フォントで細く小さく引き締める */
 .font-label-bold,
 span[class*="tracking-[0.2em]"],
 .uppercase.tracking-widest {
-  font-family: 'Caveat', 'Outfit', sans-serif !important;
-  font-size: 1.45rem !important; /* 手書き風なのでやや大きめに */
-  text-transform: none !important; /* 大文字強制を解除してオーガニックに */
-  letter-spacing: 0.05em !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700 !important;
+  font-family: 'Outfit', 'Noto Sans JP', sans-serif !important;
+  font-size: 0.75rem !important; /* 12px に引き締め */
+  text-transform: uppercase !important; /* 大文字で統一 */
+  letter-spacing: 0.25em !important; /* レタースペースを広く取る */
+  display: inline-block;
+  font-weight: 800 !important;
+  color: #1FB2A5 !important; /* アクセントカラーの海色 */
 }
 
-/* 高級感のある柔らかいオーガニックな角丸 */
+/* 知的で洗練されたモダンな角丸に統一 */
 .airs-card, 
 .airs-zoom, 
 .rounded-xl, 
 .rounded-2xl,
 section .grid > * {
-  border-radius: 24px !important;
+  border-radius: 12px !important;
 }
 
-/* ボタンやCTAの形状を完全なカプセル型に統一 */
+/* ボタンやCTAの形状を、丸みのあるカプセル型からスマートなシャープ角丸に変更 */
 .airs-shine,
 button.rounded,
 a[class*="rounded"] {
-  border-radius: 9999px !important;
+  border-radius: 8px !important;
 }
 
 /* アシメトリカル（段違い）配置されたセクションの視覚的充実のための装飾 */
