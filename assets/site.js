@@ -128,6 +128,59 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    /* ---------- 7. スクロール進捗バー ---------- */
+    var prog = document.createElement('div');
+    prog.id = 'airsProgress';
+    document.body.appendChild(prog);
+    function updateProgress() {
+      var h = document.documentElement;
+      var max = (h.scrollHeight - h.clientHeight) || 1;
+      prog.style.width = Math.min(100, (window.scrollY / max) * 100) + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    /* ---------- 8. ヒーローに夕陽グロー ---------- */
+    if (!reduce) {
+      var hero = document.querySelector('header.relative, header[class*="h-["], section[class*="h-screen"], section[class*="min-h"]');
+      if (hero && !hero.querySelector('.airs-sun')) {
+        var sun = document.createElement('div');
+        sun.className = 'airs-sun';
+        hero.appendChild(sun);
+      }
+    }
+
+    /* ---------- 9. アイコンのふわふわ浮遊 ---------- */
+    if (!reduce) {
+      // 円形アイコン枠（material-symbols を内包する rounded-full / w-1x など）
+      document.querySelectorAll('section .material-symbols-outlined').forEach(function (ic) {
+        var box = ic.parentElement;
+        if (!box) return;
+        var bc = box.className || '';
+        if (/rounded-full|rounded-2xl|rounded-xl/.test(bc) && /w-1[0-9]|w-2[0-9]|h-1[0-9]|h-2[0-9]/.test(bc)) {
+          box.classList.add('airs-float');
+          // 個々に少し位相をずらす
+          box.style.animationDelay = (Math.abs((box.offsetTop || 0) % 5) * 0.4) + 's';
+        }
+      });
+    }
+
+    /* ---------- 10. 主要ボタンの光沢スイープ ---------- */
+    document.querySelectorAll('a, button').forEach(function (b) {
+      var c = b.className || '';
+      if (/bg-ocean-blue|bg-deep-navy|bg-coral/.test(c) && /rounded/.test(c) && /(px-|py-)/.test(c)) {
+        b.classList.add('airs-shine');
+      }
+    });
+
+    /* ---------- 11. カードの傾き＆浮き上がり ---------- */
+    document.querySelectorAll('section .grid > *').forEach(function (card) {
+      var c = card.className || '';
+      if (/rounded/.test(c) && /(border|shadow|bg-white|bg-surface|backdrop-blur)/.test(c)) {
+        card.classList.add('airs-card');
+      }
+    });
+
     /* ---------- 6. ページ内アンカーのスムーズスクロール ---------- */
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (ev) {

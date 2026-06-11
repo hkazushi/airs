@@ -7,23 +7,25 @@ html { scroll-behavior: smooth; }
 
 /* ---- スクロール出現（フェードアップ） ----
    JSが <html> に has-js を付けたときだけ事前に隠す（JS無効時は通常表示） */
+/* 出現アニメは transform ではなく translate プロパティを使用
+   （hover の transform 系効果と競合させないため） */
 html.has-js :where(section, footer) :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .8s cubic-bezier(.22,.7,.2,1), transform .8s cubic-bezier(.22,.7,.2,1);
-  will-change: opacity, transform;
+  translate: 0 30px;
+  transition: opacity .8s cubic-bezier(.22,.7,.2,1), translate .8s cubic-bezier(.22,.7,.2,1);
+  will-change: opacity, translate;
 }
 /* JSが画像・ヒーローテキストに付与する個別ターゲット */
 html.has-js .reveal-js {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity .9s cubic-bezier(.22,.7,.2,1), transform .9s cubic-bezier(.22,.7,.2,1);
-  will-change: opacity, transform;
+  translate: 0 30px;
+  transition: opacity .9s cubic-bezier(.22,.7,.2,1), translate .9s cubic-bezier(.22,.7,.2,1);
+  will-change: opacity, translate;
 }
 /* 出現後 */
 html.has-js .is-visible {
   opacity: 1 !important;
-  transform: none !important;
+  translate: 0 0 !important;
 }
 
 /* ---- ヒーロー背景の Ken Burns ズーム ---- */
@@ -44,6 +46,63 @@ html.has-js .is-visible {
 }
 .airs-zoom:hover > img,
 .airs-zoom:hover > picture > img { transform: scale(1.07); }
+
+/* =========================================================
+   ▼▼ 追加モーション（西海岸サーフ強化） ▼▼
+   ========================================================= */
+
+/* ---- スクロール進捗バー（海色グラデ） ---- */
+#airsProgress {
+  position: fixed; top: 0; left: 0; height: 4px; width: 0%;
+  background: linear-gradient(90deg, #1FB2A5 0%, #5cc4e8 50%, #FF7F50 100%);
+  z-index: 70; transition: width .1s linear;
+  box-shadow: 0 0 10px rgba(31,178,165,.6);
+}
+
+/* ---- 波ディバイダーを“揺れる水面”に ---- */
+@keyframes airs-tide {
+  0%   { transform: translateY(0)    scaleX(1);    }
+  50%  { transform: translateY(-3px) scaleX(1.04); }
+  100% { transform: translateY(0)    scaleX(1);    }
+}
+.wave-divider svg { animation: airs-tide 7s ease-in-out infinite; transform-origin: center bottom; }
+
+/* ---- ヒーローの夕陽グロー（浮遊） ---- */
+@keyframes airs-sunfloat {
+  0%   { transform: translate(0, 0)      scale(1);    }
+  50%  { transform: translate(-18px,14px) scale(1.08); }
+  100% { transform: translate(0, 0)      scale(1);    }
+}
+.airs-sun {
+  position: absolute; top: -60px; right: -40px; width: 360px; height: 360px;
+  border-radius: 9999px; pointer-events: none; z-index: 1;
+  background: radial-gradient(circle at 50% 50%, rgba(255,200,120,.55) 0%, rgba(255,127,80,.35) 38%, rgba(255,127,80,0) 70%);
+  filter: blur(6px); animation: airs-sunfloat 11s ease-in-out infinite;
+}
+
+/* ---- アイコン等のふわふわ浮遊 ---- */
+@keyframes airs-float {
+  0%   { transform: translateY(0);    }
+  50%  { transform: translateY(-9px); }
+  100% { transform: translateY(0);    }
+}
+.airs-float { animation: airs-float 4.5s ease-in-out infinite; }
+
+/* ---- 主要ボタンの光沢スイープ ---- */
+.airs-shine { position: relative; overflow: hidden; }
+.airs-shine::after {
+  content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: skewX(-20deg); transition: none;
+}
+.airs-shine:hover::after { left: 130%; transition: left .8s cubic-bezier(.22,.7,.2,1); }
+
+/* ---- カードの傾き＆浮き上がり強化 ---- */
+.airs-card { transition: transform .35s cubic-bezier(.22,.7,.2,1), box-shadow .35s ease; }
+.airs-card:hover {
+  transform: translateY(-10px) rotate(-.6deg);
+  box-shadow: 0 26px 50px rgba(14,58,95,.22);
+}
 
 /* ---- ナビ: スクロール時に少し締まる ---- */
 nav.airs-scrolled {
@@ -87,7 +146,9 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   html.has-js :where(section, footer) :where(h2,h3,h4,p,table,form,li,blockquote,.grid > *,.reveal-item),
-  html.has-js .reveal-js { opacity: 1 !important; transform: none !important; transition: none !important; }
+  html.has-js .reveal-js { opacity: 1 !important; translate: 0 0 !important; transition: none !important; }
   .airs-kenburns { animation: none; }
   .airs-zoom:hover > img { transform: none; }
+  .wave-divider svg, .airs-sun, .airs-float { animation: none !important; }
+  .airs-card:hover { transform: none; }
 }
