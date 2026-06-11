@@ -1,78 +1,96 @@
 /* =========================================================
    AIRS — モーション/インタラクション共通スタイル
-   西海岸サーフ風: なめらか・軽快・インパクト
+   クリーンでプロフェッショナルなコーポレートサイト
    ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap');
 
 html { scroll-behavior: smooth; }
 
-/* ロゴを紺ナビ/フッターになじませる（紺文字ロゴ→白抜き、プレート無し） */
+/* ロゴを紺ナビ/フッターになじませる */
 .airs-logo {
   filter: brightness(0) invert(1);
   opacity: .96;
 }
 
 /* =========================================================
-   背景の質感（フラットなベージュ → 海・夕陽のソフトグラデ＋波テクスチャ）
+   背景 — 白ベースのクリーンな背景
    ========================================================= */
-/* 土台(body): 高級しっくい（塗り壁）＆極淡コースタルリゾートグラデーション */
 body {
-  background-color: #fbfaf7;
-  background-image: linear-gradient(180deg, #ffffff 0%, #f7f9f9 50%, #faf8f5 100%);
-  background-attachment: scroll;
+  background-color: #ffffff;
 }
-/* ゆっくり漂うメッシュ背景は斜め背景テキストに置き換え */
-body::before {
-  /* site.cssの末尾側で上書き定義 */
-}
-/* 夕陽グローは撤去 */
-.airs-sun { display: none !important; }
 
-/* 見出しの波アンダーラインはチープに見えるため廃止 */
-.airs-wuline { display: none !important; }
-@keyframes airs-mesh {
-  0%   { transform: translate(0, 0)      rotate(0deg);   }
-  100% { transform: translate(2.5%, -2.5%) rotate(7deg); }
-}
-/* 高級しっくい塗り壁・クラフト紙風 of-type のっぺり感を完全排除 */
+/* 極薄のテクスチャ（高級感） */
 body::after {
-  content: "" !important; position: fixed; inset: 0; z-index: 3; pointer-events: none;
-  opacity: .028 !important; mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='150'%20height='150'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.95'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E") !important;
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .02;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='150'%20height='150'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.95'%20numOctaves='3'%20stitchTiles='stitch'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 150px 150px;
-  display: block !important;
 }
 
-/* ---- スクロール出現（フェードアップ） ----
-   JSが <html> に has-js を付けたときだけ事前に隠す（JS無効時は通常表示） */
-/* 出現アニメは transform ではなく translate プロパティを使用
-   （hover の transform 系効果と競合させないため） */
+/* 巨大アウトライン背景テキスト（関電工業風） */
+body::before {
+  content: "AIR CONDITIONING EQUIPMENT & SERVICES  AIRS CO., LTD.";
+  position: fixed;
+  top: 45%;
+  left: -20%;
+  width: 160vw;
+  z-index: -10;
+  pointer-events: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 8.5vw;
+  font-weight: 900;
+  text-transform: uppercase;
+  white-space: nowrap;
+  letter-spacing: 0.12em;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(14, 58, 95, 0.025);
+  transform: rotate(-11deg);
+  user-select: none;
+}
+
+/* 夕陽グロー非表示 */
+.airs-sun { display: none !important; }
+/* 波アンダーラインは廃止 */
+.airs-wuline { display: none !important; }
+
+/* =========================================================
+   スクロール出現アニメーション
+   ========================================================= */
 html.has-js :where(section, footer) :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
   opacity: 0;
   translate: 0 30px;
   transition: opacity .8s cubic-bezier(.22,.7,.2,1), translate .8s cubic-bezier(.22,.7,.2,1);
   will-change: opacity, translate;
 }
-/* JSが画像・ヒーローテキストに付与する個別ターゲット */
+
 html.has-js .reveal-js {
   opacity: 0;
   translate: 0 30px;
   transition: opacity .9s cubic-bezier(.22,.7,.2,1), translate .9s cubic-bezier(.22,.7,.2,1);
   will-change: opacity, translate;
 }
-/* 出現後 */
+
 html.has-js .is-visible {
   opacity: 1 !important;
   translate: 0 0 !important;
 }
 
-/* ---- 画像のリッチな出現（斜めクリップワイプ＋スライドズーム＋フェード） ---- */
+/* =========================================================
+   画像のリッチな出現（クリップワイプ）
+   ========================================================= */
 html.has-js .airs-img-reveal {
   opacity: 0;
-  transform: translateY(24px) scale(1.14);
-  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%) !important;
+  transform: translateY(24px) scale(1.08);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
   transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
               transform 1.3s cubic-bezier(0.16, 1, 0.3, 1),
-              clip-path 1.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+              clip-path 1.3s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform, clip-path;
 }
 html.has-js .airs-img-reveal.is-visible {
@@ -81,7 +99,9 @@ html.has-js .airs-img-reveal.is-visible {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%) !important;
 }
 
-/* ---- ヒーロー背景の Ken Burns ズーム ---- */
+/* =========================================================
+   Ken Burns ズーム（ヒーロー背景）
+   ========================================================= */
 @keyframes airs-kenburns {
   0%   { transform: scale(1.04) translate(0, 0); }
   100% { transform: scale(1.14) translate(-2%, -1.5%); }
@@ -91,150 +111,278 @@ html.has-js .airs-img-reveal.is-visible {
   transform-origin: center;
 }
 
-/* ---- ギャラリー/カード画像の hover ズーム ---- */
-.airs-zoom { overflow: hidden; }
+/* =========================================================
+   カード — 白背景＋シャドウ＋ホバー浮き上がり
+   ========================================================= */
+.airs-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px -2px rgba(14, 58, 95, 0.06), 0 1px 4px rgba(14, 58, 95, 0.03);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.airs-card:hover {
+  box-shadow: 0 20px 40px -8px rgba(14, 58, 95, 0.12), 0 8px 20px -4px rgba(14, 58, 95, 0.06);
+  transform: translateY(-4px);
+}
+
+/* =========================================================
+   ギャラリー/画像 — ズーム＋オーバーレイ
+   ========================================================= */
+.airs-zoom {
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  border-radius: 12px;
+}
 .airs-zoom > img,
 .airs-zoom > picture > img {
   transition: transform .7s cubic-bezier(.22,.7,.2,1);
 }
 .airs-zoom:hover > img,
-.airs-zoom:hover > picture > img { transform: scale(1.07); }
+.airs-zoom:hover > picture > img {
+  transform: scale(1.05);
+}
+
+/* ホバー時のグラデーションオーバーレイ（ホバー時のみ表示） */
+.airs-ov {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 14px;
+  background: linear-gradient(to top, rgba(14,58,95,.55), rgba(14,58,95,0) 55%);
+  opacity: 0;
+  transition: opacity .4s ease;
+}
+.airs-zoom:hover .airs-ov { opacity: 1; }
+
+.airs-ovbtn {
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.92);
+  color: #0E3A5F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(12px);
+  transition: transform .4s cubic-bezier(.22,.7,.2,1);
+}
+.airs-zoom:hover .airs-ovbtn { transform: translateY(0); }
 
 /* =========================================================
-   ▼▼ 追加モーション（西海岸サーフ強化） ▼▼
+   画像カテゴリラベル
    ========================================================= */
+.airs-img-label {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #0E3A5F;
+  border: 1px solid rgba(14, 58, 95, 0.1);
+  padding: 4px 12px 3px 13px;
+  border-radius: 4px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  box-shadow: 0 4px 12px rgba(14, 58, 95, 0.08);
+  pointer-events: none;
+  user-select: none;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.airs-img-label::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #1FB2A5;
+  transform: scaleX(0);
+  transform-origin: left center;
+  z-index: -1;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.airs-zoom:hover .airs-img-label {
+  color: #ffffff;
+  border-color: #1FB2A5;
+  box-shadow: 0 8px 20px rgba(31, 178, 165, 0.3);
+  transform: translateY(-2px);
+  background-color: transparent;
+}
+.airs-zoom:hover .airs-img-label::before {
+  transform: scaleX(1);
+}
 
-/* ---- スクロール進捗バー（海色グラデ） ---- */
+/* =========================================================
+   スクロール進捗バー
+   ========================================================= */
 #airsProgress {
-  position: fixed; top: 0; left: 0; height: 4px; width: 0%;
-  background: linear-gradient(90deg, #1FB2A5 0%, #5cc4e8 50%, #FF7F50 100%);
-  z-index: 70; transition: width .1s linear;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 0%;
+  background: linear-gradient(90deg, #1FB2A5 0%, #5cc4e8 50%, #0E3A5F 100%);
+  z-index: 70;
+  transition: width .1s linear;
   box-shadow: 0 0 10px rgba(31,178,165,.6);
 }
 
-/* ---- 波ディバイダーを“揺れる水面”に ---- */
+/* =========================================================
+   波ディバイダー
+   ========================================================= */
+.wave-divider svg {
+  animation: airs-tide 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
 @keyframes airs-tide {
   0%   { transform: translateY(0)    scaleX(1);    }
   50%  { transform: translateY(-3px) scaleX(1.04); }
   100% { transform: translateY(0)    scaleX(1);    }
 }
-.wave-divider svg { animation: airs-tide 7s ease-in-out infinite; transform-origin: center bottom; }
 
-/* ---- ヒーローの夕陽グロー（浮遊） ---- */
-@keyframes airs-sunfloat {
-  0%   { transform: translate(0, 0)      scale(1);    }
-  50%  { transform: translate(-18px,14px) scale(1.08); }
-  100% { transform: translate(0, 0)      scale(1);    }
+/* =========================================================
+   ボタン光沢スイープ
+   ========================================================= */
+.airs-shine {
+  position: relative;
+  overflow: hidden;
 }
-.airs-sun {
-  position: absolute; top: -60px; right: -40px; width: 360px; height: 360px;
-  border-radius: 9999px; pointer-events: none; z-index: 1;
-  background: radial-gradient(circle at 50% 50%, rgba(255,200,120,.55) 0%, rgba(255,127,80,.35) 38%, rgba(255,127,80,0) 70%);
-  filter: blur(6px); animation: airs-sunfloat 11s ease-in-out infinite;
-}
-
-/* ---- アイコン等のふわふわ浮遊 ---- */
-@keyframes airs-float {
-  0%   { transform: translateY(0);    }
-  50%  { transform: translateY(-9px); }
-  100% { transform: translateY(0);    }
-}
-.airs-float { animation: airs-float 4.5s ease-in-out infinite; }
-
-/* ---- 主要ボタンの光沢スイープ ---- */
-.airs-shine { position: relative; overflow: hidden; }
 .airs-shine::after {
-  content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 60%;
+  height: 100%;
   background: linear-gradient(120deg, transparent, rgba(255,255,255,.45), transparent);
-  transform: skewX(-20deg); transition: none;
+  transform: skewX(-20deg);
+  transition: none;
 }
-.airs-shine:hover::after { left: 130%; transition: left .8s cubic-bezier(.22,.7,.2,1); }
-
-/* ---- カードの浮き上がり（動きは3Dティルトが担当） ---- */
-.airs-card { transition: transform .25s cubic-bezier(.22,.7,.2,1), box-shadow .35s ease; }
-.airs-card:hover { box-shadow: 0 26px 50px rgba(14,58,95,.22); }
-
-/* ---- 3Dティルト（カーソルで奥行き） ---- */
-.airs-tilt { transition: transform .25s cubic-bezier(.22,.7,.2,1); will-change: transform; }
-
-/* ---- ギャラリー hover オーバーレイ ---- */
-.airs-zoom { position: relative; cursor: pointer; }
-.airs-ov {
-  position: absolute; inset: 0; z-index: 2; pointer-events: none;
-  display: flex; align-items: flex-end; justify-content: flex-end; padding: 14px;
-  background: linear-gradient(to top, rgba(14,58,95,.55), rgba(14,58,95,0) 55%);
-  opacity: 0; transition: opacity .4s ease;
+.airs-shine:hover::after {
+  left: 130%;
+  transition: left .8s cubic-bezier(.22,.7,.2,1);
 }
-.airs-zoom:hover .airs-ov { opacity: 1; }
-.airs-ovbtn {
-  width: 44px; height: 44px; border-radius: 9999px;
-  background: rgba(255,255,255,.92); color: #0E3A5F;
-  display: flex; align-items: center; justify-content: center;
-  transform: translateY(12px); transition: transform .4s cubic-bezier(.22,.7,.2,1);
-}
-.airs-zoom:hover .airs-ovbtn { transform: translateY(0); }
 
-/* ---- ライトボックス（クリックで全画面拡大） ---- */
+/* =========================================================
+   3Dティルト
+   ========================================================= */
+.airs-tilt {
+  transition: transform .25s cubic-bezier(.22,.7,.2,1);
+  will-change: transform;
+}
+
+/* =========================================================
+   ライトボックス
+   ========================================================= */
 #airsLightbox {
-  position: fixed; inset: 0; z-index: 100; display: none;
-  align-items: center; justify-content: center;
-  background: rgba(10,28,46,.92); backdrop-filter: blur(6px);
-  opacity: 0; transition: opacity .3s ease; cursor: zoom-out;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,28,46,.92);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity .3s ease;
+  cursor: zoom-out;
 }
 #airsLightbox.show { display: flex; opacity: 1; }
 #airsLightbox img {
-  max-width: 92vw; max-height: 88vh; border-radius: 10px;
+  max-width: 92vw;
+  max-height: 88vh;
+  border-radius: 10px;
   box-shadow: 0 30px 80px rgba(0,0,0,.55);
-  transform: scale(.85); transition: transform .35s cubic-bezier(.22,.7,.2,1);
+  transform: scale(.85);
+  transition: transform .35s cubic-bezier(.22,.7,.2,1);
 }
 #airsLightbox.show img { transform: scale(1); }
 #airsLightbox .airs-lb-close {
-  position: absolute; top: 18px; right: 24px; color: #fff;
-  font-size: 42px; line-height: 1; cursor: pointer; opacity: .85;
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  color: #fff;
+  font-size: 42px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: .85;
 }
 #airsLightbox .airs-lb-close:hover { opacity: 1; }
 
-/* ---- カーソル追従グロー ---- */
+/* =========================================================
+   カーソル追従グロー
+   ========================================================= */
 #airsCursor {
-  position: fixed; top: 0; left: 0; width: 30px; height: 30px;
-  margin: -15px 0 0 -15px; border-radius: 9999px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  border-radius: 9999px;
   border: 2px solid rgba(31,178,165,.7);
   background: rgba(31,178,165,.06);
-  pointer-events: none; z-index: 65; opacity: 0;
+  pointer-events: none;
+  z-index: 65;
+  opacity: 0;
   transition: width .25s ease, height .25s ease, border-color .25s ease,
               background .25s ease, opacity .35s ease;
   will-change: transform;
 }
 #airsCursor.airs-on { opacity: 1; }
 #airsCursor.airs-hot {
-  width: 58px; height: 58px; margin: -29px 0 0 -29px;
-  border-color: rgba(255,127,80,.9); background: rgba(255,127,80,.10);
+  width: 58px;
+  height: 58px;
+  margin: -29px 0 0 -29px;
+  border-color: rgba(255,127,80,.9);
+  background: rgba(255,127,80,.10);
 }
 @media (pointer: coarse) { #airsCursor { display: none !important; } }
 
-/* ---- クリックの水紋（さざ波） ---- */
+/* =========================================================
+   クリック水紋
+   ========================================================= */
 .airs-ripple {
-  position: fixed; border-radius: 9999px; pointer-events: none; z-index: 64;
+  position: fixed;
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 64;
   border: 2px solid rgba(92,196,232,.75);
   transform: translate(-50%, -50%) scale(0);
   animation: airs-ripple .7s cubic-bezier(.22,.7,.2,1) forwards;
 }
 @keyframes airs-ripple {
-  0%   { transform: translate(-50%, -50%) scale(0);   opacity: .85; }
-  100% { transform: translate(-50%, -50%) scale(1);   opacity: 0;   }
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: .85; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 
-/* ---- マグネットボタン ---- */
-.airs-magnet { transition: transform .25s cubic-bezier(.22,.7,.2,1); }
+/* =========================================================
+   マグネットボタン
+   ========================================================= */
+.airs-magnet {
+  transition: transform .25s cubic-bezier(.22,.7,.2,1);
+}
 
-/* ---- ナビ: スクロール時に少し締まる ---- */
+/* =========================================================
+   ナビ: スクロール時のコンパクト化
+   ========================================================= */
 nav.airs-scrolled {
   box-shadow: 0 10px 30px rgba(0,0,0,.22);
   backdrop-filter: blur(14px);
 }
-nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
+nav.airs-scrolled .py-3 {
+  padding-top: .55rem;
+  padding-bottom: .55rem;
+}
 
-/* ---- トップへ戻るボタン ---- */
+/* =========================================================
+   トップへ戻るボタン
+   ========================================================= */
 #airsTop {
   position: fixed;
   right: 22px;
@@ -242,7 +390,7 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   width: 52px;
   height: 52px;
   border-radius: 9999px;
-  background: #1FB2A5;           /* ocean-blue */
+  background: #1FB2A5;
   color: #fff;
   display: flex;
   align-items: center;
@@ -257,66 +405,138 @@ nav.airs-scrolled .py-3 { padding-top: .55rem; padding-bottom: .55rem; }
   z-index: 60;
 }
 #airsTop.show { opacity: 1; visibility: visible; transform: translateY(0); }
-#airsTop:hover { background: #0E3A5F; }   /* deep-navy */
+#airsTop:hover { background: #0E3A5F; }
 #airsTop .material-symbols-outlined { font-size: 28px; }
 
-/* ---- フローティングお問い合わせ（モバイル） ---- */
 @media (max-width: 767px) {
   #airsTop { bottom: 78px; }
 }
 
-/* ---- 動きを抑える設定を尊重 ---- */
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   html.has-js :where(section, footer) :where(h2,h3,h4,p,table,form,li,blockquote,.grid > *,.reveal-item),
   html.has-js .reveal-js { opacity: 1 !important; translate: 0 0 !important; transition: none !important; }
   .airs-kenburns { animation: none; }
   .airs-zoom:hover > img { transform: none; }
-  .wave-divider svg, .airs-sun, .airs-float { animation: none !important; }
+  .wave-divider svg { animation: none !important; }
   .airs-card:hover { transform: none; }
-  html.has-js .airs-img-reveal { opacity: 1 !important; scale: 1 !important; clip-path: none !important; transition: none !important; }
+  html.has-js .airs-img-reveal { opacity: 1 !important; transform: none !important; clip-path: none !important; transition: none !important; }
   #airsWind, #airsCursor { display: none !important; }
   .airs-ripple { display: none !important; }
   .airs-magnet, .airs-tilt { transform: none !important; }
   #airsLightbox img { transform: scale(1) !important; transition: none !important; }
-  body::before { animation: none !important; }
 }
 
 /* =========================================================
-   ▼▼ 高級感を底上げする追加サーフデザイン ▼▼
+   プレタイトル（英語ラベル） — シャープなOutfitフォント
    ========================================================= */
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap');
-
-/* プレタイトル（英語の補助タイトル）：シャープな Outfit フォントで細く小さく引き締める */
 .font-label-bold,
 span[class*="tracking-[0.2em]"],
 .uppercase.tracking-widest {
   font-family: 'Outfit', 'Noto Sans JP', sans-serif !important;
-  font-size: 0.75rem !important; /* 12px に引き締め */
-  text-transform: uppercase !important; /* 大文字で統一 */
-  letter-spacing: 0.25em !important; /* レタースペースを広く取る */
-  display: inline-block;
+  font-size: 0.7rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.25em !important;
   font-weight: 800 !important;
-  color: #1FB2A5 !important; /* アクセントカラーの海色 */
+  color: #1FB2A5 !important;
+  border: 1px solid rgba(31, 178, 165, 0.22);
+  background-color: rgba(31, 178, 165, 0.04);
+  padding: 4px 14px 3px 16px;
+  border-radius: 9999px;
+  display: inline-block;
+  margin-bottom: 8px;
 }
 
-/* 知的で洗練されたモダンな角丸に統一 */
-.airs-card, 
-.airs-zoom, 
-.rounded-xl, 
-.rounded-2xl,
-section .grid > * {
+/* =========================================================
+   角丸の統一（シャープなモダンスタイル）
+   ========================================================= */
+.rounded-xl,
+.rounded-2xl {
   border-radius: 12px !important;
 }
 
-/* ボタンやCTAの形状を、丸みのあるカプセル型からスマートなシャープ角丸に変更 */
-.airs-shine,
-button.rounded,
-a[class*="rounded"] {
-  border-radius: 8px !important;
+/* =========================================================
+   見出し背後の超巨大アウトライン文字
+   ========================================================= */
+.airs-bg-title {
+  position: absolute;
+  top: -85px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+  font-family: 'Outfit', sans-serif;
+  font-size: 6.2rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(31, 178, 165, 0.04);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
 }
 
-/* アシメトリカル（段違い）配置されたセクションの視覚的充実のための装飾 */
+.md\:col-span-5 h2 .airs-bg-title {
+  left: 0;
+  transform: none;
+}
+
+@media (max-width: 767px) {
+  .airs-bg-title {
+    font-size: 3.5rem;
+    top: -50px;
+  }
+}
+
+/* =========================================================
+   ヒーロー — テキストシャドウ＆パララックス
+   ========================================================= */
+.hero-title {
+  text-shadow: 0 4px 24px rgba(14, 58, 95, 0.6), 0 12px 48px rgba(14, 58, 95, 0.35);
+  letter-spacing: -0.01em;
+}
+.hero-subtitle {
+  text-shadow: 0 2px 12px rgba(14, 58, 95, 0.5);
+}
+.parallax-bg {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* =========================================================
+   セクション背景の交互切り替え（クールグレー↔白）
+   ========================================================= */
+.bg-sand-beige,
+.bg-surface-container,
+.bg-surface-container-low,
+.bg-surface-container-high,
+.bg-surface-container-highest,
+section.bg-surface-container-high {
+  background-color: #f8fafc !important;
+}
+
+/* 境界線 */
+.border-outline-variant,
+.border-outline\/20 {
+  border-color: #e2e8f0 !important;
+}
+
+/* =========================================================
+   浮遊アニメーション
+   ========================================================= */
+@keyframes airs-float {
+  0%   { transform: translateY(0);    }
+  50%  { transform: translateY(-9px); }
+  100% { transform: translateY(0);    }
+}
+.airs-float { animation: airs-float 4.5s ease-in-out infinite; }
+
+/* =========================================================
+   段違いレイアウト
+   ========================================================= */
 .md\:translate-y-12 {
   transform: translateY(3rem);
 }
@@ -326,330 +546,16 @@ a[class*="rounded"] {
   }
 }
 
-/* ---- ヒーローのインパクト・高級感の強化 ---- */
-.hero-title {
-  text-shadow: 0 4px 24px rgba(14, 58, 95, 0.6), 0 12px 48px rgba(14, 58, 95, 0.35);
-  letter-spacing: -0.01em;
-}
-.hero-subtitle {
-  text-shadow: 0 2px 12px rgba(14, 58, 95, 0.5);
-}
-.hero-blur-bg {
-  backdrop-filter: blur(8px);
-  background-color: rgba(14, 58, 95, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  padding: 2.5rem;
-  border-radius: 32px;
-}
-/* ---- パララックス効果用 ---- */
-.parallax-bg {
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
+/* =========================================================
+   写真の斜めアングルカッティング
+   ========================================================= */
+.airs-angle-img {
+  clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 98%);
 }
 
 /* =========================================================
-   ▼▼ カラーパレット刷新（ベージュ色の完全排除） ▼▼
+   そよ風Canvas
    ========================================================= */
-
-/* 黄みがかったベージュ・砂色を、清潔感のある白とクールグレーに置換 */
-.bg-background,
-.bg-surface,
-.bg-surface-container-lowest,
-body {
-  background-color: #ffffff !important;
-}
-
-.bg-sand-beige,
-.bg-surface-container,
-.bg-surface-container-low,
-.bg-surface-container-high,
-.bg-surface-container-highest,
-section.bg-surface-container-high {
-  background-color: #f8fafc !important; /* slate-50 / 洗練された極薄クールグレー */
-}
-
-/* 境界線を白背景に馴染むように薄くシャープに変更 */
-.border-outline-variant,
-.border-outline\/20 {
-  border-color: #e2e8f0 !important; /* slate-200 */
-}
-
-/* カードの影を大げさなものから極薄の洗練されたシャドウに変更 */
-.airs-card,
-.lift-hover {
-  box-shadow: 0 4px 20px -2px rgba(14, 58, 95, 0.04), 0 2px 8px -1px rgba(14, 58, 95, 0.02) !important;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.airs-card:hover,
-.lift-hover:hover {
-  box-shadow: 0 24px 48px -8px rgba(14, 58, 95, 0.10), 0 8px 24px -4px rgba(14, 58, 95, 0.06) !important;
-  transform: translateY(-5px) !important;
-}
-
-/* Canvasのブレンドモード（ダークモードおよび背景になじませる） */
 #airsWind {
   mix-blend-mode: screen;
 }
-
-/* =========================================================
-   ▼▼ インパクト＆高級感の追加デザイン（関電工業・トラストホーム風） ▼▼
-   ========================================================= */
-
-/* 1. 斜めに走る巨大アウトライン背景テキスト */
-body::before {
-  display: block !important;
-  content: "AIR CONDITIONING EQUIPMENT & SERVICES  AIRS CO., LTD." !important;
-  position: fixed !important;
-  top: 45% !important;
-  left: -20% !important;
-  width: 160vw !important;
-  height: auto !important;
-  z-index: -10 !important;
-  pointer-events: none !important;
-  font-family: 'Outfit', sans-serif !important;
-  font-size: 8.5vw !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  white-space: nowrap !important;
-  letter-spacing: 0.12em !important;
-  color: transparent !important;
-  -webkit-text-stroke: 1.2px rgba(14, 58, 95, 0.03) !important; /* 関電工業風の極薄アウトライン */
-  transform: rotate(-11deg) !important;
-  animation: none !important;
-  filter: none !important;
-  user-select: none !important;
-}
-
-/* 2. 見出しの背後への超巨大背景アウトライン文字 */
-.airs-bg-title {
-  position: absolute !important;
-  top: -85px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: -1 !important;
-  font-family: 'Outfit', sans-serif !important;
-  font-size: 6.2rem !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  color: transparent !important;
-  -webkit-text-stroke: 1.2px rgba(31, 178, 165, 0.045) !important; /* 淡い海色のアウトライン */
-  letter-spacing: 0.08em !important;
-  white-space: nowrap !important;
-  pointer-events: none !important;
-  user-select: none !important;
-}
-
-/* 左寄せカラムの中にあるH2の場合は左端に寄せる */
-.md\:col-span-5 h2 .airs-bg-title {
-  left: 0 !important;
-  transform: none !important;
-}
-
-@media (max-width: 767px) {
-  .airs-bg-title {
-    font-size: 3.5rem !important;
-    top: -50px !important;
-  }
-}
-
-/* 3. 波ディバイダーをシャープな斜めスリット（境界アクセント）に刷新 */
-.wave-divider {
-  height: 90px !important;
-  overflow: visible !important;
-  background: transparent !important;
-}
-/* 元の複雑な波形状SVGを非表示化 */
-.wave-divider svg {
-  display: none !important;
-}
-
-/* クリーンな斜めカット面 */
-.wave-divider::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background: #ffffff !important;
-  clip-path: polygon(0 100%, 100% 0, 100% 100%) !important; /* 斜めカット（右上がり） */
-}
-
-/* 境界を際立たせるシャープなオーシャンブルーの斜めアクセントスリット */
-.wave-divider::after {
-  content: "" !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 4px !important;
-  background: #1FB2A5 !important;
-  transform: translateY(-2px) rotate(1.2deg) !important;
-  transform-origin: left center !important;
-  box-shadow: 0 0 10px rgba(31, 178, 165, 0.45) !important;
-}
-
-/* 上部（反転）ディバイダー：ダークネイビーから白への切り替わり */
-.wave-divider[style*="rotate(180deg)"]::before {
-  background: #0E3A5F !important;
-  clip-path: polygon(0 0, 100% 0, 0 100%) !important;
-}
-.wave-divider[style*="rotate(180deg)"]::after {
-  background: #1FB2A5 !important;
-  transform: translateY(2px) rotate(-1.2deg) !important;
-}
-
-/* フッター上部のディバイダー（footer要素内の mt-10 直前） */
-footer .wave-divider::before {
-  background: #0E3A5F !important; /* フッターと同じネイビー */
-  clip-path: polygon(0 100%, 100% 0, 100% 100%) !important;
-}
-footer .wave-divider::after {
-  background: #1FB2A5 !important;
-  transform: translateY(-2px) rotate(1.2deg) !important;
-}
-
-/* =========================================================
-   ▼▼ 高級西海岸スタイル（大人サーフ）＆チープ感の完全排除 ▼▼
-   ========================================================= */
-
-/* 1. プレタイトル（英語タイトル）の上品なバッジラベル化 */
-.font-label-bold,
-span[class*="tracking-[0.2em]"],
-.uppercase.tracking-widest {
-  border: 1px solid rgba(31, 178, 165, 0.22) !important;
-  background-color: rgba(31, 178, 165, 0.04) !important;
-  padding: 4px 14px 3px 16px !important;
-  border-radius: 9999px !important; /* きれいな角丸カプセル */
-  box-shadow: 0 2px 10px rgba(31, 178, 165, 0.05) !important;
-  font-size: 0.68rem !important; /* さらに小さく上品に */
-  letter-spacing: 0.28em !important;
-  text-transform: uppercase !important;
-  margin-bottom: 8px !important;
-}
-
-/* 2. 画像のカテゴリタグ（ラベル）のスタイル */
-.airs-img-label {
-  position: absolute !important;
-  top: 16px !important;
-  left: 16px !important;
-  z-index: 10 !important;
-  background-color: rgba(255, 255, 255, 0.92) !important;
-  color: #0E3A5F !important;
-  border: 1px solid rgba(14, 58, 95, 0.1) !important;
-  padding: 4px 12px 3px 13px !important;
-  border-radius: 4px !important;
-  font-family: 'Outfit', sans-serif !important;
-  font-size: 0.65rem !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.18em !important;
-  box-shadow: 0 4px 12px rgba(14, 58, 95, 0.08) !important;
-  pointer-events: none !important;
-  user-select: none !important;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-
-/* ホバー時にラベルの色と陰影を変化させる */
-.airs-zoom:hover .airs-img-label {
-  background-color: #1FB2A5 !important; /* ocean-blue */
-  color: #ffffff !important;
-  border-color: #1FB2A5 !important;
-  box-shadow: 0 8px 20px rgba(31, 178, 165, 0.3) !important;
-  transform: translateY(-2px) !important;
-}
-
-/* 3. 画像の滑らかなズーム＋ティールブルー光沢オーバーレイ */
-.airs-zoom {
-  position: relative !important;
-}
-/* ホバー時の美しい透過グラデーションオーバーレイ */
-.airs-zoom::after {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background: linear-gradient(135deg, rgba(31, 178, 165, 0.15) 0%, rgba(14, 58, 95, 0.45) 100%) !important;
-  z-index: 2 !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.airs-zoom:hover::after {
-  opacity: 1 !important;
-}
-
-/* 画像自体のトランジションをスマートに上書き */
-.airs-zoom > img,
-.airs-zoom > picture > img {
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.airs-zoom:hover > img,
-.airs-zoom:hover > picture > img {
-  transform: scale(1.05) !important;
-}
-
-/* 4. 配色のさらなる微調整（しっくいのマテリアル感が透けるように透過処理） */
-.bg-background,
-.bg-surface,
-.bg-surface-container-lowest,
-body {
-  background-color: transparent !important; /* bodyのしっくいテクスチャが透けるように */
-}
-
-.bg-sand-beige,
-.bg-surface-container,
-.bg-surface-container-low,
-.bg-surface-container-high,
-.bg-surface-container-highest,
-section.bg-surface-container-high {
-  background-color: rgba(251, 250, 247, 0.88) !important;
-}
-
-/* カード要素は背後を少し白くして視認性を確保しつつ背景を透過 */
-.airs-card {
-  background-color: rgba(255, 255, 255, 0.94) !important;
-  backdrop-filter: blur(4px) !important;
-}
-
-/* 交互に敷くためのシーソルトグレー背景 */
-section:nth-of-type(even) {
-  background-color: rgba(243, 246, 246, 0.88) !important; /* 極薄のさわやかなシーソルトブルーグレー */
-}
-/* ヘッダーやフッター、特別指定セクションのnth-of-type干渉を防止 */
-header, footer, nav, section.bg-deep-navy {
-  background-color: inherit;
-}
-
-/* =========================================================
-   ▼▼ 写真の斜めカッティング ＆ バッジのホバースライド（動画風） ▼▼
-   ========================================================= */
-
-/* 写真自体をわずかに右下がりのアングル（平行四辺形アングル）でカッティング */
-.airs-angle-img {
-  clip-path: polygon(0 0, 100% 2%, 100% 100%, 0 98%) !important;
-}
-
-/* カテゴリラベルのホバー時スライドオーバーレイ効果 */
-.airs-img-label {
-  overflow: hidden !important;
-  position: absolute !important;
-}
-.airs-img-label::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  background-color: #1FB2A5 !important; /* ocean-blue */
-  transform: scaleX(0) !important;
-  transform-origin: left center !important;
-  z-index: -1 !important;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.airs-zoom:hover .airs-img-label {
-  color: #ffffff !important;
-  border-color: #1FB2A5 !important;
-  box-shadow: 0 8px 20px rgba(31, 178, 165, 0.3) !important;
-  transform: translateY(-2px) !important;
-  background-color: transparent !important; /* 疑似要素の広がりを見せるため透過にする */
-}
-.airs-zoom:hover .airs-img-label::before {
-  transform: scaleX(1) !important;
-}
-
-
-
