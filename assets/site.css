@@ -384,7 +384,7 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
 #airsWind { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 1; }
 html { background-color: #f5f1e8; }
 body, body.bg-background { background-color: transparent !important; }
-body > header, body > section, body > footer, body > .airs-marquee { position: relative; z-index: 1; }
+body > header, body > main, body > section, body > footer { position: relative; z-index: 1; }
 
 @media (prefers-reduced-motion: reduce) {
   #airsCursor, #airsWind { display: none !important; }
