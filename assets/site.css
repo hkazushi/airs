@@ -80,12 +80,16 @@ span.font-label-bold, span[class*="tracking-[0.2em]"], span.uppercase.tracking-w
 /* =========================================================
    アニメーション (動画ライクな洗練された動き)
    ========================================================= */
-/* テキストやコンテナの下からのフェードイン */
-html.has-js :where(section, footer) :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
+/* テキストやコンテナの下からのフェードイン（フッターは除外して常時表示） */
+html.has-js section :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: opacity, transform;
+}
+html.has-js footer :where(h2, h3, h4, p, table, form, li, blockquote, .grid > *, .reveal-item) {
+  opacity: 1 !important;
+  transform: none !important;
 }
 html.has-js .reveal-js {
   opacity: 0;
