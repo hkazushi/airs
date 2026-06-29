@@ -446,7 +446,7 @@ body > header, body > main, body > section, body > footer { position: relative; 
 .airs-hero-mask { display: block; overflow: hidden; }
 .airs-hero-mask > * { display: inline-block; transform: translateY(115%); transition: transform 1.05s cubic-bezier(.2,.8,.2,1); }
 .airs-hero-fade { opacity: 0 !important; transform: translateY(24px) !important; transition: opacity 1s ease, transform 1s ease; }
-.airs-hero-in .airs-hero-mask > * { transform: translateY(0); }
+.airs-hero-in .airs-hero-mask > * { transform: translateY(0) !important; }
 .airs-hero-in .airs-hero-mask:nth-of-type(1) > * { transition-delay: .15s; }
 .airs-hero-in .airs-hero-mask:nth-of-type(2) > * { transition-delay: .30s; }
 .airs-hero-in .airs-hero-fade { opacity: 1 !important; transform: none !important; }
