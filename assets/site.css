@@ -129,14 +129,20 @@ html.has-js .airs-mask-wrap.is-visible img {
    ========================================================= */
 nav {
   transition: background-color 0.5s ease, padding 0.5s ease, box-shadow 0.5s ease;
-  background-color: transparent !important;
+  background-color: rgba(14, 58, 95, 0.7) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 nav.airs-scrolled {
-  background-color: rgba(255, 255, 255, 0.98) !important;
-  box-shadow: 0 1px 0 rgba(0,0,0,0.05);
+  background-color: rgba(14, 58, 95, 0.95) !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.15);
 }
-nav.airs-scrolled * {
-  color: #111827 !important; /* スクロール時は黒文字 */
+/* スクロール後も白文字を維持してロゴと整合 */
+nav, nav.airs-scrolled, nav.airs-scrolled * {
+  color: #ffffff;
+}
+nav a[class*="bg-ocean-blue"], nav.airs-scrolled a[class*="bg-ocean-blue"] {
+  color: #ffffff !important;
 }
 
 /* =========================================================
@@ -240,10 +246,7 @@ footer p, footer li, footer a {
   color: rgba(255,255,255,0.85) !important;
 }
 
-/* 最上部(非スクロール)ナビ: 暗いスクリム＋白文字で可読性確保 */
-nav:not(.airs-scrolled) {
-  background: linear-gradient(to bottom, rgba(10,28,46,0.55), rgba(10,28,46,0)) !important;
-}
+/* 最上部(非スクロール)ナビも濃紺維持 + 白文字 (ロゴの視認性確保) */
 nav:not(.airs-scrolled) * { color: #ffffff !important; }
 nav:not(.airs-scrolled) a[class*="bg-ocean-blue"],
 nav:not(.airs-scrolled) a[class*="bg-deep-navy"] { color: #ffffff !important; }
