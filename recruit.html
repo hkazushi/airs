@@ -132,6 +132,11 @@
             transform: translateY(-4px);
             box-shadow: 0 10px 25px -5px rgba(14, 58, 95, 0.1);
         }
+        /* 募集要項アコーディオン：既定の三角マーカーを除去 */
+        .job-accordion summary { list-style: none; }
+        .job-accordion summary::-webkit-details-marker { display: none; }
+        .job-accordion summary .material-symbols-outlined { transition: transform 0.3s ease; }
+        .job-accordion details[open] summary .material-symbols-outlined { transform: rotate(180deg); }
     </style>
 <script>document.documentElement.classList.add("has-js");</script>
 <link rel="stylesheet" href="assets/site.css"/>
@@ -270,52 +275,81 @@
 <section class="py-section-gap bg-surface-container-low border-t border-surface-variant" id="openings">
 <div class="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
 <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-deep-navy mb-12 text-center font-black">募集要項</h2>
-<div class="max-w-4xl mx-auto flex flex-col gap-4">
-<!-- Job Item 1 -->
-<div class="bg-surface border border-outline/20 p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between hover:border-ocean-blue transition-colors group gap-4">
+<p class="text-center text-on-surface-variant font-body-md mb-10 max-w-2xl mx-auto">各募集をタップすると詳細が開きます。気になる職種がありましたら、まずはお気軽にお問い合わせください。</p>
+<div class="job-accordion max-w-4xl mx-auto flex flex-col gap-4">
+<!-- 募集1: 正社員 -->
+<details class="group bg-surface border border-outline/20 rounded-lg overflow-hidden hover:border-ocean-blue transition-colors" open="">
+<summary class="cursor-pointer select-none p-6 flex items-start justify-between gap-4">
 <div>
 <div class="flex flex-wrap items-center gap-3 mb-2">
-<span class="bg-ocean-blue/10 text-ocean-blue px-3 py-1 rounded-full font-label-bold text-[12px] uppercase">正社員</span>
+<span class="bg-ocean-blue/10 text-ocean-blue px-3 py-1 rounded-full font-label-bold text-[12px]">正社員</span>
 <span class="text-on-surface-variant font-body-md text-sm">埼玉県日高市 本社／営業所</span>
 </div>
-<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary group-hover:text-ocean-blue transition-colors font-bold">空調設備工事スタッフ</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mt-2">家庭用・業務用エアコンの取付・入替・メンテナンス。経験者歓迎、未経験からでも先輩がしっかりサポートします。</p>
+<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary font-bold">空調設備工事スタッフ</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">住宅・店舗・オフィス・公共施設での空調設備工事。未経験歓迎・経験者優遇。</p>
 </div>
-<a class="shrink-0 bg-deep-navy text-on-primary font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:bg-ocean-blue transition-colors whitespace-nowrap" href="contact.html">
-                        お問い合わせ
-                    </a>
+<span class="material-symbols-outlined text-ocean-blue shrink-0 mt-1 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 border-t border-outline-variant">
+<dl class="mt-5 space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">仕事内容</dt><dd class="text-on-surface-variant">住宅・店舗・オフィス・公共施設での空調設備工事。エアコン取付・更新・修理・メンテナンス・電気工事補助など。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">給与</dt><dd class="text-on-surface-variant">月給 250,000円〜500,000円。昇給年1回・賞与年2回・時間外手当・資格手当・通勤手当あり。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">休日・福利厚生</dt><dd class="text-on-surface-variant">週休2日制、GW、夏季、年末年始、有給休暇。社会保険完備、制服・工具・社用車貸与、資格取得支援制度あり。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">求める人物</dt><dd class="text-on-surface-variant">未経験歓迎・経験者優遇。普通自動車免許歓迎。第二種電気工事士保有者は優遇します。</dd></div>
+</dl>
+<a class="mt-6 inline-flex items-center gap-2 bg-deep-navy text-on-primary font-label-bold text-label-bold px-6 py-3 rounded hover:bg-ocean-blue transition-colors" href="contact.html">この職種について問い合わせる<span class="material-symbols-outlined text-base">arrow_forward</span></a>
 </div>
-<!-- Job Item 2 -->
-<div class="bg-surface border border-outline/20 p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between hover:border-ocean-blue transition-colors group gap-4">
+</details>
+<!-- 募集2: アルバイト・パート -->
+<details class="group bg-surface border border-outline/20 rounded-lg overflow-hidden hover:border-ocean-blue transition-colors">
+<summary class="cursor-pointer select-none p-6 flex items-start justify-between gap-4">
 <div>
 <div class="flex flex-wrap items-center gap-3 mb-2">
-<span class="bg-ocean-blue/10 text-ocean-blue px-3 py-1 rounded-full font-label-bold text-[12px] uppercase">正社員</span>
-<span class="text-on-surface-variant font-body-md text-sm">埼玉県日高市 本社／営業所</span>
+<span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full font-label-bold text-[12px]">アルバイト・パート</span>
+<span class="text-on-surface-variant font-body-md text-sm">週1日〜／Wワーク可</span>
 </div>
-<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary group-hover:text-ocean-blue transition-colors font-bold">電気工事士</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mt-2">エアコン取付に伴う電気工事、一般電気工事、アンテナ工事など。第二種電気工事士以上の有資格者歓迎。</p>
+<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary font-bold">エアコン取付アシスタント</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">先輩スタッフと一緒に現場へ。未経験・学生・フリーターも歓迎です。</p>
 </div>
-<a class="shrink-0 bg-deep-navy text-on-primary font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:bg-ocean-blue transition-colors whitespace-nowrap" href="contact.html">
-                        お問い合わせ
-                    </a>
+<span class="material-symbols-outlined text-ocean-blue shrink-0 mt-1 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 border-t border-outline-variant">
+<dl class="mt-5 space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">仕事内容</dt><dd class="text-on-surface-variant">エアコン搬入、工具・材料準備、取付補助、片付け・清掃など。先輩スタッフと一緒に現場へ行くため未経験でも安心です。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">給与・勤務</dt><dd class="text-on-surface-variant">日給 12,000円以上。週1日から勤務可能。副業・Wワークも歓迎。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">こんな方に</dt><dd class="text-on-surface-variant">体を動かす仕事が好きな方。手に職をつけたい方。学生・フリーター・未経験歓迎。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">将来について</dt><dd class="text-on-surface-variant">仕事を覚えれば正社員登用も可能。国家資格の取得も会社がサポートします。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">待遇</dt><dd class="text-on-surface-variant">交通費支給、制服貸与、各種手当あり、社会保険（条件による）。</dd></div>
+</dl>
+<a class="mt-6 inline-flex items-center gap-2 bg-deep-navy text-on-primary font-label-bold text-label-bold px-6 py-3 rounded hover:bg-ocean-blue transition-colors" href="contact.html">この職種について問い合わせる<span class="material-symbols-outlined text-base">arrow_forward</span></a>
 </div>
-<!-- Job Item 3 -->
-<div class="bg-surface border border-outline/20 p-6 rounded-lg flex flex-col md:flex-row items-start md:items-center justify-between hover:border-ocean-blue transition-colors group gap-4">
+</details>
+<!-- 募集3: 業務委託・協力会社 -->
+<details class="group bg-surface border border-outline/20 rounded-lg overflow-hidden hover:border-ocean-blue transition-colors">
+<summary class="cursor-pointer select-none p-6 flex items-start justify-between gap-4">
 <div>
 <div class="flex flex-wrap items-center gap-3 mb-2">
-<span class="bg-coral-accent/10 text-coral-accent px-3 py-1 rounded-full font-label-bold text-[12px] uppercase">協力業者</span>
-<span class="text-on-surface-variant font-body-md text-sm">埼玉・東京・神奈川・千葉・群馬・栃木</span>
+<span class="bg-coral-accent/10 text-coral-accent px-3 py-1 rounded-full font-label-bold text-[12px]">業務委託・協力会社</span>
+<span class="text-on-surface-variant font-body-md text-sm">一人親方・個人事業主・法人</span>
 </div>
-<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary group-hover:text-ocean-blue transition-colors font-bold">協力会社募集</h3>
-<p class="font-body-md text-body-md text-on-surface-variant mt-2">空調設備・電気・アンテナ・リフォーム工事等でご協力いただける事業者様を募集しています。継続的にご一緒できる方大歓迎。</p>
+<h3 class="font-headline-md text-[22px] md:text-[24px] text-primary font-bold">空調設備工事 業務委託・協力会社募集</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">業務拡大に伴い、長期的にご一緒できる協力会社様を募集しています。</p>
 </div>
-<a class="shrink-0 bg-deep-navy text-on-primary font-label-bold text-label-bold uppercase px-6 py-3 rounded hover:bg-ocean-blue transition-colors whitespace-nowrap" href="contact.html">
-                        お問い合わせ
-                    </a>
+<span class="material-symbols-outlined text-ocean-blue shrink-0 mt-1 group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="px-6 pb-6 border-t border-outline-variant">
+<dl class="mt-5 space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">募集内容</dt><dd class="text-on-surface-variant">業務拡大に伴い、一人親方・個人事業主・法人（協力会社）様を募集しています。大手家電量販店・メーカー・法人・公共施設の案件を中心に、年間を通して安定した仕事があります。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">仕事内容</dt><dd class="text-on-surface-variant">ルームエアコン・業務用エアコンの取付・更新／空調設備工事／修理・メンテナンス／応援・請負工事／住宅・店舗・オフィス・公共施設での施工。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">契約・報酬</dt><dd class="text-on-surface-variant">完全出来高制。請負・常用どちらも相談可能。案件量はご希望や施工能力に応じて調整します。</dd></div>
+<div class="grid grid-cols-1 md:grid-cols-[150px_1fr] gap-1 md:gap-4"><dt class="font-bold text-primary">歓迎する方</dt><dd class="text-on-surface-variant">一人親方、個人事業主、法人・協力会社。丁寧な施工と長期的なお付き合いを大切にできる方。</dd></div>
+</dl>
+<a class="mt-6 inline-flex items-center gap-2 bg-deep-navy text-on-primary font-label-bold text-label-bold px-6 py-3 rounded hover:bg-ocean-blue transition-colors" href="contact.html">協力会社の応募・相談をする<span class="material-symbols-outlined text-base">arrow_forward</span></a>
 </div>
+</details>
 </div>
 <div class="mt-12 text-center">
-<p class="font-body-md text-body-md text-on-surface-variant mb-4">気になる職種がありましたら、まずはお気軽にお問い合わせください。</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4">ぴったりの職種が見つからない場合も、まずはお気軽にご相談ください。</p>
 <a class="inline-flex items-center text-ocean-blue font-label-bold text-label-bold uppercase group font-bold" href="contact.html">
 <span class="border-b border-ocean-blue">お問い合わせフォームへ</span>
 <span class="material-symbols-outlined ml-1 group-hover:translate-x-1 transition-transform">arrow_forward</span>
