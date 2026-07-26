@@ -166,6 +166,12 @@
         .input-base {
             @apply w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ocean-blue focus:border-ocean-blue transition-shadow;
         }
+        /* お問い合わせフォーム・連絡先はスクロール表示演出に依存せず常時表示する
+           （reveal未発火でもフォームが隠れないための保険） */
+        html.has-js main :where(section, form, div, p, h1, h2, h3, h4, label, input, textarea, select, button, li, a, span) {
+            opacity: 1 !important;
+            transform: none !important;
+        }
     </style>
 <script>document.documentElement.classList.add("has-js");</script>
 <link rel="stylesheet" href="assets/site.css"/>
