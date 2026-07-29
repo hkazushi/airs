@@ -163,9 +163,31 @@
         }
       </script>
 <style>
+        /* Tailwind CDN は通常の <style> 内の @apply を処理しないため実CSSで定義する
+           （@apply のままだと全スタイルが無効化され、入力欄の幅がブラウザ既定でバラつく） */
         .input-base {
-            @apply w-full bg-surface-container-lowest border border-outline-variant text-on-surface font-body-md text-body-md rounded px-4 py-3 focus:outline-none focus:ring-2 focus:ring-ocean-blue focus:border-ocean-blue transition-shadow;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            border: 1px solid #c2c7cf;
+            border-radius: 0.125rem;
+            color: #1c1c18;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 16px;
+            line-height: 28px;
+            font-weight: 400;
+            padding: 0.75rem 1rem;
+            transition: box-shadow .2s ease, border-color .2s ease;
         }
+        .input-base:focus {
+            outline: none;
+            border-color: #1FB2A5;
+            box-shadow: 0 0 0 2px rgba(31, 178, 165, .45);
+        }
+        /* セレクトは右端の矢印アイコンと重ならないよう余白を確保 */
+        select.input-base { padding-right: 2.5rem; }
+        textarea.input-base { min-height: 12rem; }
         /* お問い合わせフォーム・連絡先はスクロール表示演出に依存せず常時表示する
            （reveal未発火でもフォームが隠れないための保険） */
         html.has-js main :where(section, form, div, p, h1, h2, h3, h4, label, input, textarea, select, button, li, a, span) {
@@ -230,11 +252,13 @@
 <input class="input-base" id="company" name="貴社名" placeholder="エアーズ株式会社" type="text"/>
 </div>
 </div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="grid grid-cols-1 gap-6">
 <div class="space-y-2">
 <label class="font-label-bold text-label-bold text-primary block" for="name">お名前 <span class="text-error">*</span></label>
 <input class="input-base" id="name" name="お名前" placeholder="山田 太郎" required="" type="text"/>
 </div>
+</div>
+<div class="grid grid-cols-1 gap-6">
 <div class="space-y-2">
 <label class="font-label-bold text-label-bold text-primary block" for="phone">お電話番号 <span class="text-error">*</span></label>
 <input class="input-base" id="phone" name="お電話番号" placeholder="042-980-7459" required="" type="tel"/>
@@ -342,7 +366,7 @@
 </div>
 </div>
 </div>
-<div class="w-full h-64 rounded overflow-hidden border border-outline-variant shadow-sm">
+<div class="w-full flex-1 min-h-[16rem] rounded overflow-hidden border border-outline-variant shadow-sm">
 <iframe title="エアーズ株式会社 営業所" src="https://maps.google.com/maps?q=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%97%A5%E9%AB%98%E5%B8%82%E9%AB%98%E8%90%A9614-1&amp;hl=ja&amp;z=16&amp;output=embed" class="w-full h-full" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
 </div>
 </div>
