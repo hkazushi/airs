@@ -12,3 +12,6 @@ _draft_v1_index.html
 # ローカルプレビュー用
 _serve.cjs
 .claude/
+
+# Claude Code 用メモ（公開リポジトリのためコミットしない）
+CLAUDE.md
