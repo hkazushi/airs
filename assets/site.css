@@ -477,3 +477,14 @@ body > header, body > main, body > section, body > footer { position: relative; 
 @media (prefers-reduced-motion: reduce) {
   .airs-hero-mask > *, .airs-hero-fade { transform: none !important; opacity: 1 !important; }
 }
+
+/* =========================================================
+   日本語の改行を文節単位に（site.js「13.」で <wbr> を挿入した後に有効）
+   - keep-all: 文字の途中では改行せず、<wbr>（文節の区切り）でのみ改行
+   - break-word: 1つの文節が行幅を超えるときだけ例外的に途中で折る（はみ出し防止）
+   - 見出しは行の長さをそろえ、本文は最終行に1〜2文字だけ残るのを避ける
+   ========================================================= */
+html.airs-phrase body { word-break: keep-all; overflow-wrap: break-word; }
+html.airs-phrase :where(input, textarea, select) { word-break: normal; }
+html.airs-phrase :where(h1, h2, h3, h4) { text-wrap: balance; }
+html.airs-phrase :where(p, li, dd, td, th, blockquote, figcaption) { text-wrap: pretty; }
