@@ -488,3 +488,8 @@ html.airs-phrase body { word-break: keep-all; overflow-wrap: break-word; }
 html.airs-phrase :where(input, textarea, select) { word-break: normal; }
 html.airs-phrase :where(h1, h2, h3, h4) { text-wrap: balance; }
 html.airs-phrase :where(p, li, dd, td, th, blockquote, figcaption) { text-wrap: pretty; }
+
+/* トップのヒーロー：iPhone Safari の 100vh はアドレスバーが隠れた時の高さになり、
+   最初の画面で下端（SCROLL 表示）がバーの裏に隠れるため、表示中の画面高さ 100svh を使う。
+   svh 非対応の古いブラウザは 100vh のまま。 */
+.airs-hero-full { height: 100vh; height: 100svh; }

@@ -215,12 +215,12 @@
 </div>
 </nav>
 <!-- Hero Section -->
-<header class="relative w-full h-screen min-h-[650px] flex items-center justify-center overflow-hidden">
+<header class="relative w-full airs-hero-full min-h-[650px] flex items-center justify-center overflow-hidden">
 <div class="absolute inset-0 z-0">
 <img alt="空気が変われば、毎日が変わる。" class="w-full h-full object-cover object-center parallax-bg" src="images/airs_office_interior.jpg"/>
 <div class="absolute inset-0 bg-gradient-to-r from-deep-navy/85 via-deep-navy/35 to-transparent"></div>
 </div>
-<div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="relative z-10 w-full max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop pb-32 md:pb-0">
 <div class="max-w-4xl text-left">
 <h1 class="font-display-lg text-headline-lg-mobile md:text-[80px] md:leading-[90px] text-on-primary mb-6 leading-tight hero-title font-black tracking-tight">空気が変われば、<br/><span class="text-ocean-blue">毎日が変わる。</span></h1>
 <p class="font-body-lg text-body-lg md:text-xl text-on-primary/95 mb-10 max-w-2xl font-bold leading-relaxed hero-subtitle">ルームエアコン・業務用エアコンの取り付けを中心に、豊富な経験から設置箇所に合わせた最適なご提案をします。空調設備工事から電気・リフォームまで幅広く対応。</p>
@@ -235,9 +235,12 @@
 </div>
 </div>
 <!-- Scroll Down Indicator -->
-<div class="absolute bottom-16 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-white/70 select-none animate-bounce">
-<span class="text-xs uppercase tracking-[0.3em] font-bold">SCROLL</span>
+<!-- 位置合わせ（外側）とバウンス（内側）を分ける。animate-bounce の transform が -translate-x-1/2 を打ち消して右にずれるため -->
+<div class="absolute inset-x-0 bottom-24 md:bottom-32 z-20 flex justify-center pointer-events-none">
+<div class="flex flex-col items-center gap-2 text-white/70 select-none animate-bounce">
+<span class="text-xs uppercase tracking-[0.3em] pl-[0.3em] font-bold">SCROLL</span>
 <span class="material-symbols-outlined text-sm">keyboard_double_arrow_down</span>
+</div>
 </div>
 <div class="wave-divider">
 <svg data-name="Layer 1" preserveaspectratio="none" viewbox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg">
