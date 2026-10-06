@@ -368,5 +368,43 @@
       })();
     }
 
+
+    /* ---------- 13. 日本語の改行を文節単位に（BudouX） ----------
+       assets/budoux-ja.js の AIRS_PHRASES で文節に区切り、区切りに <wbr> を入れる。
+       site.css の html.airs-phrase で word-break: keep-all を有効にし、<wbr> の位置だけで改行させる。
+       HTML の文章そのものは変更しない（文言修正・grep を妨げないため）。
+       アイコン合字・フォーム部品・SVG・英字ウォーターマークは対象外。 */
+    (function () {
+      var phrases = window.AIRS_PHRASES;
+      if (typeof phrases !== 'function') return;   // 読み込めなければ従来どおりの改行のまま
+      var JA = /[぀-ヿ㐀-鿿豈-﫿！-｠]/;
+      var SKIP_TAG = /^(script|style|noscript|textarea|input|select|option|svg|code|pre|iframe)$/i;
+      function skip(el) {
+        for (var p = el; p && p !== document.body; p = p.parentNode) {
+          if (SKIP_TAG.test(p.nodeName)) return true;
+          if (p.classList && (p.classList.contains('material-symbols-outlined') || p.classList.contains('airs-watermark'))) return true;
+        }
+        return false;
+      }
+      var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (n) {
+          return (JA.test(n.nodeValue) && !skip(n.parentNode)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+      var nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(function (n) {
+        var chunks = phrases(n.nodeValue);
+        if (chunks.length < 2) return;
+        var frag = document.createDocumentFragment();
+        chunks.forEach(function (c, i) {
+          if (i) frag.appendChild(document.createElement('wbr'));
+          frag.appendChild(document.createTextNode(c));
+        });
+        n.parentNode.replaceChild(frag, n);
+      });
+      document.documentElement.classList.add('airs-phrase');
+    })();
+
   });
 })();
